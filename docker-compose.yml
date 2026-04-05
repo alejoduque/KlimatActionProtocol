@@ -1,0 +1,23 @@
+
+services:
+  redis:
+    image: redis
+  mongodb:
+    image: mongo:3.6
+    ports:
+      - "27017:27017"
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  web:
+    build: .
+    command: bash -c "python web/manage.py migrate && python web/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    links:
+      - db
+      - redis
+      - mongodb

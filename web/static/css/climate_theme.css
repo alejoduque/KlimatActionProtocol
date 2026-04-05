@@ -1,0 +1,63 @@
+/* Climate Action Map Theme */
+
+/* Color Palette:
+   Primary Green: #2e8b57 (Sea Green)
+   Dark Green: #1f5e3a
+   Light Green: #a8d5ba
+   Accent / Warning (e.g. for However): #e07a5f
+   Background: #f4f9f4
+*/
+
+body {
+    background-color: #f4f9f4;
+    color: #333;
+}
+
+header {
+    border-bottom: 3px solid #2e8b57;
+}
+
+#logo a {
+    color: #2e8b57;
+}
+
+nav ul#site-navigation li a:hover {
+    color: #2e8b57;
+}
+
+a {
+    color: #2e8b57;
+}
+
+a:hover {
+    color: #1f5e3a;
+}
+
+.button, button, input[type="submit"] {
+    background-color: #2e8b57;
+    color: white;
+    border: none;
+}
+
+.button:hover, button:hover, input[type="submit"]:hover {
+    background-color: #1f5e3a;
+}
+
+/* For main items / boxes */
+.contention-item, .premise-item {
+    border-left: 4px solid #2e8b57;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.landing {
+    background-color: #e9f2e9;
+    border: 1px solid #c3dec3;
+    color: #1f5e3a;
+}
+
+footer {
+    border-top: 1px solid #c3dec3;
+    background-color: #e9f2e9;
+    color: #333;
+}

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+{% include "partials/channel_list.html" %}
+
+{% if user.is_authenticated %}
+    {% include "partials/notifications.html" with show_see_more_button=True %}
+{% endif %}
+
+<div class="landing">
+    {% url "about" as about_url %}
+    {% blocktrans trimmed %}
+    Climate Action Map is an <a href="{{ about_url }}">argument analysis</a> platform for climate-related activism.
+    {% endblocktrans %}
+    <div class="twitter-share-button">
+        
+    </div>
+</div>
