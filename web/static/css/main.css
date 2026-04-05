@@ -3153,8 +3153,8 @@ div.load-more {
 .contention-detail-header #logo a {
     width: auto;
     height: auto;
-    font-size: 45px;
-    padding: 8px 20px 5px;
+    font-size: 32px;
+    padding: 10px 20px 8px;
 }
 
 .contention-detail-header #logo.with-channel a {

@@ -28,7 +28,7 @@
     {% endif %}
     <div id="logo">
         <a href="{% if user.is_anonymous %}/{% else %}{% url "newsfeed" %}{% endif %}">
-            <span style="white-space: nowrap;">KLAP.</span>
+            <span style="white-space: nowrap;">KLAP</span>
             <img src="{% static "img/logo.png" %}" alt=""/></a>
     </div>
     <nav>
@@ -51,11 +51,11 @@
     <div class="container">
         <p>
             {% blocktrans trimmed %}
-                <p>Climate Action Map is a free/libre software project.</p>
+                <p>Climate Action Protocol is a free/libre software project.</p>
             {% endblocktrans %}
         </p>
         <p>
-            <a href="mailto:contact@climateactionmap.org">contact@climateactionmap.org</a>
+            <a href="mailto:contact@climateactionprotocol.org">contact@climateactionprotocol.org</a>
         </p>
     </div>
 </footer>
