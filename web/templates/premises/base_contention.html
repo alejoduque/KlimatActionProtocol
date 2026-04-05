@@ -19,12 +19,12 @@
         {% with channel=contention.channel %}
             {% if channel %}
             <div id="logo" class="contention-logo with-channel">
-                <a href="{{ channel.get_absolute_url }}"><span style="white-space: nowrap;">Climate Action Map</span></a>
+                <a href="{{ channel.get_absolute_url }}"><span style="white-space: nowrap;">KLAP.</span></a>
                 <a href="{{ channel.get_absolute_url }}" class="channel">/{{ contention.channel }}</a>
             </div>
             {% else %}
             <div id="logo" class="contention-logo">
-                <a href="/"><span style="white-space: nowrap;">Climate Action Map</span></a>
+                <a href="/"><span style="white-space: nowrap;">KLAP.</span></a>
             </div>
             {% endif %}
         {% endwith %}

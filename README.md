@@ -1,10 +1,10 @@
-# Climate Action Map
+# KlimatActionProtocol
 
-**Climate Action Map** is a free/libre software project based on arguman, redesigned and retooled specifically as an argument analysis and mapping platform for climate-related activism. 
+**Climate Action Protocol** is a free/libre software project based on arguman, redesigned and retooled specifically as an argument analysis and mapping platform for climate-related activism. 
 
 ## Permacomputing Philosophy
 
-Climate Action Map embraces the principles of **Permacomputing Aesthetics**, a holistic approach to computation that centers resource efficiency, longevity, and sustainability over planned obsolescence. 
+Climate Action Protocol embraces the principles of **Permacomputing Aesthetics**, a holistic approach to computation that centers resource efficiency, longevity, and sustainability over planned obsolescence. 
 
 To align with this radical minimalism and minimize our ecological footprint:
 - **No Social Media Integration:** Heavy tracking features and share embeds have been removed.
@@ -21,7 +21,7 @@ Users assert contentions to be discussed, supported, proved, or disproved, and a
 
 ## Running Locally (Docker)
 
-The easiest way to run the Climate Action Map locally is by using Docker.
+The easiest way to run the Climate Action Protocol locally is by using Docker.
 
 1. Ensure you have [Docker](http://docker.io) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
 2. Navigate to `web/main` and create your local settings file:

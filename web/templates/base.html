@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}{% trans "Climate Action Map: Climate Activism Argument Analysis." %}{% endblock %}</title>
+    <title>{% block title %}KLAP: Climate Activism Argument Analysis.{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="description" content="{% block description %}{% trans "Argument analysis and mapping platform for climate activism" %}{% endblock %}" />
     {% load static %}
@@ -28,7 +28,7 @@
     {% endif %}
     <div id="logo">
         <a href="{% if user.is_anonymous %}/{% else %}{% url "newsfeed" %}{% endif %}">
-            <span style="white-space: nowrap;">Climate Action Map</span>
+            <span style="white-space: nowrap;">KLAP.</span>
             <img src="{% static "img/logo.png" %}" alt=""/></a>
     </div>
     <nav>
