@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{% static "css/main.css" %}?v=3.2.7" />
     <link rel="stylesheet" href="{% static "css/climate_theme.css" %}" />
     <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}" />
-    <link rel="image_src" type="image/png" href="https://arguman.org{% static "img/logo-large.png" %}" />
-    <meta property="og:image" content="http://arguman.org{% static "img/logo-large.png" %}"/>
+    <link rel="image_src" type="image/png" href="https://klap.altred.xyz{% static "img/logo-large.png" %}" />
+    <meta property="og:image" content="http://klap.altred.xyz{% static "img/logo-large.png" %}"/>
     <meta name="google-site-verification" content="g-YRAePbSzX5_eMCqQvkkYqecMlQNAIxhRXmeAKMmiQ" />
     {% block extra-meta %}{% endblock %}
 </head>
@@ -27,7 +27,7 @@
     </ul>
     {% endif %}
     <div id="logo">
-        <a href="{% if user.is_anonymous %}/{% else %}{% url "newsfeed" %}{% endif %}">
+        <a href="/">
             <span style="white-space: nowrap;">KLAP</span>
             <img src="{% static "img/logo.png" %}" alt=""/></a>
     </div>
@@ -51,11 +51,11 @@
     <div class="container">
         <p>
             {% blocktrans trimmed %}
-                <p>Climate Action Protocol is a free/libre software project.</p>
+                <p>Klimate Action Protocol is a free/libre software project that runs on permacomputing principles.</p>
             {% endblocktrans %}
         </p>
         <p>
-            <a href="mailto:contact@climateactionprotocol.org">contact@climateactionprotocol.org</a>
+            <a href="mailto:alej@protonmail.ch">alej@protonmail.ch</a>
         </p>
     </div>
 </footer>

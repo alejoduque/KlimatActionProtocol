@@ -37,7 +37,7 @@ Arguman.org 是一个组织的开源项目, 如果你想贡献技术或智慧请
 - Alejo Duque (spanish translations)
 - [Ricardo Casares](http://analogic.al) (spanish translations)
 
-一并感谢在开发 arguman.org 过程中做出贡献的 Burak Arıkan 和 Kadir Akkara.
+一并感谢在开发 klap.altred.xyz 过程中做出贡献的 Burak Arıkan 和 Kadir Akkara.
 
 ## 互联网媒体
 
@@ -48,7 +48,7 @@ Arguman.org 是一个组织的开源项目, 如果你想贡献技术或智慧请
 - [Adaptasyon](http://adaptasyon.tumblr.com/post/105016798063/adaptasyon-4-d%C3%B6nem-2-b%C3%B6l%C3%BCm-argumanorg) (podcast)
 
 ## 活动
-- [加拉塔萨雷大学辩论社团](http://arguman.org/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
+- [加拉塔萨雷大学辩论社团](http://klap.altred.xyz/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
 
 ## 赞助
 赞助我们： <br>
