@@ -1,4 +1,3 @@
-=== deploy-wizard.sh
 #!/usr/bin/env bash
 #
 # KLAP — Interactive Deployment Wizard for Ubuntu 18.04 LTS
