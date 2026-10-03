@@ -5,11 +5,11 @@
 
 {% block content %}
 <div class="container about content">
-    <h2>Maalesef! Beklenmeyen bir sorun oluştu.</h2>
+    <h2>An error occurred. We are sorry.</h2>
     <p>
-      <a href="{{ request.get_full_path }}" class="submit">Tekrar Dene</a> |
-      <a href="https://github.com/arguman/klap.altred.xyz/issues/" class="submit">Hata Olarak Bildir</a> |
-      <a href="{% url "home" %}" class="submit">Anasayfaya Dön</a> |
+      <a href="{{ request.get_full_path }}" class="submit">Try again</a> |
+      <a href="https://github.com/alejoduque/KlimatActionProtocol/issues/" class="submit">Report the error</a> |
+      <a href="{% url "home" %}" class="submit">Go to the home page</a> |
     </p>
 </div>
 {% endblock %}
