@@ -95,12 +95,12 @@ footer a { color: var(--meta); }
   .argument-list .last-premise { width: auto; float: none; }
   .landing { font-size: 16px; }
   .argument-list li a, .argument-list li h3 a { font-size: 18px; }
-  .tree-contention h3, #app .main-contention h3.contention-header { font-size: 19px; }
+  #app.tree-view .tree-contention h3, #app .main-contention h3.contention-header { font-size: 19px; }
 }
 
 /* tree view :: black connectors, smaller claim title */
 #app .connector { background-color: var(--ink); }
-.tree-contention h3, #app.list-view .contention-header h3 { font-size: 24px; line-height: 1.3; color: var(--ink); }
+#app.tree-view .tree-contention h3, #app.list-view .contention-header h3 { font-size: 24px; line-height: 1.3; color: var(--ink); }
 .premise.tree-node, .premise.focused { box-shadow: none; border-radius: 0; }
 .premise.focused .premise-content { outline: 2px solid var(--ink); outline-offset: 3px; }
 .premise-actions { background: var(--paper); border: 1px solid var(--ink); border-top: 0; border-radius: 0; }
@@ -111,3 +111,7 @@ footer a { color: var(--meta); }
 .contention-logo a { font-weight: bold; font-size: 24px; color: var(--ink); }
 form label { font-size: 15px; }
 form p { margin-bottom: 18px; }
+
+@media (max-width: 700px) {
+  #app.tree-view .tree-contention h3, #app.list-view .contention-header h3 { font-size: 19px; }
+}

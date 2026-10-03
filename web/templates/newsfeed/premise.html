@@ -3,7 +3,7 @@
 
 {% if related_object.related_argument %}
     <p>
-        {% trans "associated with another argument" %} <br />
+        {% trans "connected to another claim" %} <br />
         <a href="{{ related_object.contention.uri }}#{{ related_object.id }}" class="premise-link  {{ related_object.premise_class }}">{{ related_object.related_argument.title }}</a>
     </p>
 {% else %}

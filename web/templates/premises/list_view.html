@@ -17,7 +17,7 @@
             {% if parent_premise %}
             <div class="thread-item parent-premise">
                 <a class="go-to-main-premise"
-                   href="{{ parent_premise.get_parent.get_absolute_url }}?view=list">&lsaquo; {% trans "Go to parent premise" %}</a>
+                   href="{{ parent_premise.get_parent.get_absolute_url }}?view=list">&lsaquo; {% trans "Go to the parent reason" %}</a>
                 {% include "premises/thread.html" with premise=parent_premise %}
                 {% if premises.exists %}
                     <div class="parent-premise-info"></div>
