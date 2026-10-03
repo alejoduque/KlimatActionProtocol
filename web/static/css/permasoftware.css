@@ -115,3 +115,37 @@ form p { margin-bottom: 18px; }
 @media (max-width: 700px) {
   #app.tree-view .tree-contention h3, #app.list-view .contention-header h3 { font-size: 19px; }
 }
+
+/* readability :: text one step bigger (later rules win over the ones above) */
+:root { --hl: #ececec; }
+body, input, textarea, select, button { font-size: 17px; line-height: 1.55; }
+.landing { font-size: 20px; }
+.landing .how, ul.tabs li a, form label { font-size: 16px; }
+.argument-list li a, .argument-list li h3 a { font-size: 24px; }
+.argument-list .overview, .argument-list .overview .user a, .argument-list .overview time,
+.argument-list .stats, form .helptext { font-size: 14px; }
+#app .premise .premise-content, #app.list-view .thread-item .premise .premise-content a { font-size: 16px; line-height: 1.55; }
+.about p, .content p, .about li, .content li { font-size: 17px; line-height: 1.6; }
+footer { font-size: 13px; }
+@media (max-width: 700px) {
+  .argument-list li a, .argument-list li h3 a { font-size: 20px; }
+}
+
+/* cursor marker: the block under the pointer gets a grey field and a black bar */
+@media (hover: hover) {
+  .argument-list > li:hover, .about p:hover, .content p:hover, .about li:hover, .content li:hover,
+  #app.list-view .thread-item:hover {
+    background: var(--hl);
+    box-shadow: -10px 0 0 var(--hl), -14px 0 0 var(--ink);
+  }
+  #app .premise .premise-content:hover { background: var(--hl); }
+}
+
+/* teleprompter marker: two fixed triangles at reading height, one on each side.
+   Scroll the text to the marker to keep your place. */
+html::before, html::after {
+  content: ""; position: fixed; top: 40vh; z-index: 10000; pointer-events: none;
+  width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent;
+}
+html::before { left: 0; border-left: 12px solid var(--ink); }
+html::after { right: 0; border-right: 12px solid var(--ink); }
