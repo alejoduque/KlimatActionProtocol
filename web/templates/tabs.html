@@ -1,7 +1,5 @@
 {% load i18n %}
 <ul class="tabs">
-    <li class="newsfeed{% ifequal tab_class "newsfeed" %} active{% endifequal %}">
-        <a href="{% url "newsfeed" %}">{% trans "Newsfeed" %}</a></li>
     <li class="featured{% ifequal tab_class "featured" %} active{% endifequal %}">
         <a href="/">{% trans "Featured" %}</a></li>
     <li class="news{% ifequal tab_class "news" %} active{% endifequal %}">

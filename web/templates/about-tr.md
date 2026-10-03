@@ -52,7 +52,7 @@ Arguman.org açık kaynak bir proje olup topluluk tarafından geliştirilmektedi
 - [Ricardo Casares](http://analogic.al) (spanish translations)
 
 
-Ayrıca arguman.org'un fikir aşamasındaki öneri ve destekleri için [Burak Arıkan](http://burak-arikan.com) ve [Kadir Akkara](https://dribbble.com/akkara)'ya teşekkürler.
+Ayrıca klap.altred.xyz'un fikir aşamasındaki öneri ve destekleri için [Burak Arıkan](http://burak-arikan.com) ve [Kadir Akkara](https://dribbble.com/akkara)'ya teşekkürler.
 
 Eğer siz de bir şeyler yapmak isterseniz github organizasyonunu takip edebilir, ya da bize bir [email](mailto:argumananalizi@gmail.com) atabilirsiniz.
 
@@ -87,7 +87,7 @@ Eğer siz de bir şeyler yapmak isterseniz github organizasyonunu takip edebilir
 
 - [Ankara - Solfasol Dijital Medya Günleri](https://www.facebook.com/events/867275240050527/)
 - [Brussel - Free Software Conference](https://fosdem.org/2016/schedule/event/arguman/)
-- [Istanbul - Galatasaray Münazara Günleri](http://arguman.org/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
+- [Istanbul - Galatasaray Münazara Günleri](http://klap.altred.xyz/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
 
 ## Materyaller
 

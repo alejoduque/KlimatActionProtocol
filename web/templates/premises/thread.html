@@ -93,14 +93,14 @@
             <input 
                 type="submit" 
                 value="{% trans "remove" %}"
-                onclick="return confirm('{% trans "Are you sure to remove this premise?" %}');"
+                onclick="return confirm('{% trans "Do you want to remove this reason?" %}');"
                 class="delete_premise"/>
         </form>
         {% endif %}
         
         <a class="thread-action" 
             href="{% url "insert_premise" contention.slug premise.pk %}?view=list">
-            {% trans "add premise" %}
+            {% trans "add reason" %}
         </a>
         
         {% if premise.user != user %}

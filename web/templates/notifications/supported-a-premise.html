@@ -3,7 +3,7 @@
 {% if notification.sender and contention %}
 <a class="user" href="{% url "auth_profile" notification.sender.username %}">
 {{ notification.sender.username }}</a> 
-{% trans "supported your premise" %} <br>
+{% trans "supported your reason" %} <br>
 <a href="{{ contention.get_absolute_url }}/{{ target_object.id }}" class="contention-link">{{ contention.title }}</a>
 {% endif %}
 {% endwith %}

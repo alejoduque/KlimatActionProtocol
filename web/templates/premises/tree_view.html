@@ -11,7 +11,7 @@
             <span class="up-down">↑<br />↓</span>
             <span class="right">→</span>
         </span>
-        <p>{% trans "You can use arrow keys to navigate in the map." %}</p>
+        <p>{% trans "Use the arrow keys to move in the map." %}</p>
     </div>
     <div id="loading">{% trans "Loading tree..." %}</div>
     <div id="app" class="tree-view">
@@ -23,7 +23,7 @@
             {% if edit_mode %}
                 <a href="{% url "contention_edit" serialized.slug %}">{% trans "edit" %}</a>
             {% endif %}
-            <a href="{% url "new_premise" contention.slug %}">{% trans "add premise" %}</a>
+            <a href="{% url "new_premise" contention.slug %}">{% trans "add reason" %}</a>
             {% endif %}
         </div>
         <div class="root">
@@ -36,12 +36,12 @@
         </div>
         {% if not serialized.premises %}
             <div id="empty-state">
-                {% trans "The argument have no premises." %}<br />
+                {% trans "This claim has no reasons." %}<br />
                 {% if user.is_authenticated %}
-                <a href="{% url "new_premise" contention.slug %}">{% trans "Add a premise" %}</a>
+                <a href="{% url "new_premise" contention.slug %}">{% trans "Add a reason" %}</a>
                 {% endif %}
                 {% if edit_mode %} |
-                    <a href="{% url "contention_edit" serialized.slug %}">{% trans "Edit argument" %}</a>
+                    <a href="{% url "contention_edit" serialized.slug %}">{% trans "Edit claim" %}</a>
                 {% endif %}
             </div>
         {% endif %}
@@ -58,17 +58,17 @@
     <div id="tree-overview">
         {% if serialized.overview.support > serialized.overview.objection %}
         <div class="support">
-            <div class="label">%{{ serialized.overview.support|floatformat }} {% trans "support rate" %}</div>
+            <div class="label">{{ serialized.overview.support|floatformat }}% {% trans "support rate" %}</div>
         </div>
         {% endif %}
         {% if serialized.overview.objection > serialized.overview.support %}
         <div class="objection">
-            <div class="label">%{{ serialized.overview.objection|floatformat }} {% trans "objection rate" %}</div>
+            <div class="label">{{ serialized.overview.objection|floatformat }}% {% trans "objection rate" %}</div>
         </div>
         {% endif %}
         {% if serialized.overview.objection == serialized.overview.support %}
         <div class="neutral">
-            <div class="label">{% trans "Neutral support and objection rate." %}</div>
+            <div class="label">{% trans "Support and objection are equal." %}</div>
         </div>
         {% endif %}
         <div class="last-update">

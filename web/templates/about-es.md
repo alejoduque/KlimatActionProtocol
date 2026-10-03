@@ -37,7 +37,7 @@ Arguman.org es un proyecto de código abierto desarrollado por la comunidad. Si 
 - [Jorge Barata](jorge.barata.gonzalez@gmail.com) (spanish translations)
 - Alejo Duque (spanish translations)
 
-Agradecemos también por el soporte intelectual durante el desarrollo de arguman.org a to Burak Arıkan y Kadir Akkara.
+Agradecemos también por el soporte intelectual durante el desarrollo de klap.altred.xyz a to Burak Arıkan y Kadir Akkara.
 
 ## Prensa
 
@@ -48,7 +48,7 @@ Agradecemos también por el soporte intelectual durante el desarrollo de arguman
 - [Adaptasyon](http://adaptasyon.tumblr.com/post/105016798063/adaptasyon-4-d%C3%B6nem-2-b%C3%B6l%C3%BCm-argumanorg) (podcast)
 
 ## Eventos
-- [Galatasaray University Debating Society](http://arguman.org/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
+- [Galatasaray University Debating Society](http://klap.altred.xyz/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
 - [FOSDEM 2016](https://archive.fosdem.org/2016/schedule/event/arguman/)
 
 ## Donaciones

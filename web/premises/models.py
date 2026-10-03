@@ -215,6 +215,9 @@ class Contention(DeletePreventionMixin, models.Model):
         return round(sign * order + seconds / 45000, 7)
 
     def get_full_url(self):
+        scheme = "https" if getattr(settings, 'PREVENT_LANGUAGE_REDIRECTION', False) else "http"
+        if getattr(settings, 'PREVENT_LANGUAGE_REDIRECTION', False):
+            return "%s://%s%s" % (scheme, settings.BASE_DOMAIN, self.get_absolute_url())
         return "http://%(language)s.%(domain)s%(path)s" % {
             "language": self.language,
             "domain": settings.BASE_DOMAIN,

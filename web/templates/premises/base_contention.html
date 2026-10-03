@@ -3,7 +3,7 @@
 {% load static %}
 
 
-{% block title %}{{ serialized.title }} | {% trans "Argument Map" %}{% endblock %}
+{% block title %}{{ serialized.title }} | {% trans "Claim map" %}{% endblock %}
 
 {% block extra-meta %}
     <meta property="og:description" content="{{ description }}"/>
@@ -57,7 +57,7 @@
                 </li>
                 <li class="related-arguments">
                     <a href="{% url "contentions_random" %}">
-                        {% trans "RELATED ARGUMENTS" %}
+                        {% trans "RELATED CLAIMS" %}
                         <img align="right" width="18" src="{% static "img/arrow-down.svg" %}" />
                     </a>
                 </li>

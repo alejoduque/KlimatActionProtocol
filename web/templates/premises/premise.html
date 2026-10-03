@@ -87,14 +87,14 @@
 
     {% if user.is_authenticated %}
         <div class="premise-actions">
-            <a class="premise-action" href="{% url "insert_premise" serialized.slug premise.id %}">{% trans "add premise" %}</a>
+            <a class="premise-action" href="{% url "insert_premise" serialized.slug premise.id %}">{% trans "add reason" %}</a>
             
             {% if user.id == premise.user.id %}
                 <a class="premise-action" href="{% url "edit_premise" serialized.slug premise.id %}">{% trans "edit" %}</a>
                 <form class="premise-action" action="{% url "delete_premise" serialized.slug premise.id %}" method="post">
                     {% csrf_token %}
                     <input type="submit" value="{% trans "remove" %}"
-                           onclick="return confirm('{% trans "Are you sure to remove this premise?" %}');"
+                           onclick="return confirm('{% trans "Do you want to remove this reason?" %}');"
                            class="delete_premise"/>
                 </form>
             {% endif %}
