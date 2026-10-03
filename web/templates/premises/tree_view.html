@@ -58,12 +58,12 @@
     <div id="tree-overview">
         {% if serialized.overview.support > serialized.overview.objection %}
         <div class="support">
-            <div class="label">%{{ serialized.overview.support|floatformat }} {% trans "support rate" %}</div>
+            <div class="label">{{ serialized.overview.support|floatformat }}% {% trans "support rate" %}</div>
         </div>
         {% endif %}
         {% if serialized.overview.objection > serialized.overview.support %}
         <div class="objection">
-            <div class="label">%{{ serialized.overview.objection|floatformat }} {% trans "objection rate" %}</div>
+            <div class="label">{{ serialized.overview.objection|floatformat }}% {% trans "objection rate" %}</div>
         </div>
         {% endif %}
         {% if serialized.overview.objection == serialized.overview.support %}

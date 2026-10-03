@@ -19,10 +19,10 @@
                 <div class="overview">
                     <div class="rate {{ overview.status }}">
                         {% if overview.status == 'objected' %}
-                            %{{ overview.objection|floatformat }} {% trans "objection rate" %}
+                            {{ overview.objection|floatformat }}% {% trans "objection rate" %}
                         {% endif %}
                         {% if overview.status == 'supported' %}
-                            %{{ overview.support|floatformat }} {% trans "support rate" %}
+                            {{ overview.support|floatformat }}% {% trans "support rate" %}
                         {% endif %}
                         {% if overview.status == 'neutral' %}
                             {% trans "Support and objection are equal." %}

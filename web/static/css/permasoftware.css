@@ -102,7 +102,7 @@ footer a { color: var(--meta); }
 #app .connector { background-color: var(--ink); }
 #app.tree-view .tree-contention h3, #app.list-view .contention-header h3 { font-size: 24px; line-height: 1.3; color: var(--ink); }
 .premise.tree-node, .premise.focused { box-shadow: none; border-radius: 0; }
-.premise.focused .premise-content { outline: 2px solid var(--ink); outline-offset: 3px; }
+.premise.focused .premise-content { background: var(--hl, #ececec); }  /* no extra line: line styles carry the reason type */
 .premise-actions { background: var(--paper); border: 1px solid var(--ink); border-top: 0; border-radius: 0; }
 .premise-actions .premise-action { color: var(--ink); }
 .premise-actions .premise-action:hover { background: var(--ink); color: var(--paper); }
