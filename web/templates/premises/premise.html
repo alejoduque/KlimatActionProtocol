@@ -87,7 +87,7 @@
 
     {% if user.is_authenticated %}
         <div class="premise-actions">
-            <a class="premise-action" href="{% url "insert_premise" serialized.slug premise.id %}">{% trans "add premise" %}</a>
+            <a class="premise-action" href="{% url "insert_premise" serialized.slug premise.id %}">{% trans "add reason" %}</a>
             
             {% if user.id == premise.user.id %}
                 <a class="premise-action" href="{% url "edit_premise" serialized.slug premise.id %}">{% trans "edit" %}</a>

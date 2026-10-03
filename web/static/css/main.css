@@ -1,20 +1,11 @@
-@font-face {
-    font-family: 'AmericanTypewriter';
-    src: url('/static/fonts/AmericanTypewriter.ttf');
-}
-
-@font-face {
-    font-family: 'AmericanTypewriterBold';
-    src: url('/static/fonts/AmericanTypewriterBold.ttf');
-}
-
+/* KLAP :: monochrome, Courier. Generated from the Arguman main.css by mono_css.py (permasoftware palette). */
 body {
-    font-family: AmericanTypewriter, Georgia, serif;
+    font-family: "Courier New", Courier, monospace;
 }
 
 form input[type='submit'],
 form select {
-    font-family: AmericanTypewriter, Georgia, serif;
+    font-family: "Courier New", Courier, monospace;
 }
 
 body {
@@ -51,14 +42,14 @@ p + br {
 
 .landing {
     margin: 0 0 30px;
-    background-color: #f1f1f1;
+    background-color: #f2f2f2;
     padding: 30px 10px 30px 30px;
     font-size: 28px;
 }
 
 .landing a {
-    color: #525252;
-    border-bottom: 5px solid #7b7b7b;
+    color: #000;
+    border-bottom: 5px solid #555;
     padding-bottom: 4px;
     text-decoration: none;
 }
@@ -66,14 +57,14 @@ p + br {
 .container h3 {
     font-size: 34px;
     font-weight: normal;
-    color: #969698;
+    color: #555;
     overflow: hidden;
     margin: 0;
     padding: 10px 0;
 }
 
 .container h3 span {
-    color: #969698;
+    color: #555;
     font-weight: normal;
     padding-right: 8px;
     margin-left: 10px;
@@ -101,12 +92,12 @@ p + br {
 .argument-list li a {
     font-weight: normal;
     text-decoration: none;
-    color: #3f3f3f;
+    color: #000;
     line-height: 42px;
     display: inline-block;
     font-size: 40px;
     padding-bottom: 4px;
-    border-bottom: 3px solid #eee9e7;
+    border-bottom: 3px solid #bbb;
 }
 
 .argument-list li .main-contention:before {
@@ -116,18 +107,18 @@ p + br {
     height: 20px;
     font-size: 23px;
     margin-left: -31px;
-    background: #e3e3e5;
+    background: #f2f2f2;
     line-height: 1em;
     border-radius: 50%;
     margin-top: 40px;
 }
 
 .argument-list li .main-contention.objected:before {
-    background: #fab1ae;
+    background: #ddd;
 }
 
 .argument-list li .main-contention.supported:before {
-    background: #c2edb6;
+    background: #f2f2f2;
 }
 
 .argument-list li .main-contention.neutral:before {
@@ -137,7 +128,7 @@ p + br {
 .argument-list .overview {
     margin-top: 1px;
     font-size: 19px;
-    color: #bababa;
+    color: #555;
     border-bottom: none;
 }
 
@@ -156,7 +147,7 @@ p + br {
 .argument-list .overview .user a {
     font-size: 19px;
     border: none;
-    color: #929292;
+    color: #555;
 }
 
 .argument-list .overview .user img {
@@ -168,7 +159,7 @@ p + br {
 
 .argument-list .overview time {
     font-weight: normal;
-    color: #adadad;
+    color: #555;
     font-size: 17px;
 }
 
@@ -180,13 +171,13 @@ p + br {
     font-size: 20px;
 }
 
-    .stats .because { color: #69e88b; }
-    .stats .but { color: #e89ea6; }
-    .stats .however { color: #e8b058; }
+    .stats .because { color: #555; }
+    .stats .but { color: #555; }
+    .stats .however { color: #555; }
 
-    .rate.supported { color: #b4dca9; }
-    .rate.objected { color: #fab1ae; }
-    .rate.neutral { color: #ffcb73; }
+    .rate.supported { color: #555; }
+    .rate.objected { color: #555; }
+    .rate.neutral { color: #555; }
 
 .argument-list .stats span {
     display: block;
@@ -195,7 +186,7 @@ p + br {
 .argument-list .info {
     float: left;
     width: 600px;
-    border-left: 2px solid #f2f2f4;
+    border-left: 2px solid #bbb;
     padding: 20px 20px 10px 20px;
 }
 
@@ -215,7 +206,7 @@ p + br {
     line-height: 1.3em;
     margin: 0;
     padding: 0;
-    color: #979797;
+    color: #555;
     border: none;
 }
 
@@ -252,28 +243,28 @@ header {
 }
 
 .contention-nav #main-navigation li a {
-    color: #4e4e4e;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: #000;
+    font-family: "Courier New", Courier, monospace;
     text-decoration: none;
     font-size: 18px;
 }
 
 .contention-nav ul li a:hover {
-    color: #ff815c;
+    color: #555;
 }
 
 form h2 {
     font-size: 30px;
     margin: 0;
     padding: 7px 0 5px;
-    color: #6a6a6a;
+    color: #000;
 }
 
 form {
     padding: 8px 10px;
     margin: 0;
     font-size: 27px;
-    color: gray;
+    color: #555;
 }
 
 form label {
@@ -283,7 +274,7 @@ form label {
 }
 
 form a {
-    color: #ff4b29;
+    color: #000;
 }
 
 form p {
@@ -294,19 +285,19 @@ form p {
 form .submit {
     margin-left: -5px;
     margin-top: 10px;
-    background: white;
+    background: #fff;
     border: none;
-    color: #ff4b29;
+    color: #000;
 }
 
 form .helptext {
-    color: #bcbcbc;
+    color: #555;
     display: block;
     /*margin-left: 185px;*/
 }
 
 form .helptext a {
-    color: gray;
+    color: #555;
 }
 
 form label {
@@ -314,7 +305,7 @@ form label {
 }
 
 .helptext ul {
-    /*color: gray;*/
+    /*color: #555;*/
     margin: 0 20px;
     padding: 10px;
 }
@@ -338,7 +329,7 @@ form textarea {
 .premise .actions input {
     border: none;
     background-color: transparent;
-    /*font-family: sans-serif;*/
+    /*font-family: "Courier New", Courier, monospace;*/
     font-size: 17px;
     font-weight: normal;
     color: #fff;
@@ -350,34 +341,34 @@ form textarea {
     margin-left: 10px;
     display: none;
     font-size: 14px;
-    color: #c8c8c8;
+    color: #555;
 }
 
 .premise .share a {
     opacity: 0.7;
-    color: #c8c8c8;
+    color: #555;
 }
 
 .story .because {
-    background: #bcf4b3;
+    background: #f2f2f2;
 }
 
 .story .but {
-    background: #f4c0aa;
+    background: #ddd;
 }
 
 .story .however {
-   background: #fff1a4;
+   background: #f2f2f2;
 }
 
 .contention {
-    /*background: #d3d3d3;*/
+    /*background: #ddd;*/
     font-size: 50px;
     width: 100%;
 }
 
 .contention-actions {
-    background: white;
+    background: #fff;
     visibility: visible;
     text-align: center;
     padding-bottom: 5px;
@@ -390,7 +381,7 @@ form textarea {
 
 .story li a.button {
     border-radius: 5px;
-    background: #f4f4f4;
+    background: #f2f2f2;
 }
 
 .story li.new-premise {
@@ -405,12 +396,12 @@ li.base-premises {
 /* Interactive App */
 
 .premise.focused {
-    /*border: 3px solid #f4f4f4;*/
+    /*border: 3px solid #bbb;*/
     /*border-radius: 8px;*/
     /*transform: scale(1.2);*/
     border-radius: 5px;
     z-index: 99999;
-    box-shadow: 0 0 4px #5b5b5b;
+    box-shadow: 0 0 4px #555;
 }
 
 .premise.focused .share {
@@ -422,11 +413,11 @@ li.base-premises {
 #app .premise input, 
 #keyboard-manager-info,
 .collapsible-preview {
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: "Courier New", Courier, monospace;
     font-weight: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /*text-shadow: 0 0 1px rgba(45, 45, 45, 0.10);*/
+    /*text-shadow: none;*/
 }
 
 #app .premise .premise-content {
@@ -435,7 +426,7 @@ li.base-premises {
     font-size: 15px;
     border-radius: 5px;
     z-index: 1;
-    color: #353535;
+    color: #000;
 }
 
     .premise-content p {
@@ -449,18 +440,18 @@ li.base-premises {
     }
 
     .premise-content.but {
-        background: #ffd8d5;
-        /*border: 3px solid gray;*/
+        background: #f2f2f2;
+        /*border: 3px solid #555;*/
     }
 
     .premise-content.because {
-        background: #c8ffb3;
-        /*border: 3px solid gray;*/
+        background: #f2f2f2;
+        /*border: 3px solid #555;*/
     }
 
     .premise-content.however {
-        background: #fff1a4;
-        /*border: 3px solid gray;*/
+        background: #f2f2f2;
+        /*border: 3px solid #555;*/
     }
 
     .premise .premise-type {
@@ -475,7 +466,7 @@ li.base-premises {
         margin-top: -22px;
         margin-left: 92px;
         font-size: 12px;
-        color: #c8c8c8;
+        color: #555;
         display: none;
     }
 
@@ -484,20 +475,20 @@ li.base-premises {
     }
 
     .premise-type.but {
-        color: #d07d7d;
+        color: #555;
     }
 
     .premise-type.because {
-        color: #85ad63;
+        color: #555;
     }
 
     .premise-type.however {
-        color: #ffbe86;
+        color: #555;
     }
     
     .premise .related-argument {
         padding: 5px 0;
-        color: #9b9b9b;
+        color: #555;
     }
 
     .premise .related-argument a {
@@ -505,31 +496,31 @@ li.base-premises {
         line-height: 20px;
         text-decoration: none;
         letter-spacing: -1px;
-        font-family: AmericanTypewriter, serif;
+        font-family: "Courier New", Courier, monospace;
     }
 
     .premise .but .related-argument a {
-        color: #d96174;
+        color: #555;
     }
 
     .premise .because .related-argument a {
-        color: #87c851;
+        color: #555;
     }
 
     .premise .however .related-argument a {
-        color: #e8b443;
+        color: #555;
     }
 
     .premise .related-argument a:hover {
-        color: #232323;
+        color: #000;
     }
 
     .premise-sources {
         margin: -3px 0 0;
-        background: #e9e9e9;
+        background: #f2f2f2;
         z-index: 1;
         border-radius: 0 0 5px 5px;
-        border-top: 1px solid #bcbcbc;
+        border-top: 1px solid #555;
         text-align: left;
         font-size: 14px;
     }
@@ -538,7 +529,7 @@ li.base-premises {
         text-align: left;
         display: block;
         padding: 4px 10px;
-        color: gray;
+        color: #555;
         /*font-size: 20px;*/
     }
 
@@ -547,13 +538,13 @@ li.base-premises {
         padding: 0 10px 10px;
         text-overflow: ellipsis;
         text-align: left;
-        color: #a9a9a9;
+        color: #555;
     }
 
     .premise-sources a {
-        color: #b5b5b5;
+        color: #555;
         overflow: hidden;
-        display:block;
+        display: block;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
@@ -602,7 +593,7 @@ li.base-premises {
 }
 
 #app.list-view .new-main-premise {
-    color: gray;
+    color: #555;
     position: absolute;
     margin-left: 125px;
     text-decoration: none;
@@ -610,7 +601,7 @@ li.base-premises {
 }
 
 #app.list-view .thread {
-    border-left: 1px solid #E1E1E1;
+    border-left: 1px solid #bbb;
     margin-left: 100px;
     margin-top: 30px;
     padding-top: 50px;
@@ -622,7 +613,7 @@ li.base-premises {
     display: inline-block;
     width: 10px;
     height: 10px;
-    background: #E1E1E1;
+    background: #f2f2f2;
     margin-left: -5px;
     border-radius: 50%;
     margin-top: 10px;
@@ -638,7 +629,7 @@ li.base-premises {
     width: 30px;
     position: absolute;
     text-align: center;
-    background: gray;
+    background: #555;
     border-radius: 50%;
 }
 
@@ -656,7 +647,7 @@ li.base-premises {
 #app.list-view .parent-premise-info {
     width: 10px;
     height: 30px;
-    background: white;
+    background: #fff;
     position: absolute;
     margin-left: -55px;
     margin-top: 45px;
@@ -666,7 +657,7 @@ li.base-premises {
     content: "";
     width: 10px;
     height: 10px;
-    background: #E1E1E1;
+    background: #f2f2f2;
     position: absolute;
     border-radius: 50%;
     margin-top: 30px;
@@ -676,7 +667,7 @@ li.base-premises {
     content: "";
     width: 10px;
     height: 10px;
-    background: #E1E1E1;
+    background: #f2f2f2;
     position: absolute;
     border-radius: 50%;
     margin-top: -10px;
@@ -687,7 +678,7 @@ li.base-premises {
     position: absolute;
     margin-top: -85px;
     text-decoration: none;
-    color: gray;
+    color: #555;
 }
 
 #app.list-view .thread-item:before {
@@ -696,7 +687,7 @@ li.base-premises {
     position: absolute;
     width: 50px;
     height: 1px;
-    background: #E1E1E1;
+    background: #f2f2f2;
     margin-left: -50px;
     margin-top: 20px;
 }
@@ -707,7 +698,7 @@ li.base-premises {
 
 #app.list-view .thread-item .premise .premise-content a {
     text-decoration: none;
-    color: #333333;
+    color: #000;
 }
 
 #app.list-view .thread-item .premise .premise-type {
@@ -725,7 +716,7 @@ li.base-premises {
 #app.list-view .thread-item .thread-actions a.thread-action,
 #app.list-view .thread-item .thread-actions input {
     font-size: 13px;
-    color: #CCCCCC;
+    color: #555;
     text-decoration: underline;
 }
 
@@ -755,14 +746,14 @@ li.base-premises {
 #app.list-view .thread-fallacies {
     padding: 10px 15px;
     font-size: 15px;
-    color: #9C9B9B;
-    background-color: #F4F4F4;
+    color: #555;
+    background-color: #f2f2f2;
     border-radius: 5px;
     margin-top: 5px;
 }
 
 #app.list-view .thread-fallacies .fallacy {
-    color: #d07d7d;
+    color: #555;
 }
 
 #app.list-view .thread-item .thread-user {
@@ -777,7 +768,7 @@ li.base-premises {
     display: inline-block;
     position: absolute;
     height: 1px;
-    background-color: #E1E1E1;
+    background-color: #f2f2f2;
     width: 30px;
     margin-top: 28px;
     margin-left: 120px;
@@ -785,7 +776,7 @@ li.base-premises {
 
 #app.list-view .thread-item .thread-user .username {
     text-decoration: none;
-    color: gray;
+    color: #555;
     display: block;
     text-align: right;
     padding-right: 5px;
@@ -802,7 +793,7 @@ li.base-premises {
 
 #app.list-view .thread-item .time-ago {
     display: block;
-    color: #E6E6E6;
+    color: #555;
     font-size: 12px;
     text-align: right;
     margin-right: 30px;
@@ -820,7 +811,7 @@ li.base-premises {
     display: block;
     width: 30px;
     height: 1px;
-    background: #E1E1E1;
+    background: #f2f2f2;
     margin-left: -40px;
 }
 
@@ -829,9 +820,9 @@ li.base-premises {
     position: absolute;
     margin-left: 350px;
     margin-top: 25px;
-    border-left: 1px solid #E1E1E1;
+    border-left: 1px solid #bbb;
     padding-left: 10px;
-    border-bottom: 1px solid #E1E1E1;
+    border-bottom: 1px solid #bbb;
     padding-bottom: 5px;
 }
 
@@ -843,7 +834,7 @@ li.base-premises {
     content: "";
     display: inline-block;
     position: absolute;
-    background: #E1E1E1;
+    background: #f2f2f2;
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -852,7 +843,7 @@ li.base-premises {
 }
 
 #app.list-view .switch-to-tree-view {
-    color: gray;
+    color: #555;
     line-height: 0.9;
     margin-top: 4px;
     display: inline-block;
@@ -870,14 +861,14 @@ li.base-premises {
     font-size: 14px;
 }
 
-#app.list-view .thread-item .thread-branches a.but { color: #d07d7d; }
-#app.list-view .thread-item .thread-branches a.because { color: #85ad63; }
-#app.list-view .thread-item .thread-branches a.however { color: #ffbe86; }
+#app.list-view .thread-item .thread-branches a.but { color: #555; }
+#app.list-view .thread-item .thread-branches a.because { color: #555; }
+#app.list-view .thread-item .thread-branches a.however { color: #555; }
 
 
-#app.list-view .thread-item .thread-branches a.but span { background-color: #ffd8d5; color: #d07d7d; }
-#app.list-view .thread-item .thread-branches a.because span { background-color: #c8ffb3; color: #85ad63; }
-#app.list-view .thread-item .thread-branches a.however span { background-color: #fff1a4; color: #ffbe86; }
+#app.list-view .thread-item .thread-branches a.but span { background-color: #f2f2f2; color: #555; }
+#app.list-view .thread-item .thread-branches a.because span { background-color: #f2f2f2; color: #555; }
+#app.list-view .thread-item .thread-branches a.however span { background-color: #f2f2f2; color: #555; }
 
 
 #app.list-view .thread-item .thread-branches span {
@@ -887,13 +878,13 @@ li.base-premises {
     height: 19px;
     border-radius: 50%;
     margin-left: 5px;
-    color: #333333;
+    color: #000;
     padding-top: 1px;
 }
 
 #app.list-view .thread-item .thread-supporters {
     margin: 5px;
-    color: gray;
+    color: #555;
     font-size: 14px;
 }
 
@@ -914,7 +905,7 @@ li.base-premises {
     top: 300px;
     width: 400px;
     text-align: center;
-    color: gray;
+    color: #555;
     left: 50%;
     margin-left: -200px;
 }
@@ -924,18 +915,18 @@ li.base-premises {
     width: 340px;
     margin: auto;
     text-align: center;
-    color: #A1A1A1;
+    color: #555;
     font-weight: normal;
-    background: #F3F3F3;
+    background: #f2f2f2;
     padding: 20px 25px;
     border-radius: 20px;
 }
 
 #empty-state a {
     margin-top: 15px;
-    color: gray;
+    color: #555;
     display: inline-block;
-    border-bottom: 2px solid gray;
+    border-bottom: 2px solid #555;
     text-decoration: none;
     height: 1.3em;
     font-size: 0.8em;
@@ -960,19 +951,16 @@ li.base-premises {
     font-weight: normal;
     font-size: 36px;
     line-height: 0.9em;
-    color: #161616;
+    color: #000;
 }
 
 #app.tree-view .tree-contention h3 a {
-    color: #161616;
+    color: #000;
     text-decoration: none;
-    border-bottom: 3px solid #c6f3ff;
+    border-bottom: 3px solid #bbb;
     line-height: 0.9em;
     display: inline-block;
-    text-shadow: 1px 1px 0 #fff, 
-                -1px 1px 0 #fff, 
-                -1px 0px 0 #fff, 
-                 1px 0px 0 #fff;
+    text-shadow: none;
 }
 
 #app.tree-view .tree-contention-actions {
@@ -983,9 +971,9 @@ li.base-premises {
 }
 
 #app.tree-view .tree-contention-actions a {
-    color: gray;
+    color: #555;
     text-decoration: none;
-    border-bottom: 2px solid #f6ecef;
+    border-bottom: 2px solid #bbb;
     line-height: 0.7em;
     display: inline-block;
     margin-right: 5px;
@@ -995,7 +983,7 @@ li.base-premises {
 #app.tree-view .root {
     width: 30px;
     height: 30px;
-    background: gray;
+    background: #555;
     border-radius: 50%;
     margin-bottom: 60px;
     margin-left: 360px;
@@ -1033,7 +1021,7 @@ li.base-premises {
 }
 
 #app.tree-view .connector {
-    background: #E1E1E1;
+    background: #f2f2f2;
     width: 4px;
     height: 4px;
     position: absolute;
@@ -1062,7 +1050,7 @@ li.base-premises {
 #app.tree-view .collapse-button {
     display: none;
     position: absolute;
-    border: 3px solid #E1E1E1;
+    border: 3px solid #bbb;
     border-radius: 50%;
     text-align: center;
     width: 20px;
@@ -1071,21 +1059,21 @@ li.base-premises {
     padding-bottom: 8px;
     margin-left: 112px;
     margin-top: -40px;
-    background: white;
+    background: #fff;
 }
 
 #app.tree-view .collapsible-preview {
     display: none;
     position: absolute;
-    border-top: 4px solid #E1E1E1;
-    border-right: 4px solid #E1E1E1;
+    border-top: 4px solid #bbb;
+    border-right: 4px solid #bbb;
     margin-top: -30px;
     margin-left: 132px;
     width: 85px;
     text-align: right;
     padding: 5px 15px 18px 0;
     cursor: pointer;
-    color: #707070;
+    color: #000;
     border-top-right-radius: 7px;
 }
 
@@ -1094,8 +1082,8 @@ li.base-premises {
     position: absolute;
     width: 20px;
     height: 20px;
-    background: white;
-    border: 3px solid #E1E1E1;
+    background: #fff;
+    border: 3px solid #bbb;
     border-radius: 50%;
     text-align: center;
     margin-left: 3px;
@@ -1114,7 +1102,7 @@ li.base-premises {
         width: 10px;
         height: 10px;
         border-radius: 50%;
-        background: #B3B3B3;
+        background: #ddd;
         position: absolute;
         content: "";
         margin-left: -3px;
@@ -1180,13 +1168,13 @@ li.base-premises {
 
 .user-profile .user-info li,
 .user-profile .user-info li a {
-    color: #9c9c9c;
+    color: #555;
     text-decoration: none;
 }
 
 .user-profile .user-info li.full-name {
     font-size: 1.4em;
-    color: #6b6b6b;
+    color: #000;
     margin-bottom: -7px;
     margin-left: -1px;
     line-height: 1em;
@@ -1196,7 +1184,7 @@ li.base-premises {
 }
 
 .user-profile .user-info li h5 {
-    color: #d6d6d6;
+    color: #555;
     font-weight: normal;
     margin: 10px 0 0;
     padding: 0;
@@ -1206,7 +1194,7 @@ li.base-premises {
     font-weight: normal;
     margin: 0;
     padding: 0;
-    color: #979797;
+    color: #555;
     text-align: left;
 }
 
@@ -1251,20 +1239,20 @@ li.base-premises {
 
 .user-profile .user-contentions li {
     list-style: none;
-    border-bottom: 1px solid #c1c1c1;
+    border-bottom: 1px solid #bbb;
 }
 
 .user-profile .user-contentions li a {
-    color: #525252;
+    color: #000;
     font-size: 30px;
     text-decoration: none;
 }
 
 .premise-actions {
-    background: #d6d6d6;
+    background: #ddd;
     z-index: 1;
     border-radius: 0 0 5px 5px;
-    border-top: 1px solid #bcbcbc;
+    border-top: 1px solid #555;
     font-size: 17px;
     overflow: hidden;
     margin-top: -5px;
@@ -1278,7 +1266,7 @@ li.base-premises {
 }
 
 .premise-actions .support {
-    border-left: 1px solid #c7c7c7;
+    border-left: 1px solid #bbb;
     padding-left: 5px;
     margin-left: 2px;
 }
@@ -1286,7 +1274,7 @@ li.base-premises {
 .premise-actions .premise-action input {
     background: transparent;
     border: none;
-    color: #474747;
+    color: #000;
     height: 24px;
     display: block;
     margin-top: -1px;
@@ -1295,7 +1283,7 @@ li.base-premises {
 .premise-actions .premise-action {
     float: left;
     padding: 2px;
-    color: #474747;
+    color: #000;
     text-decoration: none;
     display: block;
     margin-right: 9px;
@@ -1324,9 +1312,9 @@ p [for='id_premise_type_0'] {
 
 }
 
-ul [for='id_premise_type_0'] { color: #ff7895; }
-ul [for='id_premise_type_1'] { color: #72ffa0; }
-ul [for='id_premise_type_2'] { color: #ffcc64; }
+ul [for='id_premise_type_0'] { color: #555; }
+ul [for='id_premise_type_1'] { color: #555; }
+ul [for='id_premise_type_2'] { color: #555; }
 
 #id_premise_type li label input {
     margin-right: 10px;
@@ -1339,8 +1327,8 @@ ul [for='id_premise_type_2'] { color: #ffcc64; }
 footer {
     font-size: 18px;
     margin: 50px auto auto;
-    background: #ebebeb;
-    color: #3d3d3d;
+    background: #f2f2f2;
+    color: #000;
 }
 
 footer .container {
@@ -1354,20 +1342,20 @@ footer p {
 }
 
 footer a {
-    color: #ff167b;
+    color: #000;
 }
 
 .about {
     font-size: 20px;
-    color: gray;
+    color: #555;
 }
 
 .about h2 {
-    color: #2b2b2b;
+    color: #000;
 }
 
 .form-info {
-    background: #f5f5f5;
+    background: #f2f2f2;
     font-size: 23px;
     padding: 20px;
 }
@@ -1375,7 +1363,7 @@ footer a {
 #id_parent, #id_fallacy_type {
     width: 600px;
     -webkit-appearance: menulist-button;
-    font-family: AmericanTypewriter, Georgia, serif;
+    font-family: "Courier New", Courier, monospace;
 }
 
 #id_fallacy_type {
@@ -1399,32 +1387,32 @@ footer a {
 }
 
 .tabs li.active {
-    border-bottom: 4px solid gray;
+    border-bottom: 4px solid #555;
 }
 
 .tabs li a {
-    color: gray;
+    color: #555;
     text-decoration: none;
 }
 
 form .contention-link {
-    color: #a5a5a5;
+    color: #555;
     font-weight: normal;
 }
 
 form .parent-premise {
-    color: #a5a5a5;
+    color: #555;
     padding: 5px;
 }
 
 form .fallacy-premise {
-    color: #bcbcbc;
+    color: #555;
     padding: 0;
 }
 
 form .parent-premise strong {
     font-weight: normal;
-    color: gray;
+    color: #555;
     display: block;
 }
 
@@ -1439,7 +1427,7 @@ form .parent-premise strong {
 }
 
 .report a {
-    color: #aeaeae;
+    color: #555;
     font-size: 14px;
     width: 120px;
     line-height: 17px;
@@ -1448,16 +1436,16 @@ form .parent-premise strong {
 }
 
 .reported_as_fallacy {
-    border-top: 1px solid #bcbcbc;
-    background: #ffd8d5;
+    border-top: 1px solid #555;
+    background: #f2f2f2;
     padding: 10px 20px;
     border-radius: 0 0 5px 5px;
     text-align: left;
-    color: #e09396;
+    color: #555;
 }
 
 .reported_as_fallacy .fallacy {
-    color: #676568;
+    color: #000;
     display: inline-block;
     width: 100%;
 }
@@ -1466,9 +1454,9 @@ form .parent-premise strong {
 .reported_as_fallacy .fallacy-reasons p {
     margin: 7px 0 7px 10px;
     padding: 2px 0 0;
-    color: #e09396;
+    color: #555;
     font-size: 0.9em;
-    border-top: 1px solid #f7bdb8;
+    border-top: 1px solid #bbb;
 }
 
 .reported_as_fallacy .fallacy-reasons p:first-child {
@@ -1478,7 +1466,7 @@ form .parent-premise strong {
 }
 
 .reported_as_fallacy .fallacy-reasons a {
-    color: #e09396;
+    color: #555;
 }
 
 .reported_as_fallacy .fallacy form {
@@ -1493,29 +1481,29 @@ form .parent-premise strong {
     font-size: 13px;
     background: transparent;
     border: none;
-    color: #E09497;
+    color: #555;
     padding-top: 2px;
 }
 
 .supporters {
-    border-top: 1px solid #bcbcbc;
-    background: #d7ffcf;
+    border-top: 1px solid #555;
+    background: #f2f2f2;
     padding: 10px 20px;
     border-radius: 0 0 5px 5px;
     text-align: left;
-    color: #73b752;
+    color: #555;
 }
 
 .supporters .supporter-list a {
     display: inline;
-    color: #5e5d5b;
+    color: #000;
     text-decoration: none;
 }
 
 
 .search-form {
     padding: 30px;
-    color: #4f4f4f;
+    color: #000;
 }
 
 .search-form input {
@@ -1547,12 +1535,12 @@ form .parent-premise strong {
 .notifications .empty {
     font-size: 20px;
     padding: 0 20px;
-    color: #9b9b9b;
+    color: #555;
     margin-bottom: 20px;
 }
 
 .notifications a {
-    color: gray;
+    color: #555;
 }
 
 .notifications ul {
@@ -1565,8 +1553,8 @@ form .parent-premise strong {
     padding: 0;
     padding-left: 15px;
     margin: 0;
-    color: #9e9e9e;
-    border-left: 5px solid #e7e7e7;
+    color: #555;
+    border-left: 5px solid #bbb;
     margin-bottom: 20px;
 }
 
@@ -1579,43 +1567,43 @@ form .parent-premise strong {
     display: block;
     font-size: 17px;
     margin-left: 5px;
-    color: #c0c0c0;
+    color: #555;
 }
 
 .notifications .user {
-    background: #fde3ff;
+    background: #f2f2f2;
     text-decoration: none;
-    color: #222222;
+    color: #000;
     padding: 1px 10px;
 }
 
 .notifications .contention-link {
-    background: #e6ffff;
+    background: #fff;
     text-decoration: none;
-    color: #222222;
+    color: #000;
     padding: 1px 10px;
 }
 
 .notifications .followed-profile {
-    background: #ffe6eb;
+    background: #f2f2f2;
     text-decoration: none;
-    color: #222222;
+    color: #000;
     padding: 1px 10px;
 }
 
 .notifications .premise-type {
     padding: 1px 10px;
-    color: #222222;
+    color: #000;
 }
 
-.notifications .premise-type.but { background: #ffcdd7; }
-.notifications .premise-type.however { background: #fffbd4; }
-.notifications .premise-type.because { background: #d6ffd4; }
+.notifications .premise-type.but { background: #ddd; }
+.notifications .premise-type.however { background: #fff; }
+.notifications .premise-type.because { background: #f2f2f2; }
 
 .notifications strong {
-    background: #ffebe6;
+    background: #f2f2f2;
     text-decoration: none;
-    color: #222222;
+    color: #000;
     font-weight: normal;
     padding: 1px 10px;
     white-space: nowrap;
@@ -1642,9 +1630,9 @@ form .parent-premise strong {
 }
 
 .content a {
-    color: gray;
+    color: #555;
     text-decoration: none;
-    border-bottom: 4px solid #81ffdd;
+    border-bottom: 4px solid #bbb;
     padding-bottom: 1px;
 }
 
@@ -1658,7 +1646,7 @@ form .parent-premise strong {
     overflow: hidden;
     font-size: 22px;
     margin-top: 40px;
-    color: gray;
+    color: #555;
 }
 
 .news-item .sender {
@@ -1669,13 +1657,13 @@ form .parent-premise strong {
 }
 
     .news-item .sender img {
-        background: #fafafa;
+        background: #fff;
         padding: 8px;
         border-radius: 50%;
     }
 
     .news-item .sender a {
-        color: #666666;
+        color: #000;
         display: block;
         text-decoration: none;
     }
@@ -1685,7 +1673,7 @@ form .parent-premise strong {
     margin-left: -92px;
     margin-top: 19px;
     height: 2px;
-    background: #e9e9e9;
+    background: #f2f2f2;
     content: "";
     display: inline-block;
     position: absolute;
@@ -1697,7 +1685,7 @@ form .parent-premise strong {
     width: 500px;
     margin-left: 35px;
     padding: 25px 25px;
-    background: #f6f6f6;
+    background: #f2f2f2;
     border-radius: 10px;
 }
 
@@ -1707,19 +1695,19 @@ form .parent-premise strong {
     width: 90%;
     margin-left: 0;
     padding: 25px 25px;
-    background: #f6f6f6;
+    background: #f2f2f2;
     border-radius: 10px;
 }
 
 .news-item time {
     display: block;
     font-size: 19px;
-    color: #c4c4c4;
+    color: #555;
     margin-top: 5px;
 }
 
 .news-item.contention_entry .contention-link {
-    color: #464646;
+    color: #000;
     display: block;
     font-size: 40px;
     text-decoration: none;
@@ -1727,11 +1715,11 @@ form .parent-premise strong {
 }
 
 .news-item.premise_entry {
-    color: #c4c4c4;
+    color: #555;
 }
 
 .news-item.premise_entry .contention-link {
-    color: #464646;
+    color: #000;
     font-size: 22px;
     text-decoration: none;
     line-height: 1em;
@@ -1746,12 +1734,12 @@ form .parent-premise strong {
 }
 
 .news-item.fallacy_entry strong {
-    color: #ff858e;
+    color: #555;
     font-weight: normal;
 }
 
 .news-item.following_entry  a {
-    color: #464646;
+    color: #000;
     font-size: 22px;
     text-decoration: none;
     line-height: 1em;
@@ -1763,43 +1751,43 @@ form .parent-premise strong {
 }
 
 .news-item.premise_entry p a {
-    color: #464646;
+    color: #000;
     text-decoration: none;
 }
 
-.news-item.premise_entry p a.because { color: #7bc370; }
-.news-item.premise_entry p a.but { color: #ff858e; }
-.news-item.premise_entry p a.however { color: #ffb46e; }
+.news-item.premise_entry p a.because { color: #555; }
+.news-item.premise_entry p a.but { color: #555; }
+.news-item.premise_entry p a.however { color: #555; }
 
 .news-item.fallacy_entry a {
-    color: #464646;
+    color: #000;
     text-decoration: none;
 }
 
 
 .empty-newsfeed {
     padding: 30px;
-    color: #464646;
+    color: #000;
 }
 
 .rules {
-    color: #bbbbbb;
+    color: #555;
     margin: 10px;
 }
 
 h3.newsfeed-title {
     padding: 10px 30px 0;
-    color: #a0a0a0;
+    color: #555;
 }
 
 .switch-newsfeed {
-    color: #949494;
+    color: #555;
     font-size: 20px;
     float: left;
     margin-left: 30px;
     display: inline-block;
     text-decoration: none;
-    border-bottom: 3px solid #f2f2f2;
+    border-bottom: 3px solid #bbb;
     height: 22px;
 }
 
@@ -1819,7 +1807,7 @@ div.load-more {
 }
 
 .load-more .next {
-    color: #a0a0a0;
+    color: #555;
 }
 
 /* Blog */
@@ -1830,14 +1818,14 @@ div.load-more {
 }
 
 .post time {
-    color: #bfbfbf;
+    color: #555;
 }
 
 .post h3 {
     font-size: 30px;
     height: auto;
     display: block;
-    border-bottom: 3px solid #fff6af;
+    border-bottom: 3px solid #bbb;
     padding: 5px 0 4px;
     /*width: 640px;*/
 }
@@ -1848,11 +1836,11 @@ div.load-more {
 }
 
 .post p {
-    color: #4b4b4b;
+    color: #000;
 }
 
 .post table {
-    background: #ffffff;
+    background: #fff;
     width: 80%
 }
 
@@ -1860,8 +1848,8 @@ div.load-more {
 .post table th {
     text-align: center;
     padding: 10px 3px;
-    border: 3px solid #f4f4f4;
-    color: #616161;
+    border: 3px solid #bbb;
+    color: #000;
 }
 
 .post table th {
@@ -1871,11 +1859,11 @@ div.load-more {
 /* Announcements */
 
 .announcements {
-    background: #ffffd8;
+    background: #fff;
     margin: 0 0 20px;
     padding: 13px 12px;
     font-size: 21px;
-    color: #f8b146;
+    color: #555;
 }
 
 .announcements li {
@@ -1885,7 +1873,7 @@ div.load-more {
 }
 
 .announcements li a {
-    color: #4f4f4f;
+    color: #000;
     text-decoration: none;
 }
 
@@ -1900,7 +1888,7 @@ div.load-more {
     top: 180px;
     width: 290px;
     z-index: 999;
-    color: gray;
+    color: #555;
 }
 
 
@@ -1936,7 +1924,7 @@ div.load-more {
 }
 
 #login-form .reset-password-link {
-    color: #c1c1c1;
+    color: #555;
     text-decoration: none;
     font-size: 17px;
 }
@@ -1949,7 +1937,7 @@ div.load-more {
 
 .stats-sidebar {
     width: 230px;
-    background: #f1f1f1;
+    background: #f2f2f2;
     float: left;
 }
 
@@ -1961,18 +1949,18 @@ div.load-more {
 .stats-sidebar li {
     list-style: none;
     padding: 3px 20px 3px 14px;
-    border-left: 10px solid #d6d6d6;
+    border-left: 10px solid #bbb;
     margin-top: 14px;
     margin-bottom: 14px;
 }
 
 .stats-sidebar li.active {
-    border-color: #ffd461;
+    border-color: #bbb;
 }
 
 .stats-sidebar li a {
     text-decoration: none;
-    color: #3d3d3d;
+    color: #000;
     font-size: 25px;
     line-height: 1em;
 }
@@ -2008,7 +1996,7 @@ div.load-more {
 }
 
 .user-stats h2 a {
-    color: gray;
+    color: #555;
     text-decoration: none;
 }
 
@@ -2024,11 +2012,11 @@ div.load-more {
     text-align: center;
     margin: 2px 3px;
     padding: 2px 3px;
-    color: #808080;
+    color: #555;
 }
 
 .stats-bar span {
-    border-left: 1px solid #d1d1d1;
+    border-left: 1px solid #bbb;
 }
 
 .stats-bar span:first-child {
@@ -2044,7 +2032,7 @@ div.load-more {
 
 .user-detail .stats-bar {
     margin: 30px 25px;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid #bbb;
 }
 
 .user-detail h3 {
@@ -2057,7 +2045,7 @@ div.load-more {
     font-weight: bold;
     font-size: 18px;
     width: 110px;
-    color: #808080;
+    color: #555;
 }
 
 .time-filter {
@@ -2084,23 +2072,23 @@ div.load-more {
 
 .time-filter li a {
     text-decoration: none;
-    color: gray;
-    border-bottom: 4px solid #e1e1e1;
+    color: #555;
+    border-bottom: 4px solid #bbb;
     display: inline-block;
     padding: 0 3px;
     font-size: 22px;
 }
 .search-filter li a {
     text-decoration: none;
-    color: gray;
-    border-bottom: 4px solid #e1e1e1;
+    color: #555;
+    border-bottom: 4px solid #bbb;
     display: inline-block;
     padding: 0 3px;
     font-size: 22px;
 }
 
 .time-filter li.active a {
-    border-color: #252626;
+    border-color: #000;
 }
 
 .contention-stats h2 {
@@ -2111,7 +2099,7 @@ div.load-more {
 
 .contention-stats h2 a {
     text-decoration: none;
-    color: #5e5e5e;
+    color: #000;
 }
 
 .contention-stats .contributors {
@@ -2132,7 +2120,7 @@ div.load-more {
 
 .premise-stats {
     padding-bottom: 20px;
-    border-bottom: 2px solid #f4f4f4;
+    border-bottom: 2px solid #bbb;
 }
 
 .premise-stats h2 {
@@ -2143,7 +2131,7 @@ div.load-more {
 }
 
 .premise-stats h2 a {
-    color: #414141;
+    color: #000;
     text-decoration: none;
 }
 
@@ -2161,24 +2149,24 @@ div.load-more {
     line-height: 1.5em;
 }
 
-.premise-stats .premise-content.because { background: #e0ffdc; }
-.premise-stats .premise-content.but { background: #ffeae8; }
-.premise-stats .premise-content.however { background: #fff8e1; }
+.premise-stats .premise-content.because { background: #f2f2f2; }
+.premise-stats .premise-content.but { background: #f2f2f2; }
+.premise-stats .premise-content.however { background: #fff; }
 
 .premise-stats .supporter-count {
     margin-left: 20px;
     margin-top: 10px;
-    color: #b7b7b5;
+    color: #555;
 }
 
 .premise-stats .reported_as_fallacy {
     border: none;
     border-radius: 5px;
-    background: white;
+    background: #fff;
 }
 
 #minimap {
-  background: rgba(200, 200, 200, .3);
+  background: rgba(221, 221, 221, .3);
   position: fixed;
   right: 10px;
   top: 90px;
@@ -2205,7 +2193,7 @@ div.load-more {
 /* Main Navigation */
 #logo a {
     display: inline-block;
-    background: #FFF8B2;
+    background: #f2f2f2;
     width: auto;
     height: auto;
     max-width: 100%;
@@ -2214,9 +2202,9 @@ div.load-more {
     text-align: left;
     text-decoration: none;
     line-height: 1.1em;
-    color: #343434;
+    color: #000;
     -webkit-font-smoothing: antialiased;
-    text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
+    text-shadow: none;
 }
 
 #logo img {
@@ -2228,7 +2216,7 @@ div.load-more {
 }
 
 #site-navigation {
-    background: rgb(255, 248, 178);
+    background: #f2f2f2;
     overflow: hidden;
     margin: 20px 0 0;
     padding: 0 20px;
@@ -2241,13 +2229,13 @@ div.load-more {
 }
 
 #site-navigation li a {
-    color: #2B2B2B;
+    color: #000;
     font-size: 1.2em;
     text-decoration: none;
 }
 
 #site-navigation .new-argument-link {
-    border-bottom: 3px solid #313131;
+    border-bottom: 3px solid #000;
 }
 
 #site-navigation li.pull-right {
@@ -2263,17 +2251,17 @@ div.load-more {
     position: absolute;
     margin-left: 280px;
     margin-top: -117px;
-    color: #C4C4C4;
+    color: #555;
 }
 
 #site-navigation .social-links a {
-    color: #999999;
+    color: #555;
     font-size: 17px;
     margin-left: 7px;
 }
 
 #site-navigation .social-links a.active {
-    border-bottom: 2px solid #E0E0E0;
+    border-bottom: 2px solid #bbb;
 }
 
 .inline-search form {
@@ -2314,7 +2302,7 @@ div.load-more {
 
 #auth-form * {
     font-size: 20px;
-    font-family: Helvetica, sans-serif;
+    font-family: "Courier New", Courier, monospace;
 }
 
 #auth-form p label {
@@ -2323,7 +2311,7 @@ div.load-more {
     text-align: right;
     padding-right: 10px;
     padding-top: 2px;
-    color: #8F8F8F;
+    color: #555;
     font-size: 18px;
 }
 
@@ -2357,16 +2345,16 @@ div.load-more {
     text-decoration: none;
     height: 1em;
     display: inline-block;
-    border-bottom: 3px solid #F7F7F7;
+    border-bottom: 3px solid #bbb;
     font-size: 16px;
 }
 
 #auth-form .form-actions li a:hover {
-    color: black;
+    color: #000;
 }
 
 #auth-form .form-actions li a.login_with_social_accounts {
-    border-color: #BAE8FF;
+    border-color: #bbb;
 }
 
 #auth-form .helptext {
@@ -2389,14 +2377,14 @@ div.load-more {
     bottom: 20px;
     right: 20px;
     width: 200px;
-    background-color: #F7F6F6;
+    background-color: #f2f2f2;
     padding: 10px 15px;
     font-size: 0.9em;
     z-index: 999;
 }
 
 .login-popup a {
-    color: gray;
+    color: #555;
     text-decoration: none;
 }
 
@@ -2405,7 +2393,7 @@ div.load-more {
     right: 10px;
     background: transparent;
     border: none;
-    color: gray;
+    color: #555;
     margin-top: -2px;
 }
 
@@ -2422,7 +2410,7 @@ div.load-more {
 
 .tooltip {
     position: relative;
-    background: #B3B3B3;
+    background: #ddd;
 }
 .tooltip:after, .tooltip:before {
     bottom: 100%;
@@ -2436,15 +2424,15 @@ div.load-more {
 }
 
 .tooltip:after {
-    border-color: rgba(47, 64, 74, 0);
-    border-bottom-color: #B3B3B3;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #555;
     border-width: 6px;
     margin-left: -10px;
 }
 
 .tooltip:before {
-    border-color: rgba(65, 75, 82, 0);
-    border-bottom-color: #B3B3B3;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #555;
     border-width: 10px;
     margin-left: -16px;
 }
@@ -2454,7 +2442,7 @@ div.load-more {
     position: absolute;
     right: 7px;
     top: 7px;
-    background: #B3B3B3;
+    background: #ddd;
     border: none;
 }
 
@@ -2470,9 +2458,9 @@ div.load-more {
 
 .noun-tree h3 {
     margin: 0;
-    border-bottom: 1px solid #dedede;
+    border-bottom: 1px solid #bbb;
     display: block;
-    color: #1d1d1d;
+    color: #000;
     min-width: 120px;
     text-align: left;
     padding: 10px 20px;
@@ -2481,10 +2469,10 @@ div.load-more {
 .noun-tree .relations {
     margin: 0 0 0 80px;
     padding: 15px 0 20px;
-    border-left: 1px solid #dedede;
+    border-left: 1px solid #bbb;
     float: left;
     width: 240px;
-    color: #c8c8c8;
+    color: #555;
 }
 
 .noun-tree .relations.contentions {
@@ -2522,7 +2510,7 @@ div.load-more {
     width: 66px;
     margin-left: -75px;
     text-align: right; 
-    color: #bfbfbf;
+    color: #555;
     line-height: 0.9em;
     margin-top: 3px;
 }
@@ -2533,26 +2521,26 @@ div.load-more {
     margin-top: -1px;
     display: inline-block;
     text-decoration: none;
-    color: #5f5f5f;
-    border-bottom: 1px solid #81ffdd;
+    color: #000;
+    border-bottom: 1px solid #bbb;
     margin-left: 15px;
 }
 
 .noun-tree .relations li.relation.antonym > a {
-    border-bottom: 1px solid #ffb7b1;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tree .relations li.relation.holonym > a {
-    border-bottom: 1px solid #ffd29b;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tree .relations li.relation.meronym > a,
 .noun-tree .relations li.relation.hyponym > a {
-    border-bottom: 1px solid #6bd3ff;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tree .relations li.create {
-    color: red;
+    color: #000;
     padding-bottom: 0;
 }
 
@@ -2561,7 +2549,7 @@ div.load-more {
     width: 9px;
     height: 9px;
     position: absolute;
-    background: #dedede;
+    background: #f2f2f2;
     border-radius: 50%;
     margin-left: -20px;
     margin-top: 9px;
@@ -2583,27 +2571,27 @@ div.load-more {
 }
 
 .noun-tree .relations .hypernym .hyponyms {
-    border-left: 1px solid #81ffdd;
+    border-left: 1px solid #bbb;
 }
 
 .noun-tree .relations .hypernym .hyponyms a {
-    border-bottom: 1px solid #81ffdd;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tree .relations .holonym .hyponyms {
-    border-left: 1px solid #ffd29b;
+    border-left: 1px solid #bbb;
 }
 
 .noun-tree .relations .holonym .hyponyms a {
-    border-bottom: 1px solid #ffd29b;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tree .relations .hyponym .hyponyms {
-    border-left: 1px solid #6bd3ff;
+    border-left: 1px solid #bbb;
 }
 
 .noun-tree .relations .hyponym .hyponyms a {
-    border-bottom: 1px solid #6bd3ff;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tree .relations .hyponyms li {
@@ -2614,14 +2602,14 @@ div.load-more {
 .noun-tree .relations .hyponyms li a {
     text-decoration: none;
     margin-left: 5px;
-    color: black;
+    color: #000;
 }
 
 .noun-tree .relations .header {
     list-style: none;
     padding: 0 15px 5px;
     font-size: 1.1em;
-    color: #b3b3b3;
+    color: #555;
     width: 130px;
     margin-bottom: 10px;
 }
@@ -2637,18 +2625,18 @@ div.load-more {
 
 .noun-tree .relations .relation.argument > a {
     border-bottom: 0;
-    color: #4d4d4d;
+    color: #000;
     font-size: 1.2em;
     line-height: 1.2em;
     font-weight: normal;
-    background: #fafafa;
+    background: #fff;
     padding: 12px 15px;
     border-radius: 5px;
     max-width: 400px;
 }
 
 .noun-tree .relations .relation.argument > a span {
-    border-bottom: 3px solid #FFF57C;
+    border-bottom: 3px solid #bbb;
     line-height: 0.9em;
     display: inline-block;
 }
@@ -2664,11 +2652,11 @@ div.load-more {
     float: left;
     margin-right: 20px;
     list-style: none;
-    color: #d0d0d0;
+    color: #555;
 }
 
 .noun-tree .argument-stats li a {
-    color: #b7b7b7;
+    color: #555;
     text-decoration: none;
 }
 
@@ -2683,7 +2671,7 @@ div.load-more {
     font-weight: normal;
     margin: 0 25px 35px;
     padding: 0;
-    color: #aeaeae;
+    color: #555;
 }
 
 .new-relation-form .relation-source {
@@ -2697,7 +2685,7 @@ div.load-more {
     font-size: 1.2em;
     display: inline-block;
     margin: 0 30px;
-    color: #656c6c;
+    color: #000;
 }
 
 .new-relation-form .relation-type {
@@ -2717,7 +2705,7 @@ div.load-more {
 
 .new-relation-form .relation-type ul li label {
     font-size: 20px;
-    border-bottom: 2px solid #61ffec;
+    border-bottom: 2px solid #bbb;
     display: inline-block;
     width: auto;
 }
@@ -2728,7 +2716,7 @@ div.load-more {
 
 .new-relation-form .relation-target label {
     font-size: 18px;
-    color: #cbd7d0;
+    color: #555;
 }
 
 .new-relation-form .relation-type-examples {
@@ -2746,8 +2734,8 @@ div.load-more {
 .new-relation-form .relation-type-examples p {
     margin: 5px 0 10px;
     padding: 10px 0;
-    border-bottom: 1px solid #d6d6d6;
-    color: #adadad;
+    border-bottom: 1px solid #bbb;
+    color: #555;
     width: 90%;
 }
 
@@ -2759,13 +2747,13 @@ div.load-more {
 
 .new-relation-form .relation-type-examples b {
     font-weight: normal;
-    color: #7b7b7b;
+    color: #555;
     display: block;
 }
 
 .new-relation-form .relation-type-examples i {
     font-style: normal;
-    border-bottom: 2px solid #61ffec;
+    border-bottom: 2px solid #bbb;
     display: inline-block;
     line-height: 1em;
 }
@@ -2777,7 +2765,7 @@ div.load-more {
 }
 
 .recommendation-sidebar {
-    background-color: rgb(244, 244, 244);
+    background-color: #f2f2f2;
     width: 349px;
     height: calc(100% - 78px);
     position: fixed;
@@ -2797,31 +2785,31 @@ div.load-more {
     padding: 0 0 3px;
     margin: 10px 15px 0;
     font-weight: normal;
-    color: #888888;
+    color: #555;
     text-align: left;
     font-size: 17px;
     width: 100px;
-    text-shadow: 1px 1px #fff;
+    text-shadow: none;
 }
 
 .recommendation-sidebar h3 {
     padding: 0 15px;
     margin: 3px 0 0;
     font-weight: normal;
-    color: #878787;
+    color: #555;
     font-size: 1.3em;
 }
 
 .recommendation-sidebar h3 a {
     text-decoration: none;
-    border-bottom: 2px solid #fff573;
-    color: #5f5f5f;
+    border-bottom: 2px solid #bbb;
+    color: #000;
     line-height: 0.6em;
     display: inline-block;
 }
 
 .recommendation-sidebar h3 a span {
-    color: #b0b0b0;
+    color: #555;
     display: inline-block;
     font-size: 14px;
 }
@@ -2840,7 +2828,7 @@ div.load-more {
     margin: 5px 7px 5px 0;
     list-style: none;
     line-height: 1.2em;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid #bbb;
     font-size: 1.1em;
 }
 
@@ -2849,7 +2837,7 @@ div.load-more {
 }
 
 .recommendation-sidebar ul li a {
-    color: #6f6f6f;
+    color: #000;
     text-decoration: none;
 }
 
@@ -2857,18 +2845,18 @@ div.load-more {
     Hidden premises
 */
 .too-many-fallacy > .premise-content.but {
-    background: #FFF2F2;
-    color: rgba(156, 155, 155, 0.37) !important;
+    background: #f2f2f2;
+    color: rgba(85, 85, 85, 0.37) !important;
 }
 
 .too-many-fallacy > .premise-content.because {
-    background-color: #EEFFEA;
-    color: rgba(156, 155, 155, 0.37) !important;
+    background-color: #fff;
+    color: rgba(85, 85, 85, 0.37) !important;
 }
 
 .too-many-fallacy > .premise-content.however {
-    background-color: #FFFBE8;
-    color: rgba(156, 155, 155, 0.37) !important;
+    background-color: #fff;
+    color: rgba(85, 85, 85, 0.37) !important;
 }
 
 /*
@@ -2881,7 +2869,7 @@ div.load-more {
     width: 0;
     height: 0;
     border: 8px solid transparent;
-    border-bottom-color: #f4f4f4;
+    border-bottom-color: #bbb;
     border-bottom-width: 10px;
     margin-top: 0px;
     margin-left: 20px;
@@ -2891,19 +2879,19 @@ div.load-more {
     position: absolute;
     min-height: 50px;
     margin-top: -3px;
-    color: #686363;
+    color: #000;
     z-index: 99999;
 }
 
 .noun-tooltip-content {
     padding-top: 12px;
-    border: 0 solid #dcdedc;
-    background: #f4f4f4;
+    border: 0 solid #bbb;
+    background: #f2f2f2;
     margin-top: 16px;
     border-radius: 7px;
-    -webkit-box-shadow: 0 1px 1px #8b8b8b;
-    -moz-box-shadow: 0 1px 1px #8b8b8b;
-    box-shadow: 0 1px 1px #8b8b8b;
+    -webkit-box-shadow: 0 1px 1px #555;
+    -moz-box-shadow: 0 1px 1px #555;
+    box-shadow: 0 1px 1px #555;
     padding-bottom: 1px;
 }
 
@@ -2920,7 +2908,7 @@ div.load-more {
 }
 
 .noun-tooltip li a {
-    color: #5A5A5A;
+    color: #000;
 }
 
 .noun-tooltip h3 {
@@ -2928,7 +2916,7 @@ div.load-more {
     padding: 0;
     font-size: 17px;
     font-weight: normal;
-    border-bottom: 2px solid #FFE85F;
+    border-bottom: 2px solid #bbb;
     display: inline-block;
     line-height: 0.8em;
     margin-left: 15px;
@@ -2939,7 +2927,7 @@ div.load-more {
     padding-top: 2px;
     padding-bottom: 4px;
     line-height: 1.2em;
-    border-bottom: 1px solid #e3e3e3;
+    border-bottom: 1px solid #bbb;
 }
 
 .noun-tooltip .argument.relation:last-child {
@@ -2989,13 +2977,13 @@ div.load-more {
 }
 
 #timeline .entry.but {
-    background: #ffb0a4;
+    background: #ddd;
 }
 #timeline .entry.however {
-    background: #fff69e;
+    background: #f2f2f2;
 }
 #timeline .entry.because {
-    background: #b1ecaf;
+    background: #f2f2f2;
 }
 
 
@@ -3008,7 +2996,7 @@ div.load-more {
     left: 50%;
     position: absolute;
     top: 88px;
-    color: #7b7b7b;
+    color: #555;
     text-align: left;
     font-size: 1em;
     display: none;
@@ -3027,20 +3015,20 @@ div.load-more {
 }
 
 #tree-overview .support {
-    color: #88c184;
+    color: #555;
 }
 
 #tree-overview .objection {
-    color: #ecaaa0;
+    color: #555;
 }
 
 #tree-overview .last-update {
     float: right;
-    color: #a3a3a3;
+    color: #555;
 }
 
 #tree-overview .last-update a {
-    color: gray;
+    color: #555;
     text-decoration: none;
     margin-top: 1px;
 }
@@ -3055,7 +3043,7 @@ div.load-more {
 }
 
 .channel-index .channel-contentions {
-    border-top: 3px solid #E3E3E5;
+    border-top: 3px solid #bbb;
 }
 
 /* Channel List */
@@ -3063,7 +3051,7 @@ div.load-more {
     margin: -7px 0 15px;
     padding: 0;
     overflow: hidden;
-    background: #fcfde0;
+    background: #fff;
 }
 
 .channel-list li {
@@ -3075,8 +3063,8 @@ div.load-more {
 
 .channel-list li a {
     text-decoration: none;
-    color: black;
-    background: #fcfde0;
+    color: #000;
+    background: #fff;
     padding: 10px 15px;
     display: block;
     font-size: 1.2em;
@@ -3085,12 +3073,12 @@ div.load-more {
 
 .channel-list li a.active,
 .channel-list li a:hover {
-    background-color: #FFF8B2;
+    background-color: #f2f2f2;
 }
 
 .channel-list li.active a {
-    background: #FFF8B2;
-    /*border-bottom: 3px solid black;*/
+    background: #f2f2f2;
+    /*border-bottom: 3px solid #000;*/
     /*padding-bottom: 7px;*/
 }
 
@@ -3103,7 +3091,7 @@ div.load-more {
 }
 
 .channel-list .show-all-channels a {
-    background: #FFF8B2;
+    background: #f2f2f2;
 }
 
 .all-channels {
@@ -3127,7 +3115,7 @@ div.load-more {
 }
 
 .all-channels .channel-list li a:hover {
-    background: #FFF8B2;
+    background: #f2f2f2;
 }
 
 .overlay {
@@ -3144,10 +3132,10 @@ div.load-more {
     position: fixed;
     top: 0;
     height: 78px;
-    background: #f9f9f9;
+    background: #fff;
     width: 100%;
     z-index: 9999999;
-    border-bottom: 1px solid #dfdfdf;
+    border-bottom: 1px solid #bbb;
 }
 
 .contention-detail-header #logo a {
@@ -3169,7 +3157,7 @@ div.load-more {
     position: absolute;
     margin: -25px 0 0 95px;
     background: none;
-    color: #e5cd8a;
+    color: #555;
     font-size: 1.2em;
     text-transform: lowercase;
     display: inline-block;
@@ -3178,18 +3166,18 @@ div.load-more {
 
 .contention-detail-header .header-block {
     float: left;
-    color: #989898;
+    color: #555;
 }
 
 .contention-detail-header .header-block h4 {
     font-size: 1em;
     font-weight: normal;
     margin: 0;
-    color: #bababa;
+    color: #555;
 }
 
 .contention-detail-header .header-block h4 a {
-    color: #515151;
+    color: #000;
     outline: none;
 }
 
@@ -3211,14 +3199,14 @@ div.load-more {
 .contention-detail-header .header-block.argument-actions li a {
     padding: 10px 100px 5px 15px;
     display: block;
-    background-color: #eaeaea;
-    color: #8d8d8d;
+    background-color: #f2f2f2;
+    color: #555;
     outline: none;
 }
 
 .contention-detail-header .header-block.argument-actions li a:hover {
-    background-color: #fff9c6;
-    color: #686868;
+    background-color: #f2f2f2;
+    color: #000;
 }
 
 .contention-detail-header .header-block.argument-actions li img {
@@ -3231,7 +3219,7 @@ div.load-more {
 }
 
 .contention-detail-header .header-block.argument-actions .random-argument {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #bbb;
 }
 
 .contention-detail-header .header-block.argument-actions .random-argument img {
@@ -3288,7 +3276,7 @@ div.load-more {
 
 .contention-detail-header a {
     text-decoration: none;
-    color: #7f7f7f;
+    color: #555;
 }
 
 .contention-detail-header .original-discourse {
@@ -3328,7 +3316,7 @@ div.load-more {
 }
 
 .fallacy-reason a {
-    color: #313131;
+    color: #000;
 }
 
 .fallacy-reason h4 {
@@ -3354,22 +3342,22 @@ div.load-more {
 }
 .ui-menu .ui-menu-item a.ui-corner-all:hover, .ui-menu .ui-menu-item a.ui-corner-all:focus,
 .ui-menu .ui-menu-item a.ui-corner-all:active {
-    background: #fff992 !important;
-    color: #1d1d1d;
-    border-radius:0;
+    background: #f2f2f2 !important;
+    color: #000;
+    border-radius: 0;
 }
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover,
 .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-    background: #fff992;
+    background: #f2f2f2;
     border: none;
-    color:#1d1d1d;
-    border-radius:0;
+    color: #000;
+    border-radius: 0;
     font-weight: normal;
 }
 
 .ui-autocomplete {
-    background: #F3F3F3;
+    background: #f2f2f2;
     width: 522px;
     margin-top: 16px;
     margin-left: 0;
@@ -3389,7 +3377,7 @@ div.load-more {
 }
 
 .selected-argument {
-    color: #6ebf73;
+    color: #555;
 }
 
 .selected-argument a {
@@ -3404,18 +3392,18 @@ div.load-more {
 }
 
 .button {
-    background-color: #ffff95;
+    background-color: #f2f2f2;
     border-radius: 5px;
     display: inline-block;
     padding: 2px 5px;
-    color: #191919;
+    color: #000;
 }
 
 .tab-headers {
     margin: 0 0 10px;
     padding: 0;
     overflow: hidden;
-    border-bottom: 3px solid #f3f3f3;
+    border-bottom: 3px solid #bbb;
 }
 
 .tab-headers li {
@@ -3428,7 +3416,7 @@ div.load-more {
 .tab-headers li.active {
     border-radius: 5px;
     background: #fff;
-    border: 3px solid #f3f3f3;
+    border: 3px solid #bbb;
 }
 
 .tab-headers li.active a {
@@ -3439,7 +3427,7 @@ div.load-more {
     display: block;
     padding: 7px 7px;
     text-decoration: none;
-    color: #949494;
+    color: #555;
 }
 
 .tab-headers .actions-tab {
@@ -3453,28 +3441,28 @@ div.load-more {
 }
 
 .graph .link {
-    stroke: #ccc;
+    stroke: #bbb;
     stroke-width: 1px;
 }
 
 .graph circle {
     cursor: move;
-    fill: #ccc;
+    fill: #ddd;
 }
 
 .graph .noun {
-    fill: #eaeaea;
+    fill: #f2f2f2;
 }
 
 .graph .channel {
-    fill: #b3d98a;
+    fill: #ddd;
 }
 
 .graph .node text {
     pointer-events: none;
     font: 20px sans-serif;
     stroke: none;
-    fill: black;
+    fill: #000;
 }
 
 .overview-blocks {
@@ -3485,7 +3473,7 @@ div.load-more {
     width: 42%;
     margin-right: 10px;
     float: left;
-    background: #f8f8f8;
+    background: #fff;
     border-radius: 10px;
     padding: 10px 15px;
 }
@@ -3526,8 +3514,8 @@ div.load-more {
     display: inline-block;
     padding: 0;
     text-decoration: none;
-    color: #424242;
-    border-bottom: 2px solid #b3d98a;
+    color: #000;
+    border-bottom: 2px solid #bbb;
     line-height: 0.7em;
     font-size: 1.2em;
 }
@@ -3551,20 +3539,20 @@ div.load-more {
 }
 
 .overview-block.discussed-users .percent span {
-    background: black;
+    background: #000;
     height: 1.3em;
     display: inline-block;
     float: left;
 }
 
-.overview-block.discussed-users .percent .but { background: #ffaeb6; }
-.overview-block.discussed-users .percent .because { background: #c3e5ad; }
-.overview-block.discussed-users .percent .however { background: #ffd284; }
+.overview-block.discussed-users .percent .but { background: #ddd; }
+.overview-block.discussed-users .percent .because { background: #f2f2f2; }
+.overview-block.discussed-users .percent .however { background: #ddd; }
 
 .overview-block.discussed-users .users a {
     float: left;
     margin-left: 5px;
-    color: #5b5b5b;
+    color: #000;
     text-decoration: none;
 }
 
@@ -3590,7 +3578,7 @@ div.load-more {
 }
 
 .overview-block.most-loved .premise-stats .supporter-count {
-    color: #c6c6c6;
+    color: #555;
 }
 
 .user-detail .argument-list .info {
@@ -3603,7 +3591,7 @@ div.load-more {
 }
 
 .premise-stats a {
-    color: #383838;
+    color: #000;
     text-decoration: none;
 }
 
@@ -3624,7 +3612,7 @@ div.load-more {
     list-style: none;
     padding: 0;
     margin: 0;
-    color: #ababab;
+    color: #555;
 }
 
 .channel-active-users li.title {
@@ -3661,7 +3649,7 @@ div.load-more {
 }
 
 .about .tab-title.current {
-    border-bottom: 3px solid #fff3aa;
+    border-bottom: 3px solid #bbb;
 }
 
 .about .team {
