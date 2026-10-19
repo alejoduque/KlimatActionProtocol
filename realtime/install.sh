@@ -59,8 +59,10 @@ say "build $BIN"
 build="$(mktemp -d)"
 (
   cd "$HERE"
+  # -buildvcs=false: root builds in the checkout of the app user, and git
+  # will not read a repository that another user owns
   GOTOOLCHAIN=local GOFLAGS=-mod=vendor GOPROXY=off GOPATH="$build/gopath" GOCACHE="$build/cache" CGO_ENABLED=0 \
-    "$GO_ROOT/go/bin/go" build -trimpath -ldflags="-s -w" -o "$build/klap-realtime" .
+    "$GO_ROOT/go/bin/go" build -buildvcs=false -trimpath -ldflags="-s -w" -o "$build/klap-realtime" .
 )
 install -m 755 "$build/klap-realtime" "$BIN"
 rm -rf "$build"
