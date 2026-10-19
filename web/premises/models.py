@@ -33,6 +33,12 @@ from nouns.utils import build_ngrams
 OBJECTION = 0
 SUPPORT = 1
 SITUATION = 2
+# instruments added for collective assemblies
+CONTINUATION = 3
+OPPOSITION = 4
+REFORMULATION = 5
+SEMANTIC = 6
+SPECULATION = 7
 
 epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
@@ -40,7 +46,42 @@ PREMISE_TYPES = (
     (OBJECTION, _("but")),
     (SUPPORT, _("because")),
     (SITUATION, _("however")),
+    (CONTINUATION, _("and so")),
+    (OPPOSITION, _("on the contrary")),
+    (REFORMULATION, _("in other words")),
+    (SEMANTIC, _("what do we mean by")),
+    (SPECULATION, _("what if")),
 )
+
+PREMISE_CLASSES = {
+    OBJECTION: "but",
+    SUPPORT: "because",
+    SITUATION: "however",
+    CONTINUATION: "continuation",
+    OPPOSITION: "opposition",
+    REFORMULATION: "reformulation",
+    SEMANTIC: "semantic",
+    SPECULATION: "speculation",
+}
+
+# one line on each reason type, shown while it is typed (live.js); the same
+# as templates/premises/examples/premise_type.html
+PREMISE_HELP = {
+    OBJECTION: _("a reason against the claim"),
+    SUPPORT: _("a reason that supports the claim"),
+    SITUATION: _("more information or a condition"),
+    CONTINUATION: _("a result of the claim; it takes the claim further"),
+    OPPOSITION: _("the opposite claim"),
+    REFORMULATION: _("the claim in different words, to make sure that you understand it"),
+    SEMANTIC: _("a question about the meaning of one word"),
+    SPECULATION: _("a different possibility"),
+}
+
+# premises that strengthen or weaken their parent; the rest (however, in
+# other words, what do we mean by, what if) open the argument without
+# scoring it.
+SUPPORTING_TYPES = (SUPPORT, CONTINUATION)
+OPPOSING_TYPES = (OBJECTION, OPPOSITION)
 
 FALLACY_TYPES = (
     ("BeggingTheQuestion,", _("Begging The Question")),
@@ -166,11 +207,11 @@ class Contention(DeletePreventionMixin, models.Model):
             premises = self.published_children().values('weight', 'premise_type')
 
         supported = sum(premise['weight'] + 1 for premise in premises
-                        if premise['premise_type'] == SUPPORT
+                        if premise['premise_type'] in SUPPORTING_TYPES
                         if premise['weight'] >= 0)
 
         objected = sum(premise['weight'] + 1 for premise in premises
-                       if premise['premise_type'] == OBJECTION
+                       if premise['premise_type'] in OPPOSING_TYPES
                        if premise['weight'] >= 0)
 
         total = supported + objected
@@ -490,6 +531,14 @@ class Premise(DeletePreventionMixin, models.Model):
     date_creation = models.DateTimeField(auto_now_add=True)
     ip_address = models.CharField(max_length=255, null=True, blank=True)
     weight = models.IntegerField(default=0)
+    # word span of the parent text (or of the contention title for main
+    # premises) this premise speaks to, as indexes into text.split()
+    anchor_start = models.PositiveIntegerField(null=True, blank=True)
+    anchor_end = models.PositiveIntegerField(null=True, blank=True)
+    anchor_text = models.CharField(max_length=255, null=True, blank=True)
+    # Time Based Text recording of how the premise was typed:
+    # JSON list of [delay_ms, position, delete_count, inserted_text]
+    tbt = models.TextField(null=True, blank=True)
 
     objects = DeletePreventionManager()
 
@@ -542,8 +591,25 @@ class Premise(DeletePreventionMixin, models.Model):
             'fallacies': self.fallacies(authenticated_user),
             'fallacy_count': self.report_count,
             'weight': self.weight,
-            'related_argument': related_argument
+            'related_argument': related_argument,
+            'anchor': self.anchor(),
+            'has_tbt': bool(self.tbt),
         }
+
+    def anchor(self):
+        if self.anchor_start is None:
+            return None
+        return {
+            'start': self.anchor_start,
+            'end': self.anchor_end,
+            'text': self.anchor_text,
+        }
+
+    def anchor_source_text(self):
+        """The text the anchor's word indexes point into."""
+        if self.parent_id:
+            return self.parent.text or ''
+        return self.argument.title
 
     @models.permalink
     def get_absolute_url(self):
@@ -583,11 +649,7 @@ class Premise(DeletePreventionMixin, models.Model):
         return children_ids
 
     def premise_class(self):
-        return {
-            OBJECTION: "but",
-            SUPPORT: "because",
-            SITUATION: "however"
-        }.get(self.premise_type)
+        return PREMISE_CLASSES.get(self.premise_type)
 
     def reported_by(self, user):
         return self.reports.filter(reporter=user).exists()
@@ -681,10 +743,10 @@ class Premise(DeletePreventionMixin, models.Model):
         for child in self.published_children():
             child_weight = child.update_weight()
 
-            if child.premise_type == OBJECTION:
+            if child.premise_type in OPPOSING_TYPES:
                 weight -= child_weight
 
-            if child.premise_type == SUPPORT:
+            if child.premise_type in SUPPORTING_TYPES:
                 weight += child_weight
 
         self.weight = weight

@@ -3,7 +3,9 @@
 {% load static %}
 <div class="premise tree-node{% if premise.is_collapsed %} too-many-fallacy{% endif %}"
     data-id="{{ premise.id }}" data-type="{{ premise.premise_class }}"
-    data-weight="{{ premise.weight }}">
+    data-weight="{{ premise.weight }}"{% if premise.anchor %}
+    data-anchor-start="{{ premise.anchor.start }}" data-anchor-end="{{ premise.anchor.end }}"
+    data-anchor-text="{{ premise.anchor.text }}"{% endif %}>
     <div class="premise-type {{ premise.premise_class }}">
         {{ premise.premise_type_label }}
     </div>
@@ -13,6 +15,9 @@
     </div>
 
     <div class="premise-content {{ premise.premise_class }}">
+        {% if premise.anchor %}
+        <div class="premise-anchor">&ldquo;{{ premise.anchor.text }}&rdquo;</div>
+        {% endif %}
         {% with text=premise.formatted_text|safe %}
             {{text.strip|safe|linebreaksbr}}
         {% endwith %}
@@ -32,7 +37,7 @@
             <strong>{% trans "sender:" %}</strong>
 
             <p><a href="{% url "auth_profile" premise.user.username %}">
-                {{ premise.user.username|lower }}</a></p>
+                {{ premise.user.name|default:premise.user.username|lower }}</a></p>
 
             <p class="time-ago">
                 <a href="#{{ premise.id }}">

@@ -37,8 +37,8 @@ trap 'printf "%s" "$SHOW_CURSOR"' EXIT INT TERM
 
 # ---------- Step counter for progress bar ----------
 # 12 real work steps: discovery, ports, apt-fix, packages, mongo, pg, user/source,
-#                     venv, settings, django, systemd+nginx, tls
-TOTAL_STEPS=12
+#                     venv, settings, django, systemd+nginx, tls, relay
+TOTAL_STEPS=13
 CURRENT_STEP=0
 STEP_TITLE=""
 
@@ -262,6 +262,8 @@ STAGE_DJANGO="${STAGE_DJANGO:-0}"
 STAGE_SYSTEMD="${STAGE_SYSTEMD:-0}"
 STAGE_NGINX="${STAGE_NGINX:-0}"
 STAGE_TLS="${STAGE_TLS:-0}"
+RELAY_PORT="${RELAY_PORT:-}"
+STAGE_REALTIME="${STAGE_REALTIME:-0}"
 EOF
   chmod 600 "$STATE_FILE"
 }
@@ -740,12 +742,22 @@ STATIC_ROOT = '$STATIC_DIR'
 
 CACHES = {
     'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': '127.0.0.1:6379:1',
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
     }
 }
 
 BASE_DOMAIN = '$SERVER_NAME'
+
+# Serve the app directly off BASE_DOMAIN — skip the legacy multilingual
+# subdomain redirect (en.example.com / tr.example.com / etc.) that comes
+# from the arguman.org heritage. Set to False if you actually want
+# per-language subdomains.
+PREVENT_LANGUAGE_REDIRECTION = True
+DEFAULT_LANGUAGE = 'en'
 EOF
   chown "$APP_USER:$APP_USER" "$SETTINGS_LOCAL"
   chmod 600 "$SETTINGS_LOCAL"
@@ -909,6 +921,28 @@ if [[ "$VHOST_MODE" == "1" && "$ENABLE_TLS" == "1" && "$STAGE_TLS" != "1" ]]; th
 fi
 
 # ============================================================
+banner "Realtime relay for the live claim map"
+# ============================================================
+# Live typing, presence and WebRTC signalling for the claim pages.
+# realtime/install.sh builds the Go relay, runs it on 127.0.0.1 and adds
+# "location /_rooms" to the vhost. It also works alone on a server that
+# was installed before the live map existed.
+if [[ "${STAGE_REALTIME:-0}" != "1" ]]; then
+  if [[ -z "${RELAY_PORT:-}" ]]; then
+    RELAY_PORT=$(pick_free_port 8001)
+  fi
+  if VHOST=/etc/nginx/sites-available/klap bash "$APP_DIR/realtime/install.sh" "$RELAY_PORT"; then
+    ok "klap-realtime is running on 127.0.0.1:$RELAY_PORT"
+    STAGE_REALTIME=1; save_state
+  else
+    warn "Relay not installed. Claims work; the live map will show 'offline'."
+    warn "Retry later: sudo bash $APP_DIR/realtime/install.sh $RELAY_PORT"
+  fi
+else
+  ok "Realtime relay already installed (skipped)"
+fi
+
+# ============================================================
 info_banner "Smoke tests"
 # ============================================================
 sleep 1
@@ -927,6 +961,9 @@ verify_endpoint() {
 }
 
 verify_endpoint "Gunicorn (loopback)" "http://127.0.0.1:$GUNICORN_PORT/"
+if [[ -n "${RELAY_PORT:-}" ]]; then
+  verify_endpoint "Live map relay (loopback)" "http://127.0.0.1:$RELAY_PORT/healthz"
+fi
 if [[ "$VHOST_MODE" == "1" ]]; then
   verify_endpoint "Nginx vhost ($SERVER_NAME)" "http://127.0.0.1/" -H "Host: $SERVER_NAME"
   if [[ "$STAGE_TLS" == "1" ]]; then
@@ -965,6 +1002,7 @@ else
 fi
 kv "Service control"       "systemctl {status,restart,stop} klap"
 kv "Live logs"             "journalctl -u klap -f"
+kv "Live map relay"        "systemctl {status,restart} klap-realtime"
 kv "App code & venv"       "$APP_DIR"
 kv "Static files"          "$STATIC_DIR"
 kv "Local settings"        "$SETTINGS_LOCAL"

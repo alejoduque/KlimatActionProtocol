@@ -1,0 +1,927 @@
+/* KLAP :: the live claim map (static/js/assembly/live.js, presence.js)
+   Same rules as permasoftware.css: Courier, black on white, no colour,
+   "//" heads, "::" separators. Reasons are open text without frames, joined
+   by threads in the line style of their type; drafts being typed use the
+   cursor marker (grey field, black bar). */
+
+/* -------------------------------------------- room for the people strip */
+
+@media (min-width: 861px) {
+    #app.tree-view {
+        margin-right: 176px;
+    }
+}
+
+/* the map fills the page, so the prompt follows there too */
+#app.tree-view {
+    min-height: calc(100vh - 140px);
+}
+
+/* buttons :: permasoftware.css makes every button a black block; in the map
+   only the main action is one, the rest are text links and outlined chips */
+#app button.link,
+.live-strip button.link {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+    font-weight: normal;
+    text-transform: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-size: 12.9px;
+}
+
+#app button.link:hover,
+.live-strip button.link:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.live-strip button.link {
+    font-size: 13px;  /* settings, not guides */
+}
+
+#app button:focus-visible,
+#app textarea:focus-visible,
+#app select:focus-visible,
+.live-strip button:focus-visible,
+.live-strip input:focus-visible {
+    outline: 2px dashed var(--ink);
+    outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------- the claim */
+
+#app.tree-view .tree-contention h3 {
+    font-size: 34px;
+    line-height: 1.25;
+}
+
+@media (max-width: 860px) {
+    #app.tree-view .tree-contention {
+        width: auto;
+        max-width: calc(100vw - 32px);
+    }
+
+    /* main.css centres these at 800px */
+    #timeline,
+    #tree-overview {
+        width: auto;
+        left: 16px;
+        right: 16px;
+        margin-left: 0;
+    }
+
+    #app.tree-view .tree-contention h3 {
+        font-size: 25px;
+    }
+}
+
+/* explanations :: they show while the pointer moves and while typing
+   (live.js), and keep their place so the map does not move */
+.live-aid {
+    opacity: 0;
+    transition: opacity .35s ease;
+}
+
+#app.aids-on .live-aid,
+#app.typing-on .composer .live-aid {
+    opacity: 1;
+}
+
+.aid-above {
+    color: var(--meta);
+    font-size: 14px;
+    margin: 0 0 8px;
+}
+
+/* the prompt that follows the pointer (only with a mouse) */
+.live-prompt {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999999;
+    pointer-events: none;
+    white-space: nowrap;
+    font: 15px/1.2 "Courier New", Courier, monospace;
+    color: var(--ink);
+    background: var(--paper);
+    padding: 1px 3px;
+}
+
+.live-prompt[hidden] {
+    display: none;
+}
+
+.live-prompt .prompt-text:not(:empty)::before {
+    content: "> ";
+}
+
+.live-prompt.is-caret {
+    background: none;
+    padding: 0;
+}
+
+/* the reason types under the prompt (with a mouse): they come with the
+   prompt and go when nothing moves */
+.live-float.is-floating {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999997;
+    width: max-content;
+    max-width: 380px;
+    padding: 3px 4px;
+    background: var(--paper);
+    text-align: left;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .3s ease;
+}
+
+/* trailing the pointer: faint, and the pointer goes through */
+#app.aids-on .live-float.is-floating.is-on {
+    opacity: .35;
+}
+
+/* settled: they can be clicked */
+#app.aids-on .live-float.is-floating.is-on.is-settled,
+.live-float.is-floating.is-on.is-settled:hover,
+.live-float.is-floating.is-on.is-settled:focus-within {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#app .live-float.is-floating .instruments {
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+#app .live-float.is-floating .live-hint {
+    margin: 3px 0 0;
+    font-size: 12px;
+}
+
+/* what the floating types answer */
+#app .is-answered {
+    background: var(--hl);
+}
+
+/* ------------------------------------------------- under the claim */
+
+.live-instruments {
+    position: relative;  /* over the threads, which start at the claim */
+    width: fit-content;
+    max-width: calc(100vw - 32px);
+    margin: 0 auto 18px;
+    text-align: center;
+    background: var(--paper);
+}
+
+#app.tree-view .tree-contention-actions a {
+    background: var(--paper);
+}
+
+/* with a mouse, typing and the floating types add reasons */
+#app.has-pointer .tree-contention-actions a[href*="/premises/new"] {
+    display: none;
+}
+
+.live-instruments .instruments {
+    justify-content: center;
+}
+
+.instruments {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.t-because       { --line: 2px solid var(--ink); }
+.t-but           { --line: 5px double var(--ink); }
+.t-however       { --line: 2px dashed var(--ink); }
+.t-continuation  { --line: 4px solid var(--ink); }
+.t-opposition    { --line: 5px double var(--ink); }
+.t-reformulation { --line: 2px dotted var(--ink); }
+.t-semantic      { --line: 2px dotted var(--ink); --field: var(--soft); }
+.t-speculation   { --line: 2px dashed var(--ink); --field: var(--soft); }
+
+#app button.instrument {
+    border: var(--line);
+    background: var(--field, var(--paper));
+    color: var(--ink);
+    border-radius: 0;
+    padding: 1px 9px;
+    font-size: 13.9px;
+    font-weight: normal;
+    text-transform: none;
+    line-height: 1.4;
+}
+
+#app button.instrument:hover,
+#app button.instrument[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.live-hint {
+    color: var(--meta);
+    font-size: 13px;
+    margin: 8px 0 4px;
+}
+
+.composer-help {
+    font-size: 13px;
+    color: var(--meta);
+    margin-top: 6px;
+}
+
+.live-replay {
+    font-size: 13px;
+    color: var(--meta);
+}
+
+.live-replay select {
+    font-size: 12.9px;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    margin-left: 6px;
+}
+
+.live-noscript {
+    text-align: center;
+    margin-top: 90px;
+}
+
+/* reason type above each node: the longer labels ("what do we mean by")
+   stay on one line, and the score moves to the right */
+#app.tree-view .premise .premise-type {
+    width: auto;
+    white-space: nowrap;
+    font-size: 17px;
+}
+
+#app.tree-view .premise .premise-type.premise-weight {
+    float: right;
+    margin-left: 0;
+    margin-top: -24px;
+}
+
+/* the related claim of a reason: a quiet line, not a second title
+   (main.css makes it 1.6em) */
+#app.tree-view .premise .related-argument a {
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+#app.tree-view .premise .related-argument::before {
+    content: "related claim :: ";
+    font-size: 13px;
+    color: var(--meta);
+}
+
+#app.tree-view .premise-content .premise-anchor {
+    margin-bottom: 4px;
+}
+
+/* ------------------------------------------------ threads, open text */
+
+/* the svg of live.js: one thread per reason, in the line of its type */
+.live-threads {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.live-threads path {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+.live-threads .t-but,
+.live-threads .t-opposition {
+    stroke-width: 5;
+}
+
+.live-threads .thread-gap {
+    stroke: var(--paper);
+    stroke-width: 2;
+}
+
+.live-threads .t-however       { stroke-dasharray: 7 5; }
+.live-threads .t-continuation  { stroke-width: 3; }
+.live-threads .t-reformulation { stroke-width: 2.2; stroke-dasharray: 0.1 5; }
+.live-threads .t-semantic      { stroke-width: 2.2; stroke-dasharray: 0.1 5; stroke: var(--meta); }
+.live-threads .t-speculation   { stroke-dasharray: 7 5; stroke: var(--meta); }
+
+/* the thread of a reason being typed is being spun */
+.live-threads .is-draft {
+    stroke: var(--meta);
+    stroke-dasharray: 3 5;
+    animation: spin 0.9s linear infinite;
+}
+
+.live-threads .thread-gap.is-draft {
+    stroke: var(--paper);
+    stroke-dasharray: none;
+    animation: none;
+}
+
+@keyframes spin {
+    to { stroke-dashoffset: -16; }
+}
+
+/* the threads replace the connectors and the root dot */
+#app.tree-view .connector {
+    visibility: hidden;
+}
+
+#app.tree-view .root {
+    background: none;
+}
+
+/* reasons :: open text, no frames */
+#app.tree-view .premise .premise-content {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 2px 4px 4px;
+}
+
+#app.tree-view .premise .premise-content:hover,
+#app.tree-view .premise.focused .premise-content,
+#app.tree-view .premise .premise-content.is-answered {
+    background: var(--hl);
+}
+
+#app.tree-view .premise-sources,
+#app.tree-view .reported_as_fallacy,
+#app.tree-view .supporters,
+#app.tree-view .premise-actions {
+    background: none;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+    padding: 0 4px;
+    font-size: 13px;
+    color: var(--meta);
+}
+
+#app.tree-view .premise-sources strong {
+    display: inline;
+    padding: 0;
+    font-weight: normal;
+}
+
+#app.tree-view .premise-sources p,
+#app.tree-view .premise-user p {
+    padding: 0 6px 0 0;
+}
+
+#app.tree-view .premise-user p,
+#app.tree-view .premise-user a {
+    float: none;
+    display: inline;
+}
+
+#app.tree-view .premise-user strong {
+    display: none;  /* "sender:" :: the name says it */
+}
+
+#app.tree-view .premise-user p::before {
+    content: "— ";
+}
+
+#app.tree-view .premise-user p.time-ago::before {
+    content: "";
+}
+
+#app.tree-view .premise-actions .premise-action,
+#app.tree-view .premise-actions .premise-action input,
+#app.tree-view .premise-actions .support {
+    border: 0;
+    padding: 0;
+    margin: 0 10px 0 0;
+    font-size: 13px;
+    background: none;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    height: auto;
+}
+
+#app.tree-view .premise-actions .premise-action.support {
+    float: left;
+}
+
+/* with a mouse, a reason shows its type and its text; the author, the
+   reports, the supporters and the actions show when it is pointed at (they
+   keep their place, and cover the threads behind them then) */
+@media (hover: hover) and (pointer: fine) {
+    #app.tree-view .premise-sources,
+    #app.tree-view .premise-actions,
+    #app.tree-view .premise .report,
+    #app.tree-view .premise .share {
+        opacity: 0;
+        transition: opacity .25s ease;
+    }
+
+    #app.tree-view .premise:hover .premise-sources,
+    #app.tree-view .premise:hover .premise-actions,
+    #app.tree-view .premise:hover .report,
+    #app.tree-view .premise:hover .share,
+    #app.tree-view .premise:focus-within .premise-sources,
+    #app.tree-view .premise:focus-within .premise-actions,
+    #app.tree-view .premise:focus-within .report,
+    #app.tree-view .premise.focused .premise-sources,
+    #app.tree-view .premise.focused .premise-actions,
+    #app.tree-view .premise.focused .report {
+        opacity: 1;
+        background: var(--paper);
+    }
+}
+
+/* -------------------------------------------------------------- words */
+
+#app .w {
+    cursor: pointer;
+}
+
+#app .w:hover {
+    background: var(--hl);
+}
+
+#app .w.has-anchor {
+    text-decoration: underline dotted var(--ink);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+}
+
+#app .w.has-anchor::after {
+    content: attr(data-count);
+    font-size: 0.55em;
+    font-weight: bold;
+    vertical-align: super;
+    margin-left: 1px;
+}
+
+#app .w.is-drafting {
+    background: var(--hl);
+    box-shadow: inset 0 -3px 0 var(--ink);
+}
+
+/* ---------------------------------------- nodes that are being typed */
+
+#app.tree-view li.tree-branch.is-hidden {
+    display: none !important;
+}
+
+#app .tree-node.live-node {
+    box-shadow: none;
+}
+
+/* the composer :: a reason node that you type in */
+#app .live-node.composer {
+    background: var(--paper);
+    padding: 4px 4px 8px;
+    z-index: 2;
+}
+
+#app .live-node.composer textarea.composer-text {
+    border: 0;
+    border-bottom: 1px solid var(--ink);
+    padding: 4px 2px;
+    resize: none;
+    outline: 0;  /* the caret shows where you write */
+}
+
+#app .live-node.composer textarea.composer-text:focus {
+    border-bottom-width: 2px;
+}
+
+.composer-types {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+#app .composer-types button.instrument {
+    font-size: 11.9px;
+    padding: 0 6px;
+}
+
+.composer-anchor {
+    font-size: 13px;
+    color: var(--meta);
+    margin-top: 6px;
+}
+
+.composer-anchor:empty {
+    display: none;
+}
+
+#app .live-node textarea,
+#app .live-node input[type="text"],
+#app .live-report textarea,
+#app .live-report select {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 6px 0;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    color: var(--ink);
+    padding: 5px;
+    font: 15px/1.45 "Courier New", Courier, monospace;
+    resize: vertical;
+}
+
+#app .live-node [hidden] {
+    display: none !important;  /* over the field rules above */
+}
+
+#app .live-node .composer-sources,
+#app .live-node .composer-related {
+    font-size: 13px;
+    border-width: 1px;
+}
+
+.composer-extras {
+    display: flex;
+    gap: 12px;
+}
+
+.composer-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--meta);
+}
+
+#app button.composer-submit {
+    margin-left: auto;
+    padding: 2px 10px;
+    font-size: 13.9px;
+}
+
+#app button.composer-submit:disabled,
+#app button.composer-submit:disabled:hover {
+    background: var(--soft);
+    border-color: var(--meta);
+    color: var(--meta);
+    cursor: default;
+}
+
+.composer-error {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.composer-error:not(:empty)::before {
+    content: "! ";
+}
+
+/* a draft of someone else :: the cursor marker, typed live */
+#app .live-node.ghost {
+    background: var(--hl);
+    box-shadow: -4px 0 0 var(--ink);
+    padding: 8px 12px;
+}
+
+#app .live-node.ghost.is-flash {
+    animation: arrive 1.2s ease-out;
+}
+
+.ghost-who {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.ghost-who::before {
+    content: "> ";
+}
+
+.ghost-text {
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 4px 0 0;
+    min-height: 1.5em;
+    overflow-wrap: anywhere;
+}
+
+/* a typewriter block cursor */
+.tbt-caret {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.1em;
+    margin: 0 1px;
+    vertical-align: text-bottom;
+    background: var(--ink);
+    animation: caret 1s steps(1) infinite;
+}
+
+@keyframes caret {
+    50% { opacity: 0; }
+}
+
+@keyframes arrive {
+    from { box-shadow: -10px 0 0 var(--hl), -14px 0 0 var(--ink); }
+}
+
+#app .tree-node.is-new .premise-content {
+    animation: arrive 1.6s ease-out;
+}
+
+/* fallacy report, in the node */
+#app .live-report {
+    display: block;
+    background: var(--soft);
+    border: 0;
+    padding: 8px 10px;
+    margin: 0;
+    font-size: 13px;
+}
+
+#app .live-report strong::before {
+    content: "// ";
+}
+
+/* --------------------------------------------------- the people strip */
+
+.live-strip {
+    position: fixed;
+    top: 80px;
+    right: 0;
+    bottom: 0;
+    width: 168px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 8px 10px 16px;
+    background: var(--paper);
+    border-left: 2px solid var(--ink);
+    z-index: 9999998;
+    font-size: 13px;
+}
+
+.live-strip * {
+    box-sizing: border-box;
+}
+
+.strip-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 6px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+.strip-head strong::before {
+    content: "// ";
+}
+
+.strip-status {
+    color: var(--meta);
+    width: 100%;
+}
+
+.strip-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.strip-controls[hidden] {
+    display: none;
+}
+
+.strip-name {
+    display: flex;
+    flex-direction: column;
+    color: var(--meta);
+}
+
+.live-strip .strip-name input {
+    font: 14px "Courier New", Courier, monospace;
+    padding: 3px 6px;
+    border: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    margin-top: 2px;
+    width: 100%;
+}
+
+.live-strip button.media-toggle,
+.live-strip button.cam-mode {
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
+    padding: 1px 6px;
+    font-size: 13px;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.live-strip button.media-toggle[aria-pressed="true"],
+.live-strip button.cam-mode[aria-pressed="true"],
+.live-strip button.media-toggle:hover,
+.live-strip button.cam-mode:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.cam-modes {
+    display: flex;
+}
+
+.live-strip .cam-modes button {
+    flex: 1;
+    padding: 1px 2px;
+}
+
+.live-strip .cam-modes button + button {
+    border-left: 0;
+}
+
+.ascii-view,
+.strip-note {
+    color: var(--meta);
+    margin: 0;
+}
+
+.strip-note.is-error {
+    color: var(--ink);
+    font-weight: bold;
+}
+
+.strip-tiles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tile-screen {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 4 / 3;
+    background: var(--paper);
+    border: 2px solid var(--ink);
+    overflow: hidden;
+}
+
+.tile.is-me .tile-screen {
+    border-style: dashed;
+}
+
+.tile-screen video,
+.tile-ascii,
+.tile-initial {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* no colour, here too */
+.tile-screen video {
+    object-fit: cover;
+    filter: grayscale(1);
+}
+
+.tile.is-me video {
+    transform: scaleX(-1);
+}
+
+.tile-ascii {
+    margin: 0;
+    padding: 1px;
+    color: var(--ink);
+    background: var(--paper);
+    /* 72 columns across the tile; Courier cells are 0.6em wide */
+    font: calc(100cqw / 72 / 0.6) / 1.15 "Courier New", Courier, monospace;
+    white-space: pre;
+    overflow: hidden;
+}
+
+.tile-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    background: var(--soft);
+}
+
+/* hidden videos keep playing (opacity, not display) so they can be drawn */
+.tile video,
+.tile .tile-ascii,
+.tile .tile-initial {
+    opacity: 0;
+}
+
+.tile[data-mode="video"] video,
+.tile[data-mode="ascii"] .tile-ascii,
+.tile[data-mode="ascii-local"] .tile-ascii,
+.tile[data-mode="off"] .tile-initial {
+    opacity: 1;
+}
+
+.tile-caption {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 6px;
+    padding-top: 3px;
+    align-items: baseline;
+}
+
+.tile-name {
+    font-weight: bold;
+}
+
+.tile-mic {
+    color: var(--meta);
+}
+
+.tile-mic::before {
+    content: ":: ";
+}
+
+.tile-mic.is-on {
+    color: var(--ink);
+}
+
+/* ------------------------------------------------------------- narrow */
+
+@media (max-width: 860px) {
+    .live-strip {
+        top: auto;
+        left: 0;
+        width: auto;
+        max-height: 45vh;
+        border-left: 0;
+        border-top: 2px solid var(--ink);
+        padding: 6px 10px;
+    }
+
+    .strip-head {
+        margin-bottom: 4px;
+    }
+
+    .strip-tiles {
+        flex-direction: row;
+        overflow-x: auto;
+    }
+
+    .tile {
+        flex: 0 0 104px;
+    }
+
+    .tile-initial {
+        font-size: 24px;
+    }
+
+    #app.tree-view {
+        padding-bottom: 180px;
+        box-sizing: border-box;  /* width 100% and padding-right of main.css */
+    }
+
+    /* the claim header of main.css is 960px wide at least: on a phone its
+       blocks go one under the other */
+    #contention-detail header.contention-detail-header {
+        min-width: 0;
+    }
+
+    .contention-detail-header .header-block,
+    .contention-detail-header .header-block.argument-actions {
+        float: none;
+        width: auto;
+        max-width: 100%;
+    }
+
+    .contention-detail-header .header-block.argument-actions li a {
+        padding: 4px 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .live-aid {
+        transition: none;
+    }
+
+    .tbt-caret,
+    .live-threads .is-draft,
+    #app .tree-node.is-new .premise-content,
+    #app .live-node.ghost.is-flash {
+        animation: none;
+    }
+}

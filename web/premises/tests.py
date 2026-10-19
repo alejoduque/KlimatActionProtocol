@@ -1,3 +1,256 @@
-from django.test import TestCase
+import json
 
-# Create your tests here.
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+from django.test.utils import override_settings
+
+from premises.models import (Contention, Premise, SUPPORT, OBJECTION,
+                             OPPOSITION, CONTINUATION, SEMANTIC)
+from premises.views import replay_tbt
+from profiles.models import Profile
+
+
+class ReplayTBTTest(TestCase):
+    def test_applies_edits_in_order(self):
+        recording = [[0, 0, 0, u"climate"], [120, 7, 0, u" justice"],
+                     [300, 0, 1, u"C"]]
+        self.assertEqual(replay_tbt(recording), u"Climate justice")
+
+    def test_rejects_malformed_entries(self):
+        self.assertIsNone(replay_tbt([[0, 0, 0]]))
+        self.assertIsNone(replay_tbt([[0, 5, 0, u"x"]]))  # past the end
+        self.assertIsNone(replay_tbt([[0, 0, 2, u"x"]]))  # deletes nothing
+        self.assertIsNone(replay_tbt([[-1, 0, 0, u"x"]]))
+        self.assertIsNone(replay_tbt([["0", 0, 0, u"x"]]))
+
+
+class AssemblyTest(TestCase):
+    host = "en.localhost:8000"
+
+    def setUp(self):
+        self.author = Profile.objects.create(username="author")
+        self.user = Profile.objects.create(username="participant")
+        self.user.set_password("secret")
+        self.user.save()
+        self.contention = Contention.objects.create(
+            title=u"Climate justice begins with land as pedagogy",
+            user=self.author, language="en", is_published=True)
+        self.client.login(username="participant", password="secret")
+
+    def branch(self, contention=None, **data):
+        contention = contention or self.contention
+        return self.client.post(
+            reverse("contention_branch", args=[contention.slug]),
+            json.dumps(data), content_type="application/json",
+            HTTP_HOST=self.host)
+
+    @override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+    def test_claim_page_carries_the_live_config(self):
+        response = self.client.get(
+            reverse("contention_detail", args=[self.contention.slug]),
+            HTTP_HOST="klap.example.org")
+        self.assertEqual(response.status_code, 200)
+        config = json.loads(response.context["live_config"])
+        self.assertEqual(config["room"], "klap:%s" % self.contention.slug)
+        self.assertIn("{id}", config["tbtUrl"])
+        self.assertIn("{id}", config["reportUrl"])
+        self.assertEqual(len(config["instruments"]), 8)
+        self.assertTrue(all(i["help"] for i in config["instruments"]))
+        self.assertTrue(config["fallacies"])
+        self.assertContains(response, "live-strip")
+
+    @override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+    def test_old_assembly_address_leads_to_the_claim(self):
+        response = self.client.get(
+            reverse("contention_assembly", args=[self.contention.slug]),
+            HTTP_HOST="klap.example.org")
+        self.assertEqual(response.status_code, 301)
+        self.assertTrue(response["Location"].endswith(
+            "/%s" % self.contention.slug))
+
+    @override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+    def test_tree_fragment_for_the_live_map(self):
+        Premise.objects.create(argument=self.contention, user=self.author,
+                               premise_type=SUPPORT, text=u"soil teaches")
+        response = self.client.get(
+            reverse("contention_detail", args=[self.contention.slug]),
+            {"partial": "tree"}, HTTP_HOST="klap.example.org")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<ul class="tree" data-level="1">')
+        self.assertContains(response, "soil teaches")
+        self.assertNotContains(response, "<html")
+
+    @override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+    def test_new_reason_page_opens_the_live_map(self):
+        parent = Premise.objects.create(
+            argument=self.contention, user=self.author,
+            premise_type=SUPPORT, text=u"a")
+        url = reverse("new_premise", args=[self.contention.slug])
+        response = self.client.get(url, HTTP_HOST="klap.example.org")
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response["Location"].endswith(
+            "/%s?add=root" % self.contention.slug))
+        response = self.client.get(
+            reverse("insert_premise", args=[self.contention.slug, parent.pk]),
+            HTTP_HOST="klap.example.org")
+        self.assertTrue(response["Location"].endswith("?add=%s" % parent.pk))
+
+    @override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+    def test_the_form_still_works_without_javascript(self):
+        url = reverse("new_premise", args=[self.contention.slug])
+        response = self.client.get(url, {"form": 1}, HTTP_HOST="klap.example.org")
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="text"')
+        response = self.client.post(url, {"premise_type": SUPPORT,
+                                          "text": u"from the form"},
+                                    HTTP_HOST="klap.example.org")
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Premise.objects.filter(text=u"from the form").exists())
+
+    def test_report_answers_json_for_the_live_map(self):
+        premise = Premise.objects.create(
+            argument=self.contention, user=self.author,
+            premise_type=SUPPORT, text=u"a")
+        url = reverse("report_premise", args=[self.contention.slug, premise.pk])
+        response = self.client.post(
+            url, {"fallacy_type": "AppealToAuthority", "reason": u"only a title"},
+            HTTP_HOST=self.host, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(premise.reports.count(), 1)
+        response = self.client.post(
+            url, {"fallacy_type": "AppealToAuthority", "reason": u"again"},
+            HTTP_HOST=self.host, HTTP_X_REQUESTED_WITH="XMLHttpRequest")
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("errors", json.loads(response.content))
+
+    def test_creates_main_premise_and_keeps_the_recording(self):
+        recording = [[400, 0, 0, u"we learn"], [90, 8, 0, u" from soil"]]
+        response = self.branch(premise_type=SUPPORT, text=u"we learn from soil",
+                               tbt=recording, name=u"Ana")
+        self.assertEqual(response.status_code, 201)
+        body = json.loads(response.content)
+        premise = Premise.objects.get(pk=body["id"])
+        self.assertIsNone(premise.parent)
+        self.assertEqual(json.loads(premise.tbt), recording)
+        self.assertEqual(body["author"]["name"], u"Ana")
+        self.assertTrue(body["has_tbt"])
+
+        tbt = self.client.get(
+            reverse("premise_tbt", args=[self.contention.slug, premise.pk]),
+            HTTP_HOST=self.host)
+        self.assertEqual(json.loads(tbt.content), recording)
+
+    def test_drops_a_recording_that_does_not_produce_the_text(self):
+        response = self.branch(premise_type=SUPPORT, text=u"we learn from soil",
+                               tbt=[[0, 0, 0, u"something else"]])
+        self.assertEqual(response.status_code, 201)
+        self.assertIsNone(Premise.objects.get(
+            pk=json.loads(response.content)["id"]).tbt)
+
+    def test_semantic_challenge_anchors_a_word_of_the_title(self):
+        response = self.branch(premise_type=SEMANTIC,
+                               text=u"to cultivate, inhabit, care for",
+                               anchor={"start": 5, "end": 6})
+        self.assertEqual(response.status_code, 201)
+        body = json.loads(response.content)
+        self.assertEqual(body["anchor"],
+                         {"start": 5, "end": 6, "text": u"as pedagogy"})
+
+    def test_semantic_challenge_needs_a_word(self):
+        response = self.branch(premise_type=SEMANTIC, text=u"what is land?")
+        self.assertEqual(response.status_code, 400)
+
+    def test_anchor_out_of_range_is_refused(self):
+        response = self.branch(premise_type=OBJECTION, text=u"no",
+                               anchor={"start": 2, "end": 40})
+        self.assertEqual(response.status_code, 400)
+
+    def test_anchor_points_into_the_parent_premise(self):
+        parent = Premise.objects.create(
+            argument=self.contention, user=self.author,
+            premise_type=SUPPORT, text=u"the baldio is residual territory")
+        response = self.branch(parent=parent.pk, premise_type=SEMANTIC,
+                               text=u"undefined, transitional",
+                               anchor={"start": 1, "end": 1})
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json.loads(response.content)["anchor"]["text"],
+                         u"baldio")
+
+    def test_parent_must_belong_to_the_contention(self):
+        other = Contention.objects.create(title=u"Another argument",
+                                          user=self.author, language="en")
+        foreign = Premise.objects.create(argument=other, user=self.author,
+                                         premise_type=SUPPORT, text=u"x")
+        response = self.branch(parent=foreign.pk, premise_type=SUPPORT,
+                               text=u"y")
+        self.assertEqual(response.status_code, 400)
+
+    def test_refuses_unknown_type_and_empty_or_long_text(self):
+        self.assertEqual(self.branch(premise_type=42, text=u"x").status_code, 400)
+        self.assertEqual(self.branch(premise_type=SUPPORT, text=u"  ").status_code, 400)
+        self.assertEqual(self.branch(premise_type=SUPPORT,
+                                     text=u"x" * 301).status_code, 400)
+
+    def test_sources_and_related_claim(self):
+        other = Contention.objects.create(title=u"Land as pedagogy",
+                                          user=self.author, language="en")
+        response = self.branch(premise_type=SUPPORT, text=u"see the reading list",
+                               sources=u"Undercommons, 2013",
+                               related_argument=other.pk)
+        self.assertEqual(response.status_code, 201)
+        premise = Premise.objects.get(pk=json.loads(response.content)["id"])
+        self.assertEqual(premise.sources, u"Undercommons, 2013")
+        self.assertEqual(premise.related_argument, other)
+        self.assertEqual(self.branch(premise_type=SUPPORT, text=u"x",
+                                     related_argument=999999).status_code, 400)
+
+    def test_anchor_is_found_by_its_words_in_markdown_text(self):
+        parent = Premise.objects.create(
+            argument=self.contention, user=self.author, premise_type=SUPPORT,
+            text=u"the [baldio](http://example.org) is *residual* territory")
+        # the page counts words of the rendered text: "residual" is word 3
+        response = self.branch(parent=parent.pk, premise_type=SEMANTIC,
+                               text=u"left over", anchor={
+                                   "start": 3, "end": 3, "text": u"residual"})
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(json.loads(response.content)["anchor"],
+                         {"start": 3, "end": 3, "text": u"*residual*"})
+        response = self.branch(parent=parent.pk, premise_type=SEMANTIC,
+                               text=u"x", anchor={
+                                   "start": 1, "end": 1, "text": u"nowhere"})
+        self.assertEqual(response.status_code, 400)
+
+    def test_live_json_lists_reasons_and_recordings(self):
+        recording = [[0, 0, 0, u"a"]]
+        self.branch(premise_type=SUPPORT, text=u"a", tbt=recording)
+        url = reverse("contention_live_json", args=[self.contention.slug])
+        data = json.loads(self.client.get(url, HTTP_HOST=self.host).content)
+        self.assertNotIn("tbt", data["premises"][0])
+        data = json.loads(self.client.get(url, {"tbt": 1},
+                                          HTTP_HOST=self.host).content)
+        self.assertEqual(data["premises"][0]["tbt"], recording)
+
+    def test_live_json_lists_branches_flat(self):
+        main = json.loads(self.branch(premise_type=SUPPORT, text=u"a").content)
+        self.branch(parent=main["id"], premise_type=OPPOSITION, text=u"b")
+        response = self.client.get(
+            reverse("contention_live_json", args=[self.contention.slug]),
+            HTTP_HOST=self.host)
+        data = json.loads(response.content)
+        self.assertEqual(data["contention"]["title"], self.contention.title)
+        self.assertEqual([(p["text"], p["parent"], p["class"])
+                          for p in data["premises"]],
+                         [(u"a", None, "because"),
+                          (u"b", main["id"], "opposition")])
+
+    def test_opposition_weakens_and_continuation_strengthens(self):
+        main = Premise.objects.create(argument=self.contention,
+                                      user=self.author,
+                                      premise_type=SUPPORT, text=u"a")
+        Premise.objects.create(argument=self.contention, user=self.author,
+                               parent=main, premise_type=OPPOSITION, text=u"b")
+        self.assertEqual(main.update_weight(), 0)
+        Premise.objects.create(argument=self.contention, user=self.author,
+                               parent=main, premise_type=CONTINUATION,
+                               text=u"c")
+        self.assertEqual(main.update_weight(), 1)

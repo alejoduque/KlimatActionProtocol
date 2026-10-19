@@ -221,6 +221,20 @@ BLOG_URL = "http://arguman.org/blog"
 # default premise view: 'tree' or 'list'
 DEFAULT_PREMISE_VIEW = 'tree'
 
+# Assembly rooms. The realtime relay (realtime/) is expected at /_rooms on
+# the same host unless REALTIME_WS_URL is set, e.g.
+# 'wss://rooms.example.org/_rooms', or ':8001/_rooms' for the page's own
+# hostname on another port.
+REALTIME_WS_URL = None
+
+# WebRTC ICE servers. Empty means peers only find each other on the same
+# network (enough for a workshop in one room). Add your own STUN/TURN
+# (e.g. coturn) to connect people across networks without routing their
+# metadata through a third party:
+# [{"urls": ["stun:turn.example.org:3478"]},
+#  {"urls": ["turn:turn.example.org:3478"], "username": "u", "credential": "p"}]
+ICE_SERVERS = []
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

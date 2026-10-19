@@ -149,3 +149,17 @@ html::before, html::after {
 }
 html::before { left: 0; border-left: 12px solid var(--ink); }
 html::after { right: 0; border-right: 12px solid var(--ink); }
+
+/* reason types added with assembly rooms (see assembly.css): line styles too
+   and so = heavy solid :: on the contrary = double ::
+   in other words = dotted :: what do we mean by = dotted on grey ::
+   what if = dashed on grey */
+.premise-content.continuation { border: 4px solid var(--ink); }
+.premise-content.opposition { border: 5px double var(--ink); }
+.premise-content.reformulation { border: 2px dotted var(--ink); }
+.premise-content.semantic { border: 2px dotted var(--ink); background: var(--soft); }
+.premise-content.speculation { border: 2px dashed var(--ink); background: var(--soft); }
+.premise-type.continuation, .premise-type.opposition, .premise-type.reformulation,
+.premise-type.semantic, .premise-type.speculation { color: var(--ink); font-weight: bold; text-transform: lowercase; }
+.premise-content .premise-anchor { font-size: 14px; color: var(--meta); margin-bottom: 4px; }
+#app.list-view .thread-item .thread-branches a span { background: var(--paper); color: var(--ink); border: 1px solid var(--ink); }

@@ -26,6 +26,8 @@ class Profile(AbstractUser):
     def serialize(self, show_email=True):
         bundle = {
             'username': self.username,
+            # the name people give themselves on the live claim map
+            'name': self.first_name or self.username,
             'id': self.id
         }
 

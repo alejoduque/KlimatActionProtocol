@@ -25,3 +25,13 @@ MONGODB_HOST = 'localhost' #your docker machine ip if running on virtual server
 #         "LOCATION": "127.0.0.1:6379:1"
 #     }
 # }
+
+# the realtime relay runs on its own port in development (docker compose)
+REALTIME_WS_URL = ':8001/_rooms'  # same hostname as the page, port 8001
+
+# Docker's DNS sometimes takes 5 s to answer the IPv6 (AAAA) question for a
+# container name, and Django looks the database up on every request. Resolve
+# the containers once, IPv4 only, when the server starts (local only).
+import socket as _socket
+DATABASES['default']['HOST'] = _socket.gethostbyname(DATABASES['default']['HOST'])
+MONGODB_HOST = _socket.gethostbyname(MONGODB_HOST)

@@ -19,6 +19,21 @@ By focusing on frugality, we ensure that our digital infrastructure directly res
 
 Users assert contentions to be discussed, supported, proved, or disproved, and argue with premises using because, but, or however conjunctions. By mapping these arguments visually, large-scale debates surrounding climate action can be evaluated effectively according to clarity, accuracy, and sound reasoning.
 
+## The live claim map
+
+Each claim page is shared live by the people who have it open. People add
+reasons in the map itself, at the place where they go, with *because, but,
+however, and so, on the contrary, in other words, what if*, or they question
+one word ("what do we mean by"). All people see what each person types, at the
+pace it is typed (Time Based Text). Support, fallacy reports and a replay of
+the whole session work in place. People can also talk with voice, video or
+ascii video; in ascii mode only text leaves the computer.
+
+It uses [chatb](https://r-w-x.org/r/chatb.git) (WebRTC rooms),
+[hasciicam](https://github.com/dyne/hasciicam) (ascii video) and
+[TBT](https://github.com/dyne/TBT) (Time Based Text). On a server, run
+`sudo bash realtime/install.sh` once. See [docs/live.md](docs/live.md).
+
 ## Running Locally (Docker)
 
 The easiest way to run the Climate Action Protocol locally is by using Docker.
@@ -33,6 +48,7 @@ The easiest way to run the Climate Action Protocol locally is by using Docker.
    docker compose up -d
    ```
 4. Access the platform on your local network at `http://localhost:8000`.
+   The realtime relay of the live map runs alongside on port 8001.
 
 ## License
 

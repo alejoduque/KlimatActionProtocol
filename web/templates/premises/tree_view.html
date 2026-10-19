@@ -4,7 +4,18 @@
 {% load premise_tags %}
 {% load humanize %}
 
+{% block extra-meta %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/live.css" %}?v=14" />
+{% endblock %}
+
 {% block content %}
+    <aside id="live-strip" class="live-strip" aria-label="{% trans "people on this page" %}"></aside>
+    <noscript>
+        <p class="live-noscript">
+            <a href="{% url "new_premise" contention.slug %}?form=1">{% trans "Add a reason with the form" %}</a>
+        </p>
+    </noscript>
     <div id="keyboard-manager-info">
         <span class="keys">
             <span class="left">←</span>
@@ -110,6 +121,11 @@
 {% endblock %}
 
 {% block extra-scripts %}
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/tbt.js" %}"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/ascii.js" %}"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/room.js" %}"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/live.js" %}?v=9"></script>
 <script type="text/javascript">
     arguman.editMode = {{ edit_mode|yesno:"true,false" }};
     arguman.contention = {
@@ -134,6 +150,11 @@
 
             navigator.render();
             timeline.render();
+
+            // the map is shared live by everyone on this page
+            arguman.live = new arguman.assembly.Live(
+                {{ live_config|safe }}, treeView, navigator, timeline);
+            arguman.live.start();
 
         }
     });
