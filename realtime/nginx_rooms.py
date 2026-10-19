@@ -48,7 +48,8 @@ for m in reversed(places):
 backup = "%s.bak-%s" % (vhost, time.strftime("%Y%m%d%H%M%S"))
 shutil.copy2(vhost, backup)
 open(vhost, "w", newline="").write(text)
-test = subprocess.run(["nginx", "-t"], capture_output=True, text=True)
+test = subprocess.run(["nginx", "-t"], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                      universal_newlines=True)  # Python 3.6 (Ubuntu 18.04)
 if test.returncode != 0:
     shutil.copy2(backup, vhost)
     sys.exit("nginx -t failed, %s restored from %s:\n%s" % (vhost, backup, test.stderr))
