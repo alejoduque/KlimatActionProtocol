@@ -108,31 +108,11 @@ if [[ ! -f "$VHOST" ]]; then
     }
 
 EOF
-elif grep -q "location /_rooms" "$VHOST"; then
-  say "$VHOST already has /_rooms (not changed)"
 else
-  backup="$VHOST.bak-$(date +%Y%m%d%H%M%S)"
-  cp -p "$VHOST" "$backup"
-  awk -v port="$PORT" '
-    /^[[:space:]]*location \/ \{/ {
-      print "    location /_rooms {"
-      print "        proxy_pass http://127.0.0.1:" port ";"
-      print "        proxy_http_version 1.1;"
-      print "        proxy_set_header Upgrade $http_upgrade;"
-      print "        proxy_set_header Connection \"upgrade\";"
-      print "        proxy_read_timeout 86400s;"
-      print "    }"
-      print ""
-    }
-    { print }
-  ' "$backup" > "$VHOST"
-  if nginx -t 2>/dev/null; then
-    systemctl reload nginx
-    say "added /_rooms to $VHOST (backup: $backup)"
-  else
-    cp -p "$backup" "$VHOST"
-    die "nginx -t failed; $VHOST restored from $backup"
-  fi
+  # before each "location / {" that proxies KLAP; checked with nginx -t,
+  # and the backup is put back when anything fails
+  python3 "$HERE/nginx_rooms.py" "$VHOST" "$PORT" | sed 's/^/  > /' ||
+    die "location /_rooms was not added to $VHOST (see above)"
 fi
 
 say "done. Logs: journalctl -u klap-realtime -f"
