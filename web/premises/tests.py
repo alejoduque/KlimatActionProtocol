@@ -254,3 +254,129 @@ class AssemblyTest(TestCase):
                                parent=main, premise_type=CONTINUATION,
                                text=u"c")
         self.assertEqual(main.update_weight(), 1)
+
+
+class CorrectionTest(TestCase):
+    """The author corrects the text of a reason from the live map."""
+    host = "en.localhost:8000"
+
+    def setUp(self):
+        self.author = Profile.objects.create(username="author")
+        self.author.set_password("secret")
+        self.author.save()
+        self.other = Profile.objects.create(username="other")
+        self.other.set_password("secret")
+        self.other.save()
+        self.contention = Contention.objects.create(
+            title=u"Climate justice begins with land as pedagogy",
+            user=self.author, language="en", is_published=True)
+        self.premise = Premise.objects.create(
+            argument=self.contention, user=self.author, premise_type=SUPPORT,
+            text=u"the baldio is residaul territory",
+            tbt=json.dumps([[0, 0, 0, u"the baldio is residaul territory"]]))
+        self.client.login(username="author", password="secret")
+
+    def correct(self, premise=None, **data):
+        premise = premise or self.premise
+        return self.client.post(
+            reverse("premise_text", args=[self.contention.slug, premise.pk]),
+            json.dumps(data), content_type="application/json",
+            HTTP_HOST=self.host)
+
+    def question(self, start, end, text):
+        return Premise.objects.create(
+            argument=self.contention, user=self.other, parent=self.premise,
+            premise_type=SEMANTIC, text=u"?", anchor_start=start,
+            anchor_end=end, anchor_text=text)
+
+    def test_the_map_offers_edit_to_the_author_only(self):
+        url = reverse("contention_detail", args=[self.contention.slug])
+        response = self.client.get(url, {"partial": "tree"},
+                                   HTTP_HOST="klap.example.org")
+        self.assertContains(
+            response, 'data-text="the baldio is residaul territory"')
+        self.client.login(username="other", password="secret")
+        response = self.client.get(url, {"partial": "tree"},
+                                   HTTP_HOST="klap.example.org")
+        self.assertNotContains(response, "edit-premise")
+
+    def test_author_corrects_a_typo(self):
+        response = self.correct(text=u"the baldio is residual territory ")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(json.loads(response.content)["text"],
+                         u"the baldio is residual territory")
+        premise = Premise.objects.get(pk=self.premise.pk)
+        self.assertEqual(premise.text, u"the baldio is residual territory")
+        self.assertEqual(replay_tbt(json.loads(premise.tbt)), premise.text)
+
+    def test_the_recording_of_the_correction_is_kept(self):
+        correction = [[300, 19, 2, u""], [80, 19, 0, u"ua"]]
+        self.correct(text=u"the baldio is residual territory",
+                     tbt=correction)
+        recording = json.loads(Premise.objects.get(pk=self.premise.pk).tbt)
+        self.assertEqual(recording[1:], correction)
+
+    def test_a_wrong_recording_becomes_one_edit(self):
+        self.correct(text=u"the baldio is residual territory",
+                     tbt=[[0, 0, 0, u"something else"]])
+        recording = json.loads(Premise.objects.get(pk=self.premise.pk).tbt)
+        self.assertEqual(recording[1], [1000, 19, 2, u"ua"])
+
+    def test_a_reason_without_recording_keeps_none(self):
+        Premise.objects.filter(pk=self.premise.pk).update(tbt=None)
+        self.correct(text=u"the baldio is residual territory")
+        self.assertIsNone(Premise.objects.get(pk=self.premise.pk).tbt)
+
+    def test_only_the_author_can_correct(self):
+        self.client.login(username="other", password="secret")
+        self.assertEqual(self.correct(text=u"x").status_code, 404)
+        self.assertEqual(Premise.objects.get(pk=self.premise.pk).text,
+                         u"the baldio is residaul territory")
+
+    def test_staff_can_correct(self):
+        self.other.is_staff = True
+        self.other.save()
+        self.client.login(username="other", password="secret")
+        self.assertEqual(self.correct(text=u"x").status_code, 200)
+
+    def test_refuses_empty_or_long_text(self):
+        self.assertEqual(self.correct(text=u"  ").status_code, 400)
+        self.assertEqual(self.correct(text=u"x" * 301).status_code, 400)
+        self.assertEqual(self.correct().status_code, 400)
+
+    def test_questions_keep_their_words(self):
+        on_typo = self.question(3, 3, u"residaul")
+        after = self.question(4, 4, u"territory")
+        before = self.question(1, 1, u"baldio")
+        self.correct(text=u"the baldio is the residual common territory")
+        self.assertEqual(
+            Premise.objects.get(pk=before.pk).anchor(),
+            {"start": 1, "end": 1, "text": u"baldio"})
+        self.assertEqual(
+            Premise.objects.get(pk=on_typo.pk).anchor(),
+            {"start": 3, "end": 5, "text": u"the residual common"})
+        self.assertEqual(
+            Premise.objects.get(pk=after.pk).anchor(),
+            {"start": 6, "end": 6, "text": u"territory"})
+
+    def test_a_question_on_removed_words_stays(self):
+        on_typo = self.question(3, 3, u"residaul")
+        self.correct(text=u"the baldio is territory")
+        self.assertEqual(Premise.objects.get(pk=on_typo.pk).anchor(),
+                         {"start": 3, "end": 3, "text": u"residaul"})
+
+    def test_claim_correction_moves_the_questions_on_its_words(self):
+        question = Premise.objects.create(
+            argument=self.contention, user=self.other, premise_type=SEMANTIC,
+            text=u"?", anchor_start=6, anchor_end=6, anchor_text=u"pedagogy")
+        save_nouns = Contention.save_nouns
+        Contention.save_nouns = lambda contention: None  # needs NLTK data
+        try:
+            self.client.post(
+                reverse("contention_edit", args=[self.contention.slug]),
+                {"title": u"Climate justice starts with the land as pedagogy",
+                 "owner": u"", "sources": u""}, HTTP_HOST=self.host)
+        finally:
+            Contention.save_nouns = save_nouns
+        self.assertEqual(Premise.objects.get(pk=question.pk).anchor(),
+                         {"start": 7, "end": 7, "text": u"pedagogy"})

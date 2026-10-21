@@ -519,11 +519,16 @@
                 var selected = _this.navigator.currentElement && _this.navigator.currentElement.attr("id"),
                     textarea = _this.composer && _this.composer.textarea,
                     focus = textarea && document.activeElement === textarea
-                        ? [textarea.selectionStart, textarea.selectionEnd] : null;
+                        ? [textarea.selectionStart, textarea.selectionEnd] : null,
+                    correcting = _this.editor && document.activeElement === _this.editor.textarea
+                        ? [_this.editor.textarea.selectionStart, _this.editor.textarea.selectionEnd] : null;
                 // out of the map before jQuery empties it: jQuery would also
                 // clear their data (the related claim search of the composer)
                 if (_this.composer) {
                     _this.composer.li.remove();
+                }
+                if (_this.editor) {
+                    _this.editor.form.remove();
                 }
                 Object.keys(_this.ghosts).forEach(function (id) {
                     _this.ghosts[id].li.remove();
@@ -534,12 +539,17 @@
                             _this.place(_this.composer.li, _this.composer.key);
                         }
                         Object.keys(_this.ghosts).forEach(_this.placeGhost, _this);
+                        _this.showEditor();
                     }, function () {
                         _this.decorate();
                         _this.layoutNow();
                         if (focus && _this.composer) {
                             _this.composer.textarea.focus();
                             _this.composer.textarea.setSelectionRange(focus[0], focus[1]);
+                        }
+                        if (correcting && _this.editor) {
+                            _this.editor.textarea.focus();
+                            _this.editor.textarea.setSelectionRange(correcting[0], correcting[1]);
                         }
                         if (selected && document.getElementById(selected)) {
                             _this.navigator.select($("#" + selected));
@@ -635,6 +645,11 @@
                     _this.openReport(_this.keyOf(link));
                     return;
                 }
+                if (link && link.classList.contains("edit-premise")) {
+                    event.preventDefault();
+                    _this.openEditor(_this.keyOf(link), link.getAttribute("data-text") || "");
+                    return;
+                }
 
                 var action = target.closest("[data-action]");
                 if (!action) {
@@ -665,6 +680,12 @@
                     break;
                 case "report-cancel":
                     _this.closeReport(action.closest(".live-report"));
+                    break;
+                case "edit-save":
+                    _this.saveEditor();
+                    break;
+                case "edit-cancel":
+                    _this.closeEditor();
                     break;
                 case "replay":
                     _this.replay();
@@ -1389,6 +1410,127 @@
             });
         },
 
+        // ---------------------------------------------------- corrections
+
+        // "edit" on an own reason: its text in a box in its place, to
+        // correct a typo. Enter saves, Escape closes. The correction is
+        // recorded, so a replay types it too.
+        openEditor: function (key, text) {
+            var _this = this;
+            if (this.replaying || !document.querySelector("#premise-" + key + " > .tree-node")) {
+                return;
+            }
+            if (this.editor) {
+                if (this.editor.key === key) {
+                    this.editor.textarea.focus();
+                    return;
+                }
+                this.closeEditor();
+            }
+            var editor = this.editor = {key: key, form: el("div", "live-edit"),
+                                        recorder: new tbt.Recorder()},
+                textarea = editor.textarea = el("textarea");
+            editor.recorder.reset(text);
+            textarea.value = text;
+            textarea.rows = 3;
+            textarea.maxLength = this.config.maxLength;
+            textarea.setAttribute("aria-label", "correct the reason");
+            editor.form.appendChild(textarea);
+            var foot = el("div", "composer-foot");
+            foot.appendChild(el("span", "composer-keys live-aid", "Enter saves :: Escape closes"));
+            foot.appendChild(button("link", "cancel", "edit-cancel"));
+            editor.saveButton = button("composer-submit", "save", "edit-save");
+            foot.appendChild(editor.saveButton);
+            editor.form.appendChild(foot);
+            editor.error = el("div", "composer-error");
+            editor.form.appendChild(editor.error);
+
+            textarea.addEventListener("input", function () {
+                editor.recorder.update(textarea.value);
+                editor.error.textContent = "";
+            });
+            textarea.addEventListener("keydown", function (event) {
+                if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+                    event.preventDefault();
+                    _this.saveEditor();
+                } else if (event.key === "Escape") {
+                    _this.closeEditor();
+                }
+            });
+
+            this.showEditor();
+            this.layoutNow();
+            textarea.focus({preventScroll: true});
+            textarea.setSelectionRange(text.length, text.length);
+        },
+
+        // the box in place of the text of its reason (again after a refresh)
+        showEditor: function () {
+            var editor = this.editor,
+                node = editor && document.querySelector("#premise-" + editor.key + " > .tree-node");
+            if (!node) {
+                this.editor = null;  // the reason was removed
+                return;
+            }
+            var content = node.querySelector(".premise-content");
+            content.hidden = true;
+            node.insertBefore(editor.form, content.nextSibling);
+        },
+
+        closeEditor: function () {
+            var editor = this.editor,
+                node = editor && editor.form.parentNode;
+            if (!editor) {
+                return;
+            }
+            this.editor = null;
+            if (node) {
+                node.querySelector(".premise-content").hidden = false;
+                editor.form.remove();
+            }
+            this.relayout();
+        },
+
+        saveEditor: function () {
+            var _this = this, editor = this.editor;
+            if (!editor || editor.sending) {
+                return;
+            }
+            editor.sending = true;
+            editor.saveButton.textContent = "saving…";
+            fetch(this.config.textUrl.replace("{id}", editor.key), {
+                method: "POST",
+                credentials: "same-origin",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": this.config.csrfToken
+                },
+                body: JSON.stringify({
+                    text: editor.textarea.value.trim(),
+                    tbt: editor.recorder.recording()
+                })
+            }).then(function (response) {
+                return response.json().catch(function () {
+                    return {};
+                }).then(function (body) {
+                    if (!response.ok) {
+                        throw new Error(body.error || "The correction was not saved.");
+                    }
+                });
+            }).then(function () {
+                _this.closeEditor();
+                return _this.changed(editor.key);
+            }).catch(function (error) {
+                if (_this.editor === editor) {
+                    editor.error.textContent = error.message;
+                    _this.relayout();
+                }
+            }).then(function () {
+                editor.sending = false;
+                editor.saveButton.textContent = "save";
+            });
+        },
+
         // ------------------------------------------------- session replay
 
         // the reasons typed again in the order and at the pace they were
@@ -1399,6 +1541,7 @@
                 this.stopReplay();
                 return;
             }
+            this.closeEditor();
             var run = this.run = (this.run || 0) + 1;
             this.replaying = true;
             this.replayButton.textContent = "■ stop";

@@ -11,7 +11,7 @@ from premises.views import (ContentionDetailView, HomeView,
                             StatsView, FallaciesView, FeaturedJSONView, NewsJSONView,
                             RandomArgumentView, AssemblyRedirectView,
                             LiveJSONView, BranchCreationView,
-                            PremiseTBTView)
+                            PremiseTBTView, PremiseTextView)
 
 
 urlpatterns = patterns('',
@@ -84,6 +84,9 @@ urlpatterns = patterns('',
    url(r'^(?P<slug>[\w-]+)/premises/(?P<pk>[0-9]+)/new',
         PremiseCreationView.as_view(),
         name='insert_premise'),
+   url(r'^(?P<slug>[\w-]+)/premises/(?P<pk>[0-9]+)/text$',
+        PremiseTextView.as_view(),
+        name='premise_text'),
    url(r'^(?P<slug>[\w-]+)/premises/(?P<pk>[0-9]+)',
         PremiseEditView.as_view(),
         name='edit_premise'),

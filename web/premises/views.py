@@ -116,6 +116,8 @@ class ContentionDetailView(DetailView):
                 .replace("/0/", "/{id}/"),
             "reportUrl": reverse("report_premise", args=[slug, 0])
                 .replace("/0/", "/{id}/"),
+            "textUrl": reverse("premise_text", args=[slug, 0])
+                .replace("/0/", "/{id}/"),
             "searchUrl": reverse("contentions_search"),
             "csrfToken": get_token(self.request),
             "instruments": [{"type": premise_type,
@@ -668,7 +670,11 @@ class ArgumentUpdateView(LoginRequiredMixin, UpdateView):
         return contentions.filter(user=self.request.user)
 
     def form_valid(self, form):
+        old_title = form.initial.get("title") or u""
         response = super(ArgumentUpdateView, self).form_valid(form)
+        # the questions about words of the claim keep their words
+        move_anchors(form.instance.premises.filter(parent__isnull=True),
+                     old_title, form.instance.title)
         form.instance.update_sibling_counts()
         form.instance.nouns.clear()
         form.instance.save_nouns()
@@ -754,12 +760,15 @@ class PremiseEditView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         premises = Premise.objects.all()
-        if self.request.user.is_superuser:
+        if self.request.user.is_superuser or self.request.user.is_staff:
             return premises
         return premises.filter(user=self.request.user)
 
     def form_valid(self, form):
+        old_text = form.initial.get("text") or u""
         response = super(PremiseEditView, self).form_valid(form)
+        move_anchors(form.instance.children.all(), old_text,
+                     form.instance.text)
         form.instance.argument.update_sibling_counts()
         return response
 
@@ -1049,12 +1058,11 @@ class PremiseTBTView(DetailView):
                             content_type="application/json")
 
 
-def replay_tbt(recording):
+def replay_tbt(recording, text=u""):
     """
-    Applies a Time Based Text recording and returns the resulting text, or
-    None if the recording is malformed.
+    Applies a Time Based Text recording to `text` (empty by default) and
+    returns the resulting text, or None if the recording is malformed.
     """
-    text = u""
     for entry in recording:
         if not (isinstance(entry, list) and len(entry) == 4):
             return None
@@ -1202,3 +1210,116 @@ class BranchCreationView(LoginRequiredMixin, View):
         premise = Premise.objects.select_related("user").get(pk=premise.pk)
         return HttpResponse(json.dumps(serialize_branch(premise)),
                             status=201, content_type="application/json")
+
+
+def common_ends(old, new):
+    """The length of the start and of the end that old and new share."""
+    prefix = 0
+    while (prefix < len(old) and prefix < len(new) and
+           old[prefix] == new[prefix]):
+        prefix += 1
+    suffix = 0
+    while (suffix < len(old) - prefix and suffix < len(new) - prefix and
+           old[len(old) - 1 - suffix] == new[len(new) - 1 - suffix]):
+        suffix += 1
+    return prefix, suffix
+
+
+def move_anchors(premises, old_text, new_text):
+    """
+    After a correction of old_text, points the anchors of `premises` (the
+    questions about its words) to the same words in new_text. Words before
+    and after the corrected part keep their anchor; an anchor on corrected
+    words goes to the words that replaced them.
+    """
+    old, new = old_text.split(), new_text.split()
+    prefix, suffix = common_ends(old, new)
+
+    def place(index, is_end):
+        if index < prefix:
+            return index
+        if index >= len(old) - suffix:
+            return index + len(new) - len(old)
+        return len(new) - suffix - 1 if is_end else prefix
+
+    for premise in premises.filter(anchor_start__isnull=False):
+        start = place(premise.anchor_start, False)
+        end = place(premise.anchor_end, True)
+        if not 0 <= start <= end < len(new):
+            continue  # its words were removed: the thread hangs from the node
+        premise.anchor_start = start
+        premise.anchor_end = end
+        premise.anchor_text = u" ".join(new[start:end + 1])[:255]
+        premise.save(update_fields=["anchor_start", "anchor_end",
+                                    "anchor_text"])
+
+
+class PremiseTextView(LoginRequiredMixin, View):
+    """
+    Corrects the text of a reason from the live map (a typo, a word).
+    Only its author (or the staff) can. Expects a JSON body:
+    {"text": str, "tbt": [...]|null}
+    "tbt" is the recording of the correction, from the old text. It is
+    added to the reason's recording, so a replay types the correction too.
+    """
+    MAX_TBT_ENTRIES = 5000
+    PAUSE = 1000  # ms before a correction without its own recording
+
+    def error(self, message):
+        return HttpResponse(json.dumps({"error": message}), status=400,
+                            content_type="application/json")
+
+    def post(self, request, slug, pk):
+        premises = Premise.objects.filter(argument__slug=slug)
+        if not (request.user.is_staff or request.user.is_superuser):
+            premises = premises.filter(user=request.user)
+        premise = get_object_or_404(premises, pk=pk)
+
+        try:
+            data = json.loads(request.body)
+        except ValueError:
+            return self.error("invalid JSON")
+        if not isinstance(data, dict):
+            return self.error("invalid JSON")
+
+        text = data.get("text")
+        if not isinstance(text, basestring):
+            return self.error("text is required")
+        text = text.strip()
+        if not text and not premise.related_argument_id:
+            return self.error("text is required")
+        if len(text) > MAX_PREMISE_CONTENT_LENGTH:
+            return self.error("text is too long")
+
+        old_text = premise.text or u""
+        if text != old_text:
+            premise.text = text
+            premise.tbt = self.add_correction(premise.tbt, data.get("tbt"),
+                                              text)
+            premise.save()
+            move_anchors(premise.children.all(), old_text, text)
+
+        premise = Premise.objects.select_related("user").get(pk=premise.pk)
+        return HttpResponse(json.dumps(serialize_branch(premise)),
+                            content_type="application/json")
+
+    def add_correction(self, stored, correction, text):
+        """
+        The stored recording with the correction after it, so that it
+        produces `text`; None when there is no usable recording.
+        """
+        if not stored:
+            return None
+        recording = json.loads(stored)
+        old = replay_tbt(recording)
+        if old is None:
+            return None
+        if not (isinstance(correction, list) and correction and
+                len(recording) + len(correction) <= self.MAX_TBT_ENTRIES and
+                replay_tbt(correction, old) is not None and
+                replay_tbt(correction, old).strip() == text):
+            # no recording of the correction: one edit, after a pause
+            prefix, suffix = common_ends(old, text)
+            correction = [[self.PAUSE, prefix, len(old) - prefix - suffix,
+                           text[prefix:len(text) - suffix]]]
+        return json.dumps(recording + correction, separators=(",", ":"))

@@ -527,7 +527,8 @@
 #app .live-node textarea,
 #app .live-node input[type="text"],
 #app .live-report textarea,
-#app .live-report select {
+#app .live-report select,
+#app .live-edit textarea {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -652,6 +653,18 @@
 
 #app .live-report strong::before {
     content: "// ";
+}
+
+/* a correction :: the text of an own reason in a box, in its place */
+#app .tree-node .premise-content[hidden] {
+    display: none;
+}
+
+#app .live-edit {
+    display: block;
+    background: var(--paper);
+    padding: 0 4px 6px;
+    font-size: 13px;
 }
 
 /* --------------------------------------------------- the people strip */
