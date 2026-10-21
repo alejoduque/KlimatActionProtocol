@@ -94,12 +94,11 @@
         <div class="premise-actions">
             <a class="premise-action" href="{% url "insert_premise" serialized.slug premise.id %}">{% trans "add reason" %}</a>
             
-            {% if user.id == premise.user.id or user.is_staff or user.is_superuser %}
+            {# the author, and the staff for all reasons #}
+            {% if user.id == premise.user.id or user.is_staff %}
                 {# the live map corrects the text in place; data-text is the text as stored #}
                 <a class="premise-action edit-premise" href="{% url "edit_premise" serialized.slug premise.id %}"
                    data-text="{{ premise.text }}">{% trans "edit" %}</a>
-            {% endif %}
-            {% if user.id == premise.user.id %}
                 <form class="premise-action" action="{% url "delete_premise" serialized.slug premise.id %}" method="post">
                     {% csrf_token %}
                     <input type="submit" value="{% trans "remove" %}"

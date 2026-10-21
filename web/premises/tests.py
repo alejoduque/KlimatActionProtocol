@@ -300,6 +300,28 @@ class CorrectionTest(TestCase):
                                    HTTP_HOST="klap.example.org")
         self.assertNotContains(response, "edit-premise")
 
+    def test_staff_can_edit_and_remove_any_reason_on_the_map(self):
+        self.other.is_staff = True
+        self.other.save()
+        self.client.login(username="other", password="secret")
+        response = self.client.get(
+            reverse("contention_detail", args=[self.contention.slug]),
+            {"partial": "tree"}, HTTP_HOST="klap.example.org")
+        self.assertContains(response, "edit-premise")
+        self.assertContains(response, "delete_premise")
+        self.client.post(reverse("delete_premise", args=[
+            self.contention.slug, self.premise.pk]), HTTP_HOST=self.host)
+        self.assertFalse(Premise.objects.filter(pk=self.premise.pk).exists())
+
+    def test_profile_of_someone_who_answered_with_new_types(self):
+        Premise.objects.create(
+            argument=self.contention, user=self.other, parent=self.premise,
+            premise_type=CONTINUATION, text=u"so we walk")
+        response = self.client.get(
+            reverse("auth_profile", args=[self.other.username]),
+            HTTP_HOST=self.host)
+        self.assertEqual(response.status_code, 200)
+
     def test_author_corrects_a_typo(self):
         response = self.correct(text=u"the baldio is residual territory ")
         self.assertEqual(response.status_code, 200)
