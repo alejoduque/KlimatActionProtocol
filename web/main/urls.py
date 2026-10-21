@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.decorators.cache import cache_page
+from django.views.generic import RedirectView
 
 from blog.sitemaps import BlogSitemap
 from nouns.views import ChannelDetail
@@ -18,6 +19,9 @@ sitemaps = {
 }
 
 urlpatterns = patterns('',
+    # without the slash these would be read as the name of a claim
+    url(r'^(?P<page>admin|login)$',
+        RedirectView.as_view(url='/%(page)s/', permanent=False)),
     url(r'^', include('newsfeed.urls')),
     url(r'^', include('premises.urls')),
     url(r'^', include('profiles.urls')),

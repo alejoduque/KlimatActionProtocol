@@ -380,3 +380,36 @@ class CorrectionTest(TestCase):
             Contention.save_nouns = save_nouns
         self.assertEqual(Premise.objects.get(pk=question.pk).anchor(),
                          {"start": 7, "end": 7, "text": u"pedagogy"})
+
+
+class SitePagesTest(TestCase):
+    host = "en.localhost:8000"
+
+    def test_login_page_opens(self):
+        response = self.client.get("/login/", HTTP_HOST=self.host)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="password"')
+
+    def test_admin_and_login_without_slash(self):
+        for page in ("admin", "login"):
+            response = self.client.get("/" + page, HTTP_HOST=self.host)
+            self.assertEqual(response.status_code, 302)
+            self.assertTrue(response["Location"].endswith("/%s/" % page))
+
+    def test_staff_logs_in(self):
+        staff = Profile.objects.create(username="organizer", is_staff=True)
+        staff.set_password("secret")
+        staff.save()
+        response = self.client.post(
+            "/login/?next=/admin/",
+            {"username": "organizer", "password": "secret"},
+            HTTP_HOST=self.host)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response["Location"].endswith("/admin/"))
+        self.assertEqual(int(self.client.session["_auth_user_id"]), staff.pk)
+
+    def test_page_not_found_is_in_english(self):
+        response = self.client.get("/no/such/page", HTTP_HOST=self.host)
+        self.assertEqual(response.status_code, 404)
+        self.assertContains(response, "We did not find this page.",
+                            status_code=404)
