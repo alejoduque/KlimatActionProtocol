@@ -9,7 +9,7 @@ from markdown2 import markdown
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.db.models import Max, Sum
 from django.utils.timezone import now
 from django.http import HttpResponse, Http404
@@ -18,7 +18,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.views.generic import DetailView, TemplateView, CreateView, View, RedirectView
 from django.views.generic.edit import UpdateView
-from django.utils.translation import get_language
+from django.utils.translation import get_language, ugettext as _
 from django.db.models import Count
 from django.shortcuts import render
 
@@ -45,6 +45,16 @@ from i18n.utils import normalize_language_code
 
 def get_ip_address(request):
     return request.META.get('REMOTE_ADDR')
+
+
+def speak_language_of(request, contention):
+    """
+    With one address for all languages, a claim and its live map speak the
+    language of the claim.
+    """
+    if contention.language in settings.AVAILABLE_LANGUAGES:
+        translation.activate(contention.language)
+        request.LANGUAGE_CODE = contention.language
 
 
 class ContentionDetailView(DetailView):
@@ -143,6 +153,8 @@ class ContentionDetailView(DetailView):
 
             if not normalize_language_code(get_language()) == self.object.language:
                 return redirect(self.object.get_full_url(), permanent=True)
+        else:
+            speak_language_of(request, self.object)
 
         partial = request.GET.get('partial')
         level = request.GET.get('level')
@@ -1119,6 +1131,7 @@ class BranchCreationView(LoginRequiredMixin, View):
 
     def post(self, request, slug):
         contention = get_object_or_404(Contention, slug=slug)
+        speak_language_of(request, contention)
 
         try:
             data = json.loads(request.body)
@@ -1133,10 +1146,10 @@ class BranchCreationView(LoginRequiredMixin, View):
 
         text = data.get("text")
         if not isinstance(text, basestring) or not text.strip():
-            return self.error("text is required")
+            return self.error(_("text is required"))
         text = text.strip()
         if len(text) > MAX_PREMISE_CONTENT_LENGTH:
-            return self.error("text is too long")
+            return self.error(_("text is too long"))
 
         parent = None
         if data.get("parent") is not None:
@@ -1159,17 +1172,17 @@ class BranchCreationView(LoginRequiredMixin, View):
             start, end = anchor.get("start"), anchor.get("end")
             if not (isinstance(start, int) and isinstance(end, int) and
                     0 <= start <= end < len(words)):
-                return self.error("anchor is out of range")
+                return self.error(_("anchor is out of range"))
             if isinstance(anchor.get("text"), basestring):
                 span = find_anchor(words, start, end, anchor["text"])
                 if span is None:
-                    return self.error("the word is not in the text")
+                    return self.error(_("the word is not in the text"))
                 start, end = span
             premise.anchor_start = start
             premise.anchor_end = end
             premise.anchor_text = u" ".join(words[start:end + 1])[:255]
         elif premise_type == SEMANTIC:
-            return self.error("a semantic challenge needs a word")
+            return self.error(_("a semantic challenge needs a word"))
 
         recording = data.get("tbt")
         if (isinstance(recording, list) and
@@ -1188,7 +1201,7 @@ class BranchCreationView(LoginRequiredMixin, View):
             try:
                 premise.related_argument = Contention.objects.get(pk=related)
             except (Contention.DoesNotExist, ValueError, TypeError):
-                return self.error("unknown related claim")
+                return self.error(_("unknown related claim"))
 
         name = data.get("name")
         if isinstance(name, basestring) and name.strip():
@@ -1274,6 +1287,7 @@ class PremiseTextView(LoginRequiredMixin, View):
         if not (request.user.is_staff or request.user.is_superuser):
             premises = premises.filter(user=request.user)
         premise = get_object_or_404(premises, pk=pk)
+        speak_language_of(request, premise.argument)
 
         try:
             data = json.loads(request.body)
@@ -1284,12 +1298,12 @@ class PremiseTextView(LoginRequiredMixin, View):
 
         text = data.get("text")
         if not isinstance(text, basestring):
-            return self.error("text is required")
+            return self.error(_("text is required"))
         text = text.strip()
         if not text and not premise.related_argument_id:
-            return self.error("text is required")
+            return self.error(_("text is required"))
         if len(text) > MAX_PREMISE_CONTENT_LENGTH:
-            return self.error("text is too long")
+            return self.error(_("text is too long"))
 
         old_text = premise.text or u""
         if text != old_text:

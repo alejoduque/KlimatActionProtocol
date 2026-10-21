@@ -13,7 +13,7 @@
 
     var ASCII_FPS = 8,
         RELAY_EVERY = 4,  // frames through the relay at ASCII_FPS / RELAY_EVERY
-        NOTE = "Ascii sends only text. Your camera image stays on your computer.";
+        NOTE = gettext("Ascii sends only text. Your camera image stays on your computer.");
 
     function el(tag, className, text) {
         var element = document.createElement(tag);
@@ -70,10 +70,10 @@
             root.textContent = "";
 
             var head = el("div", "strip-head");
-            head.appendChild(el("strong", null, "present"));
-            this.status = el("span", "strip-status", "connecting…");
+            head.appendChild(el("strong", null, gettext("present")));
+            this.status = el("span", "strip-status", gettext("connecting…"));
             head.appendChild(this.status);
-            this.toggle = button("strip-toggle link", "settings", "toggle");
+            this.toggle = button("strip-toggle link", gettext("settings"), "toggle");
             this.toggle.setAttribute("aria-expanded", "false");
             head.appendChild(this.toggle);
             root.appendChild(head);
@@ -81,7 +81,7 @@
             var controls = this.controls = el("div", "strip-controls");
             controls.hidden = true;
             var nameLabel = el("label", "strip-name");
-            nameLabel.appendChild(el("span", null, "your name"));
+            nameLabel.appendChild(el("span", null, gettext("your name")));
             this.nameInput = el("input");
             this.nameInput.type = "text";
             this.nameInput.maxLength = 30;
@@ -89,13 +89,13 @@
             nameLabel.appendChild(this.nameInput);
             controls.appendChild(nameLabel);
 
-            this.micButton = button("media-toggle", "mic off", "mic");
+            this.micButton = button("media-toggle", gettext("mic off"), "mic");
             controls.appendChild(this.micButton);
             var cams = el("div", "cam-modes");
             cams.setAttribute("role", "group");
-            cams.setAttribute("aria-label", "camera");
+            cams.setAttribute("aria-label", gettext("camera"));
             this.camButtons = {};
-            [["off", "no camera"], ["ascii", "ascii"], ["video", "video"]]
+            [["off", gettext("no camera")], ["ascii", "ascii"], ["video", gettext("video")]]
                 .forEach(function (mode) {
                     var b = button("cam-mode", mode[1], "cam");
                     b.setAttribute("data-mode", mode[0]);
@@ -109,7 +109,7 @@
             this.asciiViewInput.type = "checkbox";
             this.asciiViewInput.checked = this.asciiView;
             asciiLabel.appendChild(this.asciiViewInput);
-            asciiLabel.appendChild(document.createTextNode(" show all video as ascii"));
+            asciiLabel.appendChild(document.createTextNode(" " + gettext("show all video as ascii")));
             controls.appendChild(asciiLabel);
             this.mediaNote = el("p", "strip-note", NOTE);
             controls.appendChild(this.mediaNote);
@@ -258,16 +258,16 @@
             var count = this.count(), status = this.status;
             if (this.connection === "live") {
                 status.textContent = count === 1
-                    ? "only you :: send the address of this page to other people"
-                    : count + " here";
+                    ? gettext("only you :: send the address of this page to other people")
+                    : interpolate(gettext("%(count)s here"), {count: count}, true);
             } else if (this.connection === "offline") {
-                status.textContent = "offline :: you can add reasons, but other people do not see your typing";
+                status.textContent = gettext("offline :: you can add reasons, but other people do not see your typing");
             } else {
-                status.textContent = "connecting…";
+                status.textContent = gettext("connecting…");
             }
             if (this.soundBlocked) {
                 status.appendChild(document.createTextNode(" "));
-                status.appendChild(button("link", "enable sound", "sound"));
+                status.appendChild(button("link", gettext("enable sound"), "sound"));
             }
         },
 
@@ -337,9 +337,9 @@
             tile.initial.textContent = name.charAt(0).toUpperCase();
 
             tile.caption.textContent = "";
-            tile.caption.appendChild(el("span", "tile-name", me ? name + " (you)" : name));
+            tile.caption.appendChild(el("span", "tile-name", me ? interpolate(gettext("%(name)s (you)"), {name: name}, true) : name));
             tile.caption.appendChild(el("span", "tile-mic" + (person.mic ? " is-on" : ""),
-                                        person.mic ? "mic on" : "muted"));
+                                        person.mic ? gettext("mic on") : gettext("muted")));
             var writing = this.options.writingLabel(id);
             if (writing) {
                 var go = button("tile-writing link", writing, me ? null : "goto");
@@ -350,7 +350,7 @@
         },
 
         updateControls: function () {
-            this.micButton.textContent = this.me.mic ? "mic on" : "mic off";
+            this.micButton.textContent = this.me.mic ? gettext("mic on") : gettext("mic off");
             this.micButton.setAttribute("aria-pressed", this.me.mic);
             Object.keys(this.camButtons).forEach(function (mode) {
                 this.camButtons[mode].setAttribute("aria-pressed", this.me.cam === mode);
@@ -429,9 +429,9 @@
             this.controls.hidden = false;
             this.mediaNote.classList.add("is-error");
             this.mediaNote.textContent = error && error.name === "NotAllowedError"
-                ? "The browser cannot use the device. Give permission in the browser settings."
-                : "No device (" + (error && error.name || error) + "). " +
-                  "Camera and microphone need https or localhost.";
+                ? gettext("The browser cannot use the device. Give permission in the browser settings.")
+                : interpolate(gettext("No device (%(error)s). Camera and microphone need https or localhost."),
+                              {error: error && error.name || error}, true);
             this.updateControls();
         },
 

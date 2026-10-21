@@ -1,8 +1,8 @@
 {% load i18n %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ LANGUAGE_CODE|default:"en" }}">
 <head>
-    <title>{% block title %}KLAP: Climate Activism Argument Analysis.{% endblock %}</title>
+    <title>{% block title %}KLAP: {% trans "Climate Activism Argument Analysis." %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{% block description %}{% trans "A free tool for group decisions on climate action" %}{% endblock %}" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static "css/h5bp.css" %}" />
     <link rel="stylesheet" href="{% static "css/normalize.css" %}" />
     <link rel="stylesheet" href="{% static "css/main.css" %}?v=4.0" />
-    <link rel="stylesheet" href="{% static "css/permasoftware.css" %}?v=4.4" />
+    <link rel="stylesheet" href="{% static "css/permasoftware.css" %}?v=4.5" />
     <link rel="icon" type="image/png" href="{% static "img/favicon.png" %}" />
     <meta property="og:image" content="https://klap.altred.xyz{% static "img/logo-large.png" %}"/>
     {% block extra-meta %}{% endblock %}
@@ -34,6 +34,14 @@
         <ul id="site-navigation">
             <li><a href="{% url "about" %}">{% trans "about" %}</a></li>
             <li><a class="new-argument-link" href="{% url "new_argument" %}">{% trans "new claim" %}</a></li>
+            {# the language selector: it comes back to this page #}
+            {% get_current_language as current_language %}
+            {% with next_path=request.get_full_path|urlencode %}
+            <li class="language-switch">
+                <a href="{% url "set_language" "es" %}?next={{ next_path }}" lang="es"{% if current_language == "es" %} aria-current="true"{% endif %}>es</a> |
+                <a href="{% url "set_language" "en" %}?next={{ next_path }}" lang="en"{% if current_language == "en" %} aria-current="true"{% endif %}>en</a>
+            </li>
+            {% endwith %}
             <li class="inline-search pull-right">
                 <form action="{% url "contentions_search" %}">
                     <input type="search" name="keywords" id="keyword" placeholder="{% trans "search keywords" %}">
@@ -54,7 +62,9 @@
             {% endblocktrans %}
         </p>
         <p>
-            part of the <a href="https://alejoduque.github.io/permasoftware-assembly/">permasoftware assembly</a> :: <a href="mailto:alej@protonmail.ch">alej@protonmail.ch</a>
+            {% blocktrans trimmed %}
+                part of the <a href="https://alejoduque.github.io/permasoftware-assembly/">permasoftware assembly</a>
+            {% endblocktrans %} :: <a href="mailto:alej@protonmail.ch">alej@protonmail.ch</a>
         </p>
     </div>
 </footer>

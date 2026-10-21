@@ -12,6 +12,10 @@ KLAP (Klimat Action Protocol) is a free tool for group decisions. Groups use it 
 
 In the map, the line style shows the type of reason: solid line = because, double line = but, dashed line = however.
 
+## Languages
+
+KLAP is in English and in Spanish: change the language with "es | en" at the top. Each claim has the language in which it was written, and each language has its own list of claims.
+
 ## Permacomputing
 
 KLAP follows permacomputing principles. It uses few resources and it does not track people. There are no accounts: each visitor gets an anonymous ID. KLAP uses system fonts, two colours and no analytics.

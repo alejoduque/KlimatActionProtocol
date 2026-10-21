@@ -43,8 +43,10 @@
         {% endif %}
         {% if premise.supporters.exists %}
             <div class="thread-supporters">
-                {% blocktrans trimmed with count=premise.supporters.count %}
+                {% blocktrans trimmed count count=premise.supporters.count %}
                     {{ count }} supporter.
+                {% plural %}
+                    {{ count }} supporters.
                 {% endblocktrans %}
                 <div class="supporter-list">
                     {% for supporter in premise.recent_supporters %}
@@ -69,8 +71,10 @@
 
      {% if premise.reports.exists %}
     <div class="thread-fallacies">
-        {% blocktrans trimmed with count=premise.reports.count %}
+        {% blocktrans trimmed count count=premise.reports.count %}
             {{ count }} fallacy reported.
+        {% plural %}
+            {{ count }} fallacies reported.
         {% endblocktrans %}
         {% if premise.fallacies %}
             {% for fallacy in premise.fallacies %}

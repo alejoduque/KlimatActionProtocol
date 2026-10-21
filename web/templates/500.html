@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block header %}
 {% endblock %}
 
 {% block content %}
 <div class="container about content">
-    <h2>An error occurred. We are sorry.</h2>
+    <h2>{% trans "An error occurred. We are sorry." %}</h2>
     <p>
-      <a href="{{ request.get_full_path }}" class="submit">Try again</a> |
-      <a href="https://github.com/alejoduque/KlimatActionProtocol/issues/" class="submit">Report the error</a> |
-      <a href="{% url "home" %}" class="submit">Go to the home page</a> |
+      <a href="{{ request.get_full_path }}" class="submit">{% trans "Try again" %}</a> |
+      <a href="https://github.com/alejoduque/KlimatActionProtocol/issues/" class="submit">{% trans "Report the error" %}</a> |
+      <a href="{% url "home" %}" class="submit">{% trans "Go to the home page" %}</a> |
     </p>
 </div>
 {% endblock %}

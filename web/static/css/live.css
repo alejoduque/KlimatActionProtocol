@@ -276,7 +276,7 @@
 }
 
 #app.tree-view .premise .related-argument::before {
-    content: "related claim :: ";
+    content: attr(data-label) " :: ";  /* "related claim", in the language of the page */
     font-size: 13px;
     color: var(--meta);
 }

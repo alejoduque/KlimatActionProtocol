@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import json
 
 from django.core.urlresolvers import reverse
@@ -435,3 +436,94 @@ class SitePagesTest(TestCase):
         self.assertEqual(response.status_code, 404)
         self.assertContains(response, "We did not find this page.",
                             status_code=404)
+
+
+@override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+class SpanishTest(TestCase):
+    """One address for all languages; the selector (es | en) chooses."""
+    host = "klap.example.org"
+
+    def setUp(self):
+        self.author = Profile.objects.create(username="author")
+        self.english = Contention.objects.create(
+            title=u"Climate justice begins with land", user=self.author,
+            language="en", is_published=True)
+        self.spanish = Contention.objects.create(
+            title=u"La justicia climática empieza con la tierra",
+            user=self.author, language="es", is_published=True)
+
+    def get(self, url, **extra):
+        return self.client.get(url, HTTP_HOST=self.host, **extra)
+
+    def test_english_by_default(self):
+        response = self.get("/")
+        self.assertContains(response, '<html lang="en">')
+        self.assertContains(response, "new claim")
+
+    def test_the_browser_language_chooses_spanish(self):
+        response = self.get("/", HTTP_ACCEPT_LANGUAGE="es-CO,es;q=0.9,en;q=0.5")
+        self.assertContains(response, '<html lang="es">')
+        self.assertContains(response, u"nueva afirmación")
+
+    def test_the_selector_keeps_the_choice(self):
+        response = self.get("/language/es", data={"next": "/about"})
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response["Location"].endswith("/about"))
+        self.assertEqual(response.cookies["django_language"].value, "es")
+        self.assertContains(self.get("/about"), u"Qué es KLAP")
+        self.get("/language/en")
+        self.assertContains(self.get("/about"), "What KLAP is")
+
+    def test_the_selector_goes_only_to_this_site(self):
+        response = self.get("/language/es",
+                            data={"next": "https://example.com/"})
+        self.assertTrue(response["Location"].endswith(self.host + "/"))
+        self.assertEqual(self.get("/language/xx").status_code, 404)
+
+    def test_each_language_lists_its_claims(self):
+        english = self.get("/")
+        self.assertContains(english, self.english.title)
+        self.assertNotContains(english, self.spanish.title)
+        self.get("/language/es")
+        spanish = self.get("/")
+        self.assertContains(spanish, self.spanish.title)
+        self.assertNotContains(spanish, self.english.title)
+
+    def test_a_claim_speaks_its_language(self):
+        response = self.get(self.spanish.get_absolute_url())
+        self.assertContains(response, "jsi18n/?language=es")
+        config = json.loads(response.context["live_config"])
+        labels = [i["label"] for i in config["instruments"]]
+        self.assertIn(u"porque", labels)
+        self.assertIn(u"qué queremos decir con", labels)
+        self.get("/language/es")
+        response = self.get(self.english.get_absolute_url())
+        self.assertContains(response, "jsi18n/?language=en")
+
+    def test_the_live_map_texts_in_spanish(self):
+        response = self.get("/jsi18n/", data={"language": "es"})
+        self.assertContains(response, '"add reason": "agregar raz\\u00f3n"')
+        self.assertContains(response, '"stop": "parar"')
+
+    def test_a_new_claim_gets_the_language_of_the_selector(self):
+        self.get("/language/es")
+        save_nouns = Contention.save_nouns
+        Contention.save_nouns = lambda contention: None  # needs NLTK data
+        try:
+            response = self.client.post(
+                reverse("new_argument"),
+                {"title": u"Necesitamos más bicicletas", "owner": u"",
+                 "sources": u""}, HTTP_HOST=self.host)
+        finally:
+            Contention.save_nouns = save_nouns
+        self.assertEqual(response.status_code, 302)
+        claim = Contention.objects.get(title=u"Necesitamos más bicicletas")
+        self.assertEqual(claim.language, "es")
+
+    def test_live_map_errors_in_the_language_of_the_claim(self):
+        response = self.client.post(
+            reverse("contention_branch", args=[self.spanish.slug]),
+            json.dumps({"premise_type": SUPPORT, "text": u" "}),
+            content_type="application/json", HTTP_HOST=self.host)
+        self.assertEqual(json.loads(response.content)["error"],
+                         u"escribe un texto")

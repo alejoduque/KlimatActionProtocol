@@ -18,7 +18,8 @@
 //   they question.
 //
 // The map layout is arguman.Tree (main.js); people, voice and video are
-// assembly.Presence; the relay is chatb's (room.js).
+// assembly.Presence; the relay is chatb's (room.js). The texts come from
+// Django's JavaScript catalog (gettext, ngettext, interpolate: /jsi18n/).
 
 (function (arguman, $) {
     "use strict";
@@ -453,11 +454,12 @@
                 word.classList.toggle("has-anchor", !!count);
                 if (count) {
                     word.setAttribute("data-count", count);
-                    word.title = count + (count > 1 ? " reasons are" : " reason is") +
-                        " about this word";
+                    word.title = interpolate(ngettext("%(count)s reason is about this word",
+                                                      "%(count)s reasons are about this word",
+                                                      count), {count: count}, true);
                 } else {
                     word.removeAttribute("data-count");
-                    word.title = "ask what this word means";
+                    word.title = gettext("ask what this word means");
                 }
             });
         },
@@ -592,14 +594,14 @@
             var float = this.float = el("div", "live-float" + (HOVER ? " is-floating" : ""));
             float.appendChild(chips);
             float.appendChild(el("p", "live-hint live-aid",
-                HOVER ? "answer with :: everyone here sees you type"
-                      : "choose how your reason answers the claim :: everyone here sees you type"));
+                HOVER ? gettext("answer with :: everyone here sees you type")
+                      : gettext("choose how your reason answers the claim :: everyone here sees you type")));
             row.appendChild(float);
             var replay = el("div", "live-replay");
-            this.replayButton = button("link", "▶ replay session", "replay");
+            this.replayButton = button("link", "▶ " + gettext("replay session"), "replay");
             replay.appendChild(this.replayButton);
             this.speed = el("select", "replay-speed");
-            this.speed.setAttribute("aria-label", "replay speed");
+            this.speed.setAttribute("aria-label", gettext("replay speed"));
             [1, 4, 16].forEach(function (speed) {
                 var option = el("option", null, speed + "×");
                 option.value = speed;
@@ -611,7 +613,7 @@
             var claim = document.querySelector(".tree-contention");
             claim.parentNode.insertBefore(row, claim.nextSibling);
             claim.insertBefore(el("p", "live-aid aid-above",
-                                  "// click a word to ask what it means"), claim.firstChild);
+                                  "// " + gettext("click a word to ask what it means")), claim.firstChild);
         },
 
         // ---------------------------------------------------------- events
@@ -861,10 +863,11 @@
                 }
                 if (word) {
                     _this.hoverWord = word;
-                    text.textContent = "what do we mean by " + quote(word.textContent) + "?";
+                    text.textContent = interpolate(gettext("what do we mean by %(word)s?"),
+                                                   {word: quote(word.textContent)}, true);
                 } else if (node) {
                     _this.hoverKey = _this.keyOf(node);
-                    text.textContent = "type to answer";
+                    text.textContent = gettext("type to answer");
                 } else {
                     text.textContent = "";
                 }
@@ -970,7 +973,7 @@
         writingLabel: function (id) {
             var draft = id === "me" ? this.composer : this.drafts[id],
                 instrument = draft && this.instruments[draft.type];
-            return draft ? "writes" + (instrument ? " :: " + instrument.label : "") + "…" : null;
+            return draft ? gettext("writes") + (instrument ? " :: " + instrument.label : "") + "…" : null;
         },
 
         // -------------------------------------------------------- composer
@@ -1038,21 +1041,21 @@
             var textarea = composer.textarea = el("textarea", "composer-text");
             textarea.rows = 3;
             textarea.maxLength = this.config.maxLength;
-            textarea.setAttribute("aria-label", "reason");
+            textarea.setAttribute("aria-label", gettext("reason"));
             node.appendChild(textarea);
 
             var extras = el("div", "composer-extras");
-            extras.appendChild(button("link", "+ sources", "sources"));
-            extras.appendChild(button("link", "+ related claim", "related"));
+            extras.appendChild(button("link", "+ " + gettext("sources"), "sources"));
+            extras.appendChild(button("link", "+ " + gettext("related claim"), "related"));
             node.appendChild(extras);
             composer.sources = el("textarea", "composer-sources");
             composer.sources.rows = 2;
-            composer.sources.placeholder = "sources: links, books, people";
+            composer.sources.placeholder = gettext("sources: links, books, people");
             composer.sources.hidden = true;
             node.appendChild(composer.sources);
             composer.relatedInput = el("input", "composer-related");
             composer.relatedInput.type = "text";
-            composer.relatedInput.placeholder = "search a claim";
+            composer.relatedInput.placeholder = gettext("search a claim");
             composer.relatedInput.hidden = true;
             node.appendChild(composer.relatedInput);
             $(composer.relatedInput).autocomplete({
@@ -1070,11 +1073,11 @@
             });
 
             var foot = el("div", "composer-foot");
-            foot.appendChild(el("span", "composer-keys live-aid", "Enter adds :: Escape closes"));
+            foot.appendChild(el("span", "composer-keys live-aid", gettext("Enter adds :: Escape closes")));
             composer.counter = el("span", "composer-counter");
             foot.appendChild(composer.counter);
-            foot.appendChild(button("link", "cancel", "cancel"));
-            composer.submitButton = button("composer-submit", "add reason", "submit");
+            foot.appendChild(button("link", gettext("cancel"), "cancel"));
+            composer.submitButton = button("composer-submit", gettext("add reason"), "submit");
             foot.appendChild(composer.submitButton);
             node.appendChild(foot);
             composer.error = el("div", "composer-error");
@@ -1142,17 +1145,18 @@
                     .slice(composer.anchor.start, composer.anchor.end + 1)
                     .map(function (word) { return word.textContent; }).join(" ");
                 composer.anchor.text = words;
-                composer.anchorEl.appendChild(document.createTextNode("on "));
+                composer.anchorEl.appendChild(document.createTextNode(gettext("on") + " "));
                 composer.anchorEl.appendChild(el("strong", null, quote(words)));
                 composer.anchorEl.appendChild(document.createTextNode(" "));
                 composer.anchorEl.appendChild(button("link", "×", "clear-anchor"));
             } else if (semantic) {
-                composer.anchorEl.textContent = "Click the word that you want to question.";
+                composer.anchorEl.textContent = gettext("Click the word that you want to question.");
             }
 
             composer.textarea.placeholder = semantic
-                ? (composer.anchor ? "by " + quote(composer.anchor.text) + " we could mean …"
-                                   : "click a word first")
+                ? (composer.anchor ? interpolate(gettext("by %(word)s we could mean …"),
+                                                 {word: quote(composer.anchor.text)}, true)
+                                   : gettext("click a word first"))
                 : instrument.label + " …";
             this.updateCounter();
             this.markDrafting();
@@ -1188,7 +1192,7 @@
                 return;
             }
             composer.sending = true;
-            composer.submitButton.textContent = "adding…";
+            composer.submitButton.textContent = gettext("adding…");
             fetch(this.config.branchUrl, {
                 method: "POST",
                 credentials: "same-origin",
@@ -1209,7 +1213,7 @@
             }).then(function (response) {
                 return response.json().then(function (body) {
                     if (!response.ok) {
-                        throw new Error(body.error || "The reason was not added.");
+                        throw new Error(body.error || gettext("The reason was not added."));
                     }
                     return body;
                 });
@@ -1228,7 +1232,7 @@
                 }
             }).then(function () {
                 composer.sending = false;
-                composer.submitButton.textContent = "add reason";
+                composer.submitButton.textContent = gettext("add reason");
             });
         },
 
@@ -1279,9 +1283,10 @@
             var ghost = this.ghosts[from] || this.makeGhost(from);
             this.placeGhost(from);
             var instrument = this.instruments[draft.type] || {label: "", "class": ""},
-                name = this.presence.name(from) || draft.name || "someone";
+                name = this.presence.name(from) || draft.name || gettext("someone");
             ghost.node.className = "premise tree-node live-node ghost t-" + instrument["class"];
-            ghost.who.textContent = name + " writes :: " + instrument.label +
+            ghost.who.textContent = interpolate(gettext("%(name)s writes"), {name: name}, true) +
+                " :: " + instrument.label +
                 (draft.anchor && draft.anchor.text ? " " + quote(draft.anchor.text) : "");
             if (continuous) {
                 ghost.stream.push(draft.entries, this.drafts[from].text);
@@ -1353,9 +1358,9 @@
             var form = el("form", "live-report"),
                 select = el("select"),
                 reason = el("textarea");
-            form.appendChild(el("strong", null, "report fallacy"));
+            form.appendChild(el("strong", null, gettext("report fallacy")));
             select.name = "fallacy_type";
-            select.setAttribute("aria-label", "fallacy");
+            select.setAttribute("aria-label", gettext("fallacy"));
             this.config.fallacies.forEach(function (fallacy) {
                 var option = el("option", null, fallacy.label);
                 option.value = fallacy.type;
@@ -1365,11 +1370,11 @@
             reason.name = "reason";
             reason.rows = 3;
             reason.required = true;
-            reason.placeholder = "Why is this a fallacy?";
+            reason.placeholder = gettext("Why is this a fallacy?");
             form.appendChild(reason);
             var foot = el("div", "composer-foot");
-            foot.appendChild(button("link", "cancel", "report-cancel"));
-            var send = el("button", "composer-submit", "report");
+            foot.appendChild(button("link", gettext("cancel"), "report-cancel"));
+            var send = el("button", "composer-submit", gettext("report"));
             send.type = "submit";
             foot.appendChild(send);
             form.appendChild(foot);
@@ -1400,7 +1405,7 @@
                         var errors = body.errors || {};
                         throw new Error(Object.keys(errors).map(function (field) {
                             return errors[field].join(" ");
-                        }).join(" ") || "The report was not sent.");
+                        }).join(" ") || gettext("The report was not sent."));
                     }
                     _this.changed(key);
                 });
@@ -1434,12 +1439,12 @@
             textarea.value = text;
             textarea.rows = 3;
             textarea.maxLength = this.config.maxLength;
-            textarea.setAttribute("aria-label", "correct the reason");
+            textarea.setAttribute("aria-label", gettext("correct the reason"));
             editor.form.appendChild(textarea);
             var foot = el("div", "composer-foot");
-            foot.appendChild(el("span", "composer-keys live-aid", "Enter saves :: Escape closes"));
-            foot.appendChild(button("link", "cancel", "edit-cancel"));
-            editor.saveButton = button("composer-submit", "save", "edit-save");
+            foot.appendChild(el("span", "composer-keys live-aid", gettext("Enter saves :: Escape closes")));
+            foot.appendChild(button("link", gettext("cancel"), "edit-cancel"));
+            editor.saveButton = button("composer-submit", gettext("save"), "edit-save");
             foot.appendChild(editor.saveButton);
             editor.form.appendChild(foot);
             editor.error = el("div", "composer-error");
@@ -1497,7 +1502,7 @@
                 return;
             }
             editor.sending = true;
-            editor.saveButton.textContent = "saving…";
+            editor.saveButton.textContent = gettext("saving…");
             fetch(this.config.textUrl.replace("{id}", editor.key), {
                 method: "POST",
                 credentials: "same-origin",
@@ -1514,7 +1519,7 @@
                     return {};
                 }).then(function (body) {
                     if (!response.ok) {
-                        throw new Error(body.error || "The correction was not saved.");
+                        throw new Error(body.error || gettext("The correction was not saved."));
                     }
                 });
             }).then(function () {
@@ -1527,7 +1532,7 @@
                 }
             }).then(function () {
                 editor.sending = false;
-                editor.saveButton.textContent = "save";
+                editor.saveButton.textContent = gettext("save");
             });
         },
 
@@ -1544,7 +1549,7 @@
             this.closeEditor();
             var run = this.run = (this.run || 0) + 1;
             this.replaying = true;
-            this.replayButton.textContent = "■ stop";
+            this.replayButton.textContent = "■ " + gettext("stop");
             this.stopPlay = null;
             fetch(this.config.dataUrl + "?tbt=1", {credentials: "same-origin"})
                 .then(function (response) { return response.json(); })
@@ -1604,7 +1609,7 @@
             }
             this.ended = run;
             this.replaying = false;
-            this.replayButton.textContent = "▶ replay session";
+            this.replayButton.textContent = "▶ " + gettext("replay session");
             this.refresh();
         }
     };

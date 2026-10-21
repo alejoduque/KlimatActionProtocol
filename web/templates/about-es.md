@@ -1,58 +1,27 @@
-## Pensamiento Crítico
+## Qué es KLAP
 
-Pensamiento Crítico es el proceso intelectual disciplinado de activa y hábilmente conceptualizar, aplicar, analizar, sintetizar, y/o evaluar información recolectada de, o generada por, observación, experiencia, relfexión, razonamiento o comunicación, con una guía de creencia y acción. En su forma ejemplar: razones, profundidad, amplitud, y equalidad.
+KLAP (Klimat Action Protocol) es una herramienta libre para decidir en grupo. Los grupos la usan en campañas por el clima y en balances. Un balance es una revisión de lo que hizo un grupo, de lo que funcionó y de lo que va a hacer después.
 
-## Mapeado de argumentos
+## Cómo funciona
 
-<img style="width: 40%; margin-left: 4%;" align="right" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Whatley.png/800px-Whatley.png">
+1. Una persona escribe una afirmación.
+2. Otras personas agregan razones. Cada razón tiene un tipo: **porque** (a favor de la afirmación), **pero** (en contra de la afirmación) o **sin embargo** (más información o una condición).
+3. Las personas apoyan una razón, o reportan un error en ella (una falacia).
+4. KLAP calcula un peso para cada razón. Después muestra cuánto apoyo o cuánta objeción tiene la afirmación.
+5. El mapa muestra todas las razones como un árbol. El grupo ve en qué está de acuerdo y en qué no.
 
-El mapeado de argumentos es producir diagramas de razonamiento con "cajas y flechas", especialmente para argumentos y debates complejos. El mapeado de argumentos mejora nuestra habilidad de articular, comprender y comunicar razonamiento, por lo tanto promueve el pensamiento crítico.
+En el mapa, el estilo de la línea muestra el tipo de razón: línea continua = porque, línea doble = pero, línea de rayas = sin embargo.
 
-Se puede pensar el mapeado de argumentos como una jerarquía visual.
+## Idiomas
 
-El objetivo de Arguman.org es que los argumentos sean mapeados por los usuarios de forma efectiva.
+KLAP está en español y en inglés: cambia el idioma con «es | en» arriba. Cada afirmación tiene el idioma en que se escribió, y cada idioma tiene su propia lista de afirmaciones.
 
-## Quienes somos?
+## Permacomputación
 
-Arguman.org es un proyecto de código abierto desarrollado por la comunidad. Si quieres contribuir técnica o intelectualmente no dudes en contactarnos y visita el siguiente enlace en github.
+KLAP sigue los principios de la permacomputación. Usa pocos recursos y no rastrea a las personas. No hay cuentas: cada visita recibe un identificador anónimo. KLAP usa las fuentes del sistema, dos colores y nada de analítica.
 
-<https://github.com/arguman>
+Referencia: [Permacomputing Aesthetics](https://monoskop.org/images/6/6a/Mansoux_Aymeric_et_al_2023_Permacomputing_Aesthetics.pdf), Mansoux et al. (2023).
 
-## Equipo
-- [Fatih Erikli](http://fatiherikli.com) (fundador, desarrollador)
-- [Aybars Badur](https://twitter.com/aybarsbadur) (desarrollador)
-- [Tuna Vargı](http://tunavargi.com/) (desarrollador)
-- [Bahattin Çiniç](http://bahattincinic.com/) (desarrollador)
-- [Halil Kaya](http://halilkaya.net) (desarrollador app android)
-- [Ricardo Casares](http://analogic.al) (development, spanish translations)
+## Código
 
-## Contribuidores
-- [Kağan Yaldızkaya](https://dribbble.com/kagan) (design)
-- [Can Göktaş](https://twitter.com/cangokt) (front-end developer)
-- [Hüseyin Mert](https://twitter.com/hmert) (project management)
-- [Mehmet İnce](https://twitter.com/mdisec) (penetration test)
-- [Samet Aydemir](https://twitter.com/samet_aydemir) ([chrome plugin](https://chrome.google.com/webstore/detail/arguman/infgfejecdecnalkcjfemcibiponjban/related?hl=tr))
-- [Çağlar Bozkurt](http://caglarbozkurt.com) (android app developer)
-- [Ray](https://github.com/tvvocold) (Chinese translations)
-- [Jorge Barata](jorge.barata.gonzalez@gmail.com) (spanish translations)
-- Alejo Duque (spanish translations)
-
-Agradecemos también por el soporte intelectual durante el desarrollo de klap.altred.xyz a to Burak Arıkan y Kadir Akkara.
-
-## Prensa
-
-- [Webrazzi](http://webrazzi.com/2014/10/31/arguman-org-platform/)
-- [Verigazeteciligi](http://www.verigazeteciligi.com/arguman-org-arguman-analiz-ve-haritalama-platformu/)
-- [VenturesZone](http://ventureszone.com/girisimler/turk-girisimler/arguman-org-arguman-analiz-ve-haritalama-platformu/)
-- [Bigumigu](http://bigumigu.com/haber/bir-argumaniniz-mi-var-gecerliligini-tartisalim)
-- [Adaptasyon](http://adaptasyon.tumblr.com/post/105016798063/adaptasyon-4-d%C3%B6nem-2-b%C3%B6l%C3%BCm-argumanorg) (podcast)
-
-## Eventos
-- [Galatasaray University Debating Society](http://klap.altred.xyz/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
-- [FOSDEM 2016](https://archive.fosdem.org/2016/schedule/event/arguman/)
-
-## Donaciones
-Si quieres donar para mantener los costos de nuestros servidores: <br>
-<http://paypal.me/arguman>
-
-Si tienes una pregunta en general, sugerencias o una opinión, puedes escribirnos a: [argumananalizi@gmail.com](mailto:argumananalizi@gmail.com) 
+KLAP se basa en [Arguman](https://github.com/arguman/arguman.org), una plataforma de código abierto para mapas de argumentos. KLAP es parte de la [Permasoftware Assembly](https://alejoduque.github.io/permasoftware-assembly/). El código está en [GitHub](https://github.com/alejoduque/KlimatActionProtocol).

@@ -1,0 +1,257 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: KLAP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-21 18:30+0000\n"
+"PO-Revision-Date: 2026-10-21 18:00+0000\n"
+"Last-Translator: KLAP\n"
+"Language-Team: KLAP\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/js/assembly/live.js:457
+msgid "%(count)s reason is about this word"
+msgid_plural "%(count)s reasons are about this word"
+msgstr[0] "%(count)s razón es sobre esta palabra"
+msgstr[1] "%(count)s razones son sobre esta palabra"
+
+#: static/js/assembly/live.js:462
+msgid "ask what this word means"
+msgstr "pregunta qué significa esta palabra"
+
+#: static/js/assembly/live.js:597
+msgid "answer with :: everyone here sees you type"
+msgstr "responde con :: todas las personas aquí ven lo que escribes"
+
+#: static/js/assembly/live.js:598
+msgid ""
+"choose how your reason answers the claim :: everyone here sees you type"
+msgstr ""
+"escoge cómo tu razón responde a la afirmación :: todas las personas aquí ven"
+" lo que escribes"
+
+#: static/js/assembly/live.js:601 static/js/assembly/live.js.c:1612
+msgid "replay session"
+msgstr "repetir la sesión"
+
+#: static/js/assembly/live.js:604
+msgid "replay speed"
+msgstr "velocidad de la repetición"
+
+#: static/js/assembly/live.js:616
+msgid "click a word to ask what it means"
+msgstr "haz clic en una palabra para preguntar qué significa"
+
+#: static/js/assembly/live.js:866
+msgid "what do we mean by %(word)s?"
+msgstr "¿qué queremos decir con %(word)s?"
+
+#: static/js/assembly/live.js:870
+msgid "type to answer"
+msgstr "escribe para responder"
+
+#: static/js/assembly/live.js:976
+msgid "writes"
+msgstr "escribe"
+
+#: static/js/assembly/live.js:1044
+msgid "reason"
+msgstr "razón"
+
+#: static/js/assembly/live.js:1048
+msgid "sources"
+msgstr "fuentes"
+
+#: static/js/assembly/live.js:1049
+msgid "related claim"
+msgstr "afirmación relacionada"
+
+#: static/js/assembly/live.js:1053
+msgid "sources: links, books, people"
+msgstr "fuentes: enlaces, libros, personas"
+
+#: static/js/assembly/live.js:1058
+msgid "search a claim"
+msgstr "busca una afirmación"
+
+#: static/js/assembly/live.js:1076
+msgid "Enter adds :: Escape closes"
+msgstr "Enter agrega :: Escape cierra"
+
+#: static/js/assembly/live.js:1079 static/js/assembly/live.js.c:1376
+#: static/js/assembly/live.js:1446
+msgid "cancel"
+msgstr "cancelar"
+
+#: static/js/assembly/live.js:1080 static/js/assembly/live.js.c:1235
+msgid "add reason"
+msgstr "agregar razón"
+
+#: static/js/assembly/live.js:1148
+msgid "on"
+msgstr "sobre"
+
+#: static/js/assembly/live.js:1153
+msgid "Click the word that you want to question."
+msgstr "Haz clic en la palabra que quieres preguntar."
+
+#: static/js/assembly/live.js:1157
+msgid "by %(word)s we could mean …"
+msgstr "con %(word)s podríamos querer decir …"
+
+#: static/js/assembly/live.js:1159
+msgid "click a word first"
+msgstr "primero haz clic en una palabra"
+
+#: static/js/assembly/live.js:1195
+msgid "adding…"
+msgstr "agregando…"
+
+#: static/js/assembly/live.js:1216
+msgid "The reason was not added."
+msgstr "La razón no se agregó."
+
+#: static/js/assembly/live.js:1286
+msgid "someone"
+msgstr "alguien"
+
+#: static/js/assembly/live.js:1288
+msgid "%(name)s writes"
+msgstr "%(name)s escribe"
+
+#: static/js/assembly/live.js:1361
+msgid "report fallacy"
+msgstr "reportar falacia"
+
+#: static/js/assembly/live.js:1363
+msgid "fallacy"
+msgstr "falacia"
+
+#: static/js/assembly/live.js:1373
+msgid "Why is this a fallacy?"
+msgstr "¿Por qué es una falacia?"
+
+#: static/js/assembly/live.js:1377
+msgid "report"
+msgstr "reportar"
+
+#: static/js/assembly/live.js:1408
+msgid "The report was not sent."
+msgstr "El reporte no se envió."
+
+#: static/js/assembly/live.js:1442
+msgid "correct the reason"
+msgstr "corregir la razón"
+
+#: static/js/assembly/live.js:1445
+msgid "Enter saves :: Escape closes"
+msgstr "Enter guarda :: Escape cierra"
+
+#: static/js/assembly/live.js:1447 static/js/assembly/live.js.c:1535
+msgid "save"
+msgstr "guardar"
+
+#: static/js/assembly/live.js:1505
+msgid "saving…"
+msgstr "guardando…"
+
+#: static/js/assembly/live.js:1522
+msgid "The correction was not saved."
+msgstr "La corrección no se guardó."
+
+#: static/js/assembly/live.js:1552
+msgid "stop"
+msgstr "parar"
+
+#: static/js/assembly/presence.js:16
+msgid "Ascii sends only text. Your camera image stays on your computer."
+msgstr ""
+"Ascii envía solo texto. La imagen de tu cámara se queda en tu computador."
+
+#: static/js/assembly/presence.js:73
+msgid "present"
+msgstr "presentes"
+
+#: static/js/assembly/presence.js:74 static/js/assembly/presence.js.c:266
+msgid "connecting…"
+msgstr "conectando…"
+
+#: static/js/assembly/presence.js:76
+msgid "settings"
+msgstr "ajustes"
+
+#: static/js/assembly/presence.js:84
+msgid "your name"
+msgstr "tu nombre"
+
+#: static/js/assembly/presence.js:92 static/js/assembly/presence.js.c:353
+msgid "mic off"
+msgstr "micrófono apagado"
+
+#: static/js/assembly/presence.js:96
+msgid "camera"
+msgstr "cámara"
+
+#: static/js/assembly/presence.js:98
+msgid "no camera"
+msgstr "sin cámara"
+
+#: static/js/assembly/presence.js:98
+msgid "video"
+msgstr "video"
+
+#: static/js/assembly/presence.js:112
+msgid "show all video as ascii"
+msgstr "mostrar todo el video como ascii"
+
+#: static/js/assembly/presence.js:261
+msgid "only you :: send the address of this page to other people"
+msgstr "solo tú :: envía la dirección de esta página a otras personas"
+
+#: static/js/assembly/presence.js:262
+msgid "%(count)s here"
+msgstr "%(count)s aquí"
+
+#: static/js/assembly/presence.js:264
+msgid ""
+"offline :: you can add reasons, but other people do not see your typing"
+msgstr ""
+"sin conexión :: puedes agregar razones, pero otras personas no ven lo que "
+"escribes"
+
+#: static/js/assembly/presence.js:270
+msgid "enable sound"
+msgstr "activar el sonido"
+
+#: static/js/assembly/presence.js:340
+msgid "%(name)s (you)"
+msgstr "%(name)s (tú)"
+
+#: static/js/assembly/presence.js:342 static/js/assembly/presence.js.c:353
+msgid "mic on"
+msgstr "micrófono encendido"
+
+#: static/js/assembly/presence.js:342
+msgid "muted"
+msgstr "sin sonido"
+
+#: static/js/assembly/presence.js:432
+msgid ""
+"The browser cannot use the device. Give permission in the browser settings."
+msgstr ""
+"El navegador no puede usar el dispositivo. Dale permiso en los ajustes del "
+"navegador."
+
+#: static/js/assembly/presence.js:433
+msgid "No device (%(error)s). Camera and microphone need https or localhost."
+msgstr ""
+"No hay dispositivo (%(error)s). La cámara y el micrófono necesitan https o "
+"localhost."

@@ -22,6 +22,7 @@ nav ul#site-navigation, nav ul#site-navigation li { background: none; border: 0;
 nav ul#site-navigation li a, nav ul#site-navigation li a.new-argument-link { color: var(--ink); text-transform: lowercase; border: 0; text-decoration: underline; }
 nav ul#site-navigation li a:hover { color: var(--paper); }
 nav ul#site-navigation li + li:not(.inline-search)::before { content: ":: "; color: var(--meta); }
+nav ul#site-navigation li.language-switch a[aria-current] { font-weight: bold; text-decoration: none; }  /* the language of the page */
 .inline-search input { border: 0; border-bottom: 2px solid var(--ink); background: var(--paper); border-radius: 0; }
 
 /* landing text :: like the lead paragraph of the proposal */

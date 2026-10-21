@@ -6,7 +6,7 @@
 
 {% block extra-meta %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static "css/live.css" %}?v=14" />
+    <link rel="stylesheet" href="{% static "css/live.css" %}?v=15" />
 {% endblock %}
 
 {% block content %}
@@ -121,11 +121,13 @@
 {% endblock %}
 
 {% block extra-scripts %}
+{# the texts of the live map, in the language of the claim #}
+<script type="text/javascript" src="{% url "javascript_catalog" %}?language={{ LANGUAGE_CODE }}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/tbt.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/ascii.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/room.js" %}"></script>
-<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}"></script>
-<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/live.js" %}?v=9"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}?v=2"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/live.js" %}?v=10"></script>
 <script type="text/javascript">
     arguman.editMode = {{ edit_mode|yesno:"true,false" }};
     arguman.contention = {

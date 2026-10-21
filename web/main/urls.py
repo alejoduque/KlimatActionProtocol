@@ -3,8 +3,10 @@ from django.contrib import admin
 from django.contrib.sitemaps import views as sitemaps_views
 from django.views.decorators.cache import cache_page
 from django.views.generic import RedirectView
+from django.views.i18n import javascript_catalog
 
 from blog.sitemaps import BlogSitemap
+from i18n.views import set_language
 from nouns.views import ChannelDetail
 from profiles.sitemaps import ProfileSitemap
 from premises.sitemaps import ArgumentSitemap, PremiseSitemap
@@ -22,6 +24,10 @@ urlpatterns = patterns('',
     # without the slash these would be read as the name of a claim
     url(r'^(?P<page>admin|login)$',
         RedirectView.as_view(url='/%(page)s/', permanent=False)),
+    url(r'^language/(?P<code>[a-z]{2})$', set_language, name='set_language'),
+    # the texts of the live map in the language of the page
+    url(r'^jsi18n/$', javascript_catalog, {'packages': ('premises',)},
+        name='javascript_catalog'),
     url(r'^', include('newsfeed.urls')),
     url(r'^', include('premises.urls')),
     url(r'^', include('profiles.urls')),

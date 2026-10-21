@@ -22,7 +22,7 @@
             {{text.strip|safe|linebreaksbr}}
         {% endwith %}
         {% if premise.related_argument %}
-        <div class="related-argument">
+        <div class="related-argument" data-label="{% trans "related claim" %}">
             <a href="{{ premise.related_argument.absolute_url }}">{{ premise.related_argument.title }}</a>
         </div>
         {% endif %}
