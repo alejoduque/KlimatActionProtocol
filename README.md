@@ -34,6 +34,14 @@ It uses [chatb](https://r-w-x.org/r/chatb.git) (WebRTC rooms),
 [TBT](https://github.com/dyne/TBT) (Time Based Text). On a server, run
 `sudo bash realtime/install.sh` once. See [docs/live.md](docs/live.md).
 
+## Spaces
+
+A group gets a space behind a secret link: voice and video, a chat that keeps
+and categorizes files, notes written together like in etherpad, and the history
+of each session, like a wiki. People can bring meeting summaries from
+[anarlog](https://github.com/fastrepl/anarlog), which runs on their own
+computer. See [docs/spaces.md](docs/spaces.md).
+
 ## Running Locally (Docker)
 
 The easiest way to run the Climate Action Protocol locally is by using Docker.

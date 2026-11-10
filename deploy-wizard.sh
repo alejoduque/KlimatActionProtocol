@@ -758,6 +758,9 @@ BASE_DOMAIN = '$SERVER_NAME'
 # per-language subdomains.
 PREVENT_LANGUAGE_REDIRECTION = True
 DEFAULT_LANGUAGE = 'en'
+
+# files of the spaces: nginx sends them after Django checks the secret link
+SPACE_FILES_ACCEL = '/_space_files/'
 EOF
   chown "$APP_USER:$APP_USER" "$SETTINGS_LOCAL"
   chmod 600 "$SETTINGS_LOCAL"
@@ -823,6 +826,7 @@ EOF
 fi
 
 if [[ "$STAGE_NGINX" != "1" ]]; then
+  install -d -o "$APP_USER" -g "$APP_USER" -m 755 "$APP_DIR/space_files"
   if [[ "$VHOST_MODE" == "1" ]]; then
     # Subdomain virtual host on port 80 — coexists with other vhosts
     cat > /etc/nginx/sites-available/klap <<EOF
@@ -836,6 +840,11 @@ server {
     location /static/ {
         alias $STATIC_DIR/;
         expires 7d;
+    }
+
+    location /_space_files/ {
+        internal;
+        alias $APP_DIR/space_files/;
     }
 
     location / {
@@ -861,6 +870,11 @@ server {
     location /static/ {
         alias $STATIC_DIR/;
         expires 7d;
+    }
+
+    location /_space_files/ {
+        internal;
+        alias $APP_DIR/space_files/;
     }
 
     location / {

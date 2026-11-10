@@ -22,12 +22,14 @@ sitemaps = {
 
 urlpatterns = patterns('',
     # without the slash these would be read as the name of a claim
-    url(r'^(?P<page>admin|login)$',
+    url(r'^(?P<page>admin|login|spaces)$',
         RedirectView.as_view(url='/%(page)s/', permanent=False)),
     url(r'^language/(?P<code>[a-z]{2})$', set_language, name='set_language'),
     # the texts of the live map in the language of the page
     url(r'^jsi18n/$', javascript_catalog, {'packages': ('premises',)},
         name='javascript_catalog'),
+    # before the claims: their addresses take any word
+    url(r'^spaces/', include('spaces.urls')),
     url(r'^', include('newsfeed.urls')),
     url(r'^', include('premises.urls')),
     url(r'^', include('profiles.urls')),

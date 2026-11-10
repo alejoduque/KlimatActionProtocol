@@ -4,6 +4,10 @@ from profiles.models import Profile
 
 class GuestAuthenticationMiddleware(object):
     def process_request(self, request):
+        # anarlog's webhook deliveries are not people
+        if request.path.startswith('/spaces/hook/'):
+            return
+
         # We check if user is authenticated. In Django 1.7, user.is_authenticated() is a method
         if not request.user.is_authenticated():
             guest_id = request.COOKIES.get('guest_session_id')

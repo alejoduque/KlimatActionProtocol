@@ -34,6 +34,7 @@
         <ul id="site-navigation">
             <li><a href="{% url "about" %}">{% trans "about" %}</a></li>
             <li><a class="new-argument-link" href="{% url "new_argument" %}">{% trans "new claim" %}</a></li>
+            <li><a href="{% url "space_create" %}">{% trans "spaces" %}</a></li>
             {# the language selector: it comes back to this page #}
             {% get_current_language as current_language %}
             {% with next_path=request.get_full_path|urlencode %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "New space" %} | KLAP{% endblock %}
+
+{% block content %}
+<div class="container space-create">
+    <h2>{% trans "A space for your group" %}</h2>
+    <p>{% trans "Voice and video, a chat that keeps your files, notes that everyone writes together, and the history of each session." %}</p>
+    <p>{% trans "There are no accounts. You get a secret link, and whoever has the link is in the group." %}</p>
+    {% if error %}<p class="space-error" role="alert">{{ error }}</p>{% endif %}
+    <form method="post" action="{% url "space_create" %}">
+        {% csrf_token %}
+        {% if claim %}
+        <p>{% trans "For the claim:" %} <a href="{{ claim.get_absolute_url }}">{{ claim.title }}</a></p>
+        <input type="hidden" name="claim" value="{{ claim.slug }}">
+        {% endif %}
+        <p>
+            <label for="space-name">{% trans "Name of the space" %}</label><br>
+            <input id="space-name" name="name" maxlength="120" required autofocus>
+        </p>
+        <p><button type="submit">{% trans "Make the space" %}</button></p>
+    </form>
+</div>
+{% endblock %}

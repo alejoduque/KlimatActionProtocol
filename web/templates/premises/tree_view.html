@@ -36,6 +36,7 @@
             {% endif %}
             <a href="{% url "new_premise" contention.slug %}">{% trans "add reason" %}</a>
             {% endif %}
+            <a href="{% url "space_create" %}?claim={{ contention.slug }}">{% trans "open a space for this claim" %}</a>
         </div>
         <div class="root">
             <div class="connector root-connector"></div>

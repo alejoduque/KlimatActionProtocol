@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'newsfeed',
     'blog',
     'api',
+    'spaces',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -235,6 +236,24 @@ REALTIME_WS_URL = None
 # [{"urls": ["stun:turn.example.org:3478"]},
 #  {"urls": ["turn:turn.example.org:3478"], "username": "u", "credential": "p"}]
 ICE_SERVERS = []
+
+# Spaces (spaces/): files people share. Never served as static or media files:
+# only the view of a space gives them out, after it checks the secret link.
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'space_files')
+
+# nginx reads these files; by default big uploads could only be read by Django
+FILE_UPLOAD_PERMISSIONS = 0o644
+
+# Behind nginx, the internal location that serves MEDIA_ROOT, e.g.
+# '/_space_files/' (see docs/spaces.md). None: Django sends the files itself.
+SPACE_FILES_ACCEL = None
+
+SPACE_MAX_FILE_BYTES = 20 * 1024 * 1024  # nginx: client_max_body_size 20M
+SPACE_MAX_BYTES = 200 * 1024 * 1024
+SPACE_MAX_TEXT = 200000  # characters of one text, summary or notes
+SPACE_CREATE_PER_HOUR = 10
+SPACE_UPLOADS_PER_HOUR = 200
+SPACE_MESSAGES_PER_HOUR = 1000
 
 LOGGING = {
     'version': 1,

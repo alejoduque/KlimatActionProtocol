@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "History" %} :: {{ space.name }}{% endblock %}
+
+{% block extra-meta %}
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+    <link rel="stylesheet" href="{% static "css/spaces.css" %}?v=2" />
+{% endblock %}
+
+{% block content %}
+<div class="container space-log">
+    <h2>// {% trans "History of" %} {{ space.name }}</h2>
+    {% if session %}<p>{% trans "Session:" %} {{ session.title }} :: <a href="{% url "space_log" space.token %}">{% trans "the whole space" %}</a></p>{% endif %}
+    <p><a href="{{ space.get_absolute_url }}">{% trans "back to the space" %}</a></p>
+    <ol class="log-entries">
+        {% for entry in entries %}
+        <li>
+            <time datetime="{{ entry.created_at|date:"c" }}">{{ entry.created_at|date:"Y-m-d H:i" }}</time>
+            :: <strong>{{ entry.actor_name|default:"—" }}</strong>
+            :: {% if entry.action == "space_created" %}{% trans "made the space" %}
+            {% elif entry.action == "link_rotated" %}{% trans "changed the link" %}
+            {% elif entry.action == "session_started" %}{% trans "started the session" %}
+            {% elif entry.action == "session_ended" %}{% trans "ended the session" %}
+            {% elif entry.action == "item_added" %}{% trans "added" %}
+            {% elif entry.action == "item_edited" %}{% trans "edited" %}
+            {% elif entry.action == "item_removed" %}{% trans "removed" %}
+            {% elif entry.action == "item_filed" %}{% trans "filed in a session" %}
+            {% elif entry.action == "summary_imported" %}{% trans "imported the summary" %}
+            {% elif entry.action == "summary_updated" %}{% trans "updated the summary" %}
+            {% elif entry.action == "notes_on" %}{% trans "said that they are taking notes" %}
+            {% elif entry.action == "notes_off" %}{% trans "stopped taking notes" %}
+            {% elif entry.action == "anarlog_connected" %}{% trans "connected anarlog" %}
+            {% else %}{{ entry.action }}{% endif %}
+            {% if entry.detail %}:: {{ entry.detail }}{% endif %}
+        </li>
+        {% empty %}
+        <li>{% trans "Nothing yet." %}</li>
+        {% endfor %}
+    </ol>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

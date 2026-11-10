@@ -1115,3 +1115,387 @@ msgstr "Destacadas"
 #: templates/tabs.html:6
 msgid "New"
 msgstr "Nuevas"
+
+msgid "file"
+msgstr "archivo"
+
+msgid "screenshot"
+msgstr "captura de pantalla"
+
+msgid "pdf"
+msgstr "pdf"
+
+msgid "link"
+msgstr "enlace"
+
+msgid "text"
+msgstr "texto"
+
+msgid "meeting summary"
+msgstr "resumen de reunión"
+
+msgid "library"
+msgstr "biblioteca"
+
+msgid "chat"
+msgstr "chat"
+
+msgid "anarlog"
+msgstr "anarlog"
+
+msgid "name"
+msgstr "nombre"
+
+msgid "title"
+msgstr "título"
+
+msgid "The space needs a name."
+msgstr "El espacio necesita un nombre."
+
+msgid "Too many new spaces from this address. Try again later."
+msgstr "Demasiados espacios nuevos desde esta dirección. Inténtalo más tarde."
+
+msgid "Only who made the space can change its link."
+msgstr "Solo quien creó el espacio puede cambiar su enlace."
+
+msgid "space"
+msgstr "espacio"
+
+msgid "started"
+msgstr "inicio"
+
+msgid "ended"
+msgstr "fin"
+
+msgid "Notes"
+msgstr "Notas"
+
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "There is no file."
+msgstr "No hay ningún archivo."
+
+msgid "The file is too big."
+msgstr "El archivo es demasiado grande."
+
+msgid "Too many files from this address. Try again later."
+msgstr "Demasiados archivos desde esta dirección. Inténtalo más tarde."
+
+msgid "This space is full. Removed files count until an administrator deletes them."
+msgstr "Este espacio está lleno. Los archivos quitados cuentan hasta que una persona administradora los borre."
+
+msgid "KLAP does not accept this type of file."
+msgstr "KLAP no acepta este tipo de archivo."
+
+msgid "This is not a link that starts with http."
+msgstr "Esto no es un enlace que empiece por http."
+
+msgid "The text is empty."
+msgstr "El texto está vacío."
+
+msgid "The text is too long."
+msgstr "El texto es demasiado largo."
+
+msgid "The text needs a title."
+msgstr "El texto necesita un título."
+
+msgid "The categories are not valid."
+msgstr "Las categorías no son válidas."
+
+msgid "Only who added it or made the space can remove it."
+msgstr "Solo quien lo añadió o quien creó el espacio puede quitarlo."
+
+msgid "There is no such session."
+msgstr "Esa sesión no existe."
+
+msgid "The message is empty."
+msgstr "El mensaje está vacío."
+
+msgid "The message is too long."
+msgstr "El mensaje es demasiado largo."
+
+msgid "Too many messages. Wait a little."
+msgstr "Demasiados mensajes. Espera un poco."
+
+msgid "The notes are too long."
+msgstr "Las notas son demasiado largas."
+
+msgid "Copy the secret that starts with whsec_."
+msgstr "Copia el secreto que empieza por whsec_."
+
+msgid "spaces"
+msgstr "espacios"
+
+msgid "open a space for this claim"
+msgstr "abrir un espacio para esta afirmación"
+
+msgid "New space"
+msgstr "Espacio nuevo"
+
+msgid "A space for your group"
+msgstr "Un espacio para tu grupo"
+
+msgid "Voice and video, a chat that keeps your files, notes that everyone writes together, and the history of each session."
+msgstr "Voz y vídeo, un chat que guarda tus archivos, notas que se escriben entre todas las personas y la historia de cada sesión."
+
+msgid "There are no accounts. You get a secret link, and whoever has the link is in the group."
+msgstr "No hay cuentas. Recibes un enlace secreto, y quien tiene el enlace está en el grupo."
+
+msgid "For the claim:"
+msgstr "Para la afirmación:"
+
+msgid "Name of the space"
+msgstr "Nombre del espacio"
+
+msgid "Make the space"
+msgstr "Crear el espacio"
+
+msgid "History"
+msgstr "Historia"
+
+msgid "History of"
+msgstr "Historia de"
+
+msgid "Session:"
+msgstr "Sesión:"
+
+msgid "the whole space"
+msgstr "todo el espacio"
+
+msgid "back to the space"
+msgstr "volver al espacio"
+
+msgid "made the space"
+msgstr "creó el espacio"
+
+msgid "changed the link"
+msgstr "cambió el enlace"
+
+msgid "started the session"
+msgstr "inició la sesión"
+
+msgid "ended the session"
+msgstr "terminó la sesión"
+
+msgid "added"
+msgstr "añadió"
+
+msgid "edited"
+msgstr "editó"
+
+msgid "removed"
+msgstr "quitó"
+
+msgid "filed in a session"
+msgstr "archivó en una sesión"
+
+msgid "imported the summary"
+msgstr "importó el resumen"
+
+msgid "updated the summary"
+msgstr "actualizó el resumen"
+
+msgid "said that they are taking notes"
+msgstr "dijo que está tomando notas"
+
+msgid "stopped taking notes"
+msgstr "dejó de tomar notas"
+
+msgid "connected anarlog"
+msgstr "conectó anarlog"
+
+msgid "Nothing yet."
+msgstr "Todavía nada."
+
+msgid "people in this space"
+msgstr "personas en este espacio"
+
+msgid "A space needs JavaScript."
+msgstr "Un espacio necesita JavaScript."
+
+msgid "copy the secret link"
+msgstr "copiar el enlace secreto"
+
+msgid "new link"
+msgstr "enlace nuevo"
+
+msgid "history"
+msgstr "historia"
+
+msgid "files"
+msgstr "archivos"
+
+msgid "the claim"
+msgstr "la afirmación"
+
+msgid "session"
+msgstr "sesión"
+
+msgid "title of a new session"
+msgstr "título de una sesión nueva"
+
+msgid "start"
+msgstr "iniciar"
+
+msgid "end the session"
+msgstr "terminar la sesión"
+
+msgid "export .md"
+msgstr "exportar .md"
+
+msgid "its history"
+msgstr "su historia"
+
+msgid "meeting summaries with anarlog"
+msgstr "resúmenes de reuniones con anarlog"
+
+msgid "<a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener noreferrer\">Anarlog</a> is free software that you install on your computer. It records the sound of your computer, writes the words and makes a summary, without a bot in the call. KLAP cannot start it or see it. KLAP only receives the summary, when you give it."
+msgstr "<a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener noreferrer\">Anarlog</a> es software libre que instalas en tu computador. Graba el sonido de tu computador, escribe las palabras y hace un resumen, sin un bot en la llamada. KLAP no puede iniciarlo ni verlo. KLAP solo recibe el resumen, cuando tú lo das."
+
+msgid "Install"
+msgstr "Instalar"
+
+msgid "Get <a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener noreferrer\">anarlog for macOS, Windows or Linux</a>, and choose a local model if nothing should leave your computer. Check in a test call that it hears the other people, not only you."
+msgstr "Descarga <a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener noreferrer\">anarlog para macOS, Windows o Linux</a>, y elige un modelo local si nada debe salir de tu computador. Comprueba en una llamada de prueba que oye a las demás personas, no solo a ti."
+
+msgid "Before you record"
+msgstr "Antes de grabar"
+
+msgid "Ask everyone. Then press the button: everyone here sees that you are taking notes, and it stays in the history. KLAP cannot check this: it depends on your word."
+msgstr "Pregunta a todas las personas. Luego pulsa el botón: todas las personas aquí ven que tomas notas, y queda en la historia. KLAP no puede comprobarlo: depende de tu palabra."
+
+msgid "I'm taking notes"
+msgstr "Estoy tomando notas"
+
+msgid "start a session first"
+msgstr "primero inicia una sesión"
+
+msgid "Bring the summary here"
+msgstr "Trae el resumen aquí"
+
+msgid "In anarlog, export the meeting as Markdown, and drop the file here or paste the text. With its command line:"
+msgstr "En anarlog, exporta la reunión como Markdown, y suelta aquí el archivo o pega el texto. Con su línea de comandos:"
+
+msgid "the Markdown file"
+msgstr "el archivo Markdown"
+
+msgid "or paste the Markdown here"
+msgstr "o pega aquí el Markdown"
+
+msgid "the Markdown of the meeting"
+msgstr "el Markdown de la reunión"
+
+msgid "also keep the transcript, with the exact words of everyone. Everyone with the link can read it."
+msgstr "guardar también la transcripción, con las palabras exactas de todas las personas. Quien tenga el enlace puede leerla."
+
+msgid "file in this session"
+msgstr "archivar en esta sesión"
+
+msgid "or file summaries automatically"
+msgstr "o archivar los resúmenes automáticamente"
+
+msgid "In anarlog: Settings, Developers, Webhooks. Add this address (the site must use https). Anarlog shows a secret one time: paste it here. Summaries arrive while anarlog is open, in the session that is open here, or else in the latest one."
+msgstr "En anarlog: Settings, Developers, Webhooks. Añade esta dirección (el sitio debe usar https). Anarlog muestra un secreto una sola vez: pégalo aquí. Los resúmenes llegan mientras anarlog está abierto, a la sesión abierta aquí o, si no, a la más reciente."
+
+msgid "the webhook address"
+msgstr "la dirección del webhook"
+
+msgid "the secret of anarlog"
+msgstr "el secreto de anarlog"
+
+msgid "also keep transcripts"
+msgstr "guardar también las transcripciones"
+
+msgid "connect"
+msgstr "conectar"
+
+msgid "parts of the space"
+msgstr "partes del espacio"
+
+msgid "notes"
+msgstr "notas"
+
+msgid "search"
+msgstr "buscar"
+
+msgid "search the library"
+msgstr "buscar en la biblioteca"
+
+msgid "kind"
+msgstr "tipo"
+
+msgid "all kinds"
+msgstr "todos los tipos"
+
+msgid "screenshots"
+msgstr "capturas"
+
+msgid "links"
+msgstr "enlaces"
+
+msgid "texts"
+msgstr "textos"
+
+msgid "summaries"
+msgstr "resúmenes"
+
+msgid "category"
+msgstr "categoría"
+
+msgid "only this session"
+msgstr "solo esta sesión"
+
+msgid "a link, or a text"
+msgstr "un enlace o un texto"
+
+msgid "add"
+msgstr "añadir"
+
+msgid "or choose files"
+msgstr "o elige archivos"
+
+msgid "notes and documents"
+msgstr "notas y documentos"
+
+msgid "document"
+msgstr "documento"
+
+msgid "older versions"
+msgstr "versiones anteriores"
+
+msgid "bring this version back"
+msgstr "recuperar esta versión"
+
+msgid "the notes of this session"
+msgstr "las notas de esta sesión"
+
+msgid "find"
+msgstr "encontrar"
+
+msgid "search the chat"
+msgstr "buscar en el chat"
+
+msgid "all messages"
+msgstr "todos los mensajes"
+
+msgid "person"
+msgstr "persona"
+
+msgid "all people"
+msgstr "todas las personas"
+
+msgid "write, or drop or paste files"
+msgstr "escribe, o suelta o pega archivos"
+
+msgid "write a message"
+msgstr "escribe un mensaje"
+
+msgid "+ files"
+msgstr "+ archivos"
+
+msgid "send"
+msgstr "enviar"

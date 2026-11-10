@@ -255,3 +255,150 @@ msgid "No device (%(error)s). Camera and microphone need https or localhost."
 msgstr ""
 "No hay dispositivo (%(error)s). La cámara y el micrófono necesitan https o "
 "localhost."
+
+msgid "loading…"
+msgstr "cargando…"
+
+msgid "saved"
+msgstr "guardado"
+
+msgid "the notes did not load"
+msgstr "las notas no cargaron"
+
+msgid "not saved yet"
+msgstr "sin guardar todavía"
+
+msgid "another person saves these notes"
+msgstr "otra persona guarda estas notas"
+
+msgid "not saved :: trying again"
+msgstr "sin guardar :: intentando de nuevo"
+
+msgid "taking notes"
+msgstr "toma notas"
+
+msgid "That did not work. Try again."
+msgstr "Eso no funcionó. Inténtalo de nuevo."
+
+msgid "%(name)s shows a document to everyone"
+msgstr "%(name)s muestra un documento a todas las personas"
+
+msgid "End this session for everyone?"
+msgstr "¿Terminar esta sesión para todas las personas?"
+
+msgid "The link is copied. Whoever has it can enter this space."
+msgstr "El enlace está copiado. Quien lo tenga puede entrar en este espacio."
+
+msgid "The link of this space:"
+msgstr "El enlace de este espacio:"
+
+msgid "Make a new link? The old link stops working, and everyone needs the new one. An anarlog connection is not affected."
+msgstr "¿Crear un enlace nuevo? El anterior deja de funcionar y todas las personas necesitan el nuevo. Una conexión con anarlog no cambia."
+
+msgid "start a session to take notes"
+msgstr "inicia una sesión para tomar notas"
+
+msgid "no sessions yet"
+msgstr "todavía no hay sesiones"
+
+msgid "now"
+msgstr "ahora"
+
+msgid "all categories"
+msgstr "todas las categorías"
+
+msgid "%(used)s of %(max)s"
+msgstr "%(used)s de %(max)s"
+
+msgid "connected"
+msgstr "conectado"
+
+msgid "not connected"
+msgstr "sin conectar"
+
+msgid "I stopped taking notes"
+msgstr "Dejé de tomar notas"
+
+msgid "I'm taking notes"
+msgstr "Estoy tomando notas"
+
+msgid "suggested category"
+msgstr "categoría sugerida"
+
+msgid "+ category"
+msgstr "+ categoría"
+
+msgid "category"
+msgstr "categoría"
+
+msgid "pasted image"
+msgstr "imagen pegada"
+
+msgid "too big :: the limit is %(max)s"
+msgstr "demasiado grande :: el límite es %(max)s"
+
+msgid "close"
+msgstr "cerrar"
+
+msgid "The file is too big."
+msgstr "El archivo es demasiado grande."
+
+msgid "The connection failed."
+msgstr "La conexión falló."
+
+msgid "Nothing here yet. Drop files here or in the chat."
+msgstr "Aquí no hay nada todavía. Suelta archivos aquí o en el chat."
+
+msgid "show to everyone"
+msgstr "mostrar a todas las personas"
+
+msgid "Everyone in this space now sees this document."
+msgstr "Todas las personas en este espacio ven ahora este documento."
+
+msgid "cite in notes"
+msgstr "citar en las notas"
+
+msgid "add to this session"
+msgstr "añadir a esta sesión"
+
+msgid "download"
+msgstr "descargar"
+
+msgid "remove"
+msgstr "quitar"
+
+msgid "Remove this document from the space?"
+msgstr "¿Quitar este documento del espacio?"
+
+msgid "KLAP does not show this type of file. Download it to read it."
+msgstr "KLAP no muestra este tipo de archivo. Descárgalo para leerlo."
+
+msgid "edit"
+msgstr "editar"
+
+msgid "title"
+msgstr "título"
+
+msgid "text"
+msgstr "texto"
+
+msgid "history (%(count)s)"
+msgstr "historia (%(count)s)"
+
+msgid "Bring this version back? It becomes a new edit for everyone."
+msgstr "¿Recuperar esta versión? Será una edición nueva para todas las personas."
+
+msgid "no saved versions yet"
+msgstr "todavía no hay versiones guardadas"
+
+msgid "you"
+msgstr "tú"
+
+msgid "recording notes on their computer :: %(names)s"
+msgstr "grabando notas en su computador :: %(names)s"
+
+msgid "The summary is in this session."
+msgstr "El resumen está en esta sesión."
+
+msgid "Anarlog is connected. Click Test in anarlog to check."
+msgstr "Anarlog está conectado. Pulsa Test en anarlog para comprobarlo."

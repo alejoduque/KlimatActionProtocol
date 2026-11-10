@@ -1,0 +1,561 @@
+/* KLAP :: a space (static/js/assembly/space.js, pad.js)
+   Same rules as permasoftware.css: Courier, black on white, no colour,
+   "//" heads, "::" separators. Pictures are shown in greys, like the video. */
+
+.space {
+    padding: 8px 16px 16px;
+    box-sizing: border-box;
+}
+
+.space *, .space-create * {
+    box-sizing: border-box;
+}
+
+@media (min-width: 861px) {
+    .space {
+        margin-right: 176px;  /* the people strip of live.css */
+    }
+}
+
+.space [hidden] {
+    display: none !important;
+}
+
+.space button.link {
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--ink);
+    font-weight: normal;
+    text-transform: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.space button.link:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.space button:focus-visible,
+.space input:focus-visible,
+.space textarea:focus-visible,
+.space select:focus-visible,
+.space a:focus-visible {
+    outline: 2px dashed var(--ink);
+    outline-offset: 2px;
+}
+
+.space input:not([type]),
+.space input[type="search"],
+.space textarea,
+.space select {
+    width: 100%;
+    border: 1px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    padding: 3px 5px;
+    font-size: 14px;
+}
+
+.space-top,
+.session-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 14px;
+    margin-bottom: 6px;
+}
+
+.space-top h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.session-bar select {
+    width: auto;
+    max-width: 320px;
+}
+
+.session-bar #session-title {
+    width: 220px;
+}
+
+#session-start-tools {
+    display: inline-flex;
+    gap: 6px;
+}
+
+.doc-meta {
+    color: var(--meta);
+    font-size: 12.5px;
+    word-break: break-word;
+}
+
+.notes-banner {
+    margin: 6px 0;
+    padding: 4px 8px;
+    background: var(--ink);
+    color: var(--paper);
+    font-weight: bold;
+}
+
+.space-notice {
+    margin: 6px 0;
+    padding: 4px 8px;
+    border: 2px solid var(--ink);
+}
+
+.space-empty {
+    color: var(--meta);
+}
+
+/* ------------------------------------------------------------- anarlog */
+
+.anarlog {
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding: 4px 0;
+    margin: 6px 0 8px;
+    font-size: 14px;
+}
+
+.anarlog summary {
+    cursor: pointer;
+}
+
+.anarlog-steps li {
+    margin-bottom: 10px;
+}
+
+.anarlog code {
+    display: block;
+    background: var(--soft);
+    padding: 4px 6px;
+    margin: 4px 0;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+.anarlog-drop {
+    border: 1px dashed var(--ink);
+    padding: 6px;
+    margin: 4px 0;
+}
+
+/* --------------------------------------------------------------- panes */
+
+.pane-tabs {
+    display: none;
+}
+
+.space-panes {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(280px, 1.6fr) minmax(250px, 1.1fr);
+    gap: 14px;
+    height: calc(100vh - 205px);
+    min-height: 420px;
+}
+
+.pane {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.pane h3 {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.library-pane,
+.chat-pane {
+    position: relative;
+}
+
+.is-dropping {
+    outline: 3px dashed var(--ink);
+    outline-offset: 2px;
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.filters #library-search {
+    grid-column: 1 / -1;
+}
+
+.library-add {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 8px;
+    margin-bottom: 8px;
+}
+
+#library-items {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* --------------------------------------------------------------- cards */
+
+.doc-card {
+    border-left: 2px solid var(--ink);
+    padding: 2px 0 2px 8px;
+    margin: 6px 0;
+    font-size: 13.5px;
+    word-break: break-word;
+}
+
+.doc-card[data-kind="summary"] {
+    border-left-width: 6px;
+}
+
+.doc-preview {
+    display: block;
+    max-width: 100%;
+    max-height: 180px;
+    filter: grayscale(1);
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.doc-kind {
+    color: var(--meta);
+}
+
+.space button.doc-open {
+    text-align: left;
+    word-break: break-word;
+}
+
+.doc-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 3px;
+}
+
+.space button.chip {
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--ink);
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.space button.chip.is-set {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.space button.chip.is-suggested {
+    border-style: dashed;
+    color: var(--meta);
+}
+
+.space button.chip:hover {
+    background: var(--soft);
+    color: var(--ink);
+}
+
+.space input.chip-input {
+    width: 110px;
+    font-size: 12px;
+    padding: 0 4px;
+}
+
+/* -------------------------------------------------------------- centre */
+
+.centre-tabs {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 6px;
+}
+
+.space .centre-tabs button[aria-pressed="true"] {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.notes-view {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.centre-pane[data-view="document"] .notes-view,
+.centre-pane[data-view="notes"] .document-view {
+    display: none;
+}
+
+.pad-tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.space #pad-text {
+    flex: 1;
+    resize: none;
+    padding: 8px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.space #pad-text:disabled {
+    background: var(--soft);
+}
+
+.pad-history {
+    border: 1px dashed var(--ink);
+    padding: 6px;
+    margin-bottom: 6px;
+}
+
+.pad-history input[type="range"] {
+    width: 100%;
+    filter: grayscale(1);
+}
+
+.pad-history pre {
+    max-height: 24vh;
+    overflow: auto;
+    white-space: pre-wrap;
+    margin: 6px 0 0;
+}
+
+.document-view {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.document-head h3 {
+    margin: 0;
+    font-size: 18px;
+    word-break: break-word;
+}
+
+.document-head p {
+    margin: 0 0 4px;
+}
+
+.document-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 12px;
+    font-size: 13px;
+}
+
+.document-content {
+    margin: 10px 0;
+}
+
+.document-image {
+    max-width: 100%;
+    filter: grayscale(1);
+}
+
+.document-frame {
+    width: 100%;
+    height: 68vh;
+    border: 1px solid var(--ink);
+}
+
+.document-text {
+    word-break: break-word;
+}
+
+.document-text h1 { font-size: 18px; }
+.document-text h2 { font-size: 16px; }
+.document-text h3 { font-size: 15px; }
+
+.document-edit,
+.document-history {
+    margin: 8px 0;
+    font-size: 13.5px;
+}
+
+.document-edit summary,
+.document-history summary {
+    cursor: pointer;
+}
+
+.document-edit input,
+.document-edit textarea {
+    margin: 4px 0;
+}
+
+.revision-text {
+    white-space: pre-wrap;
+    background: var(--soft);
+    padding: 6px;
+    max-height: 30vh;
+    overflow: auto;
+}
+
+/* ---------------------------------------------------------------- chat */
+
+.chat-filters {
+    font-size: 13px;
+    margin-bottom: 4px;
+}
+
+.chat-filters summary {
+    cursor: pointer;
+}
+
+.chat-filters input,
+.chat-filters select {
+    margin-top: 3px;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    border-top: 1px solid var(--ink);
+}
+
+.chat-message {
+    padding: 5px 0;
+    font-size: 14px;
+    border-bottom: 1px dotted var(--meta);
+}
+
+.chat-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.chat-time {
+    color: var(--meta);
+    font-size: 11.5px;
+    white-space: nowrap;
+}
+
+.chat-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.upload-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 8px;
+    font-size: 12.5px;
+    padding: 2px 0;
+}
+
+.upload-name {
+    flex: 1 1 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.upload-bar {
+    width: 80px;
+    filter: grayscale(1);
+}
+
+.upload-row.is-error {
+    font-weight: bold;
+}
+
+.chat-form {
+    padding-top: 6px;
+}
+
+.chat-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+/* -------------------------------------------------------- other pages */
+
+.space-create input:not([type="hidden"]) {
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid var(--ink);
+    padding: 4px 6px;
+}
+
+.space-error {
+    border: 2px solid var(--ink);
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+.log-entries {
+    padding-left: 0;
+    list-style: none;
+    font-size: 14px;
+}
+
+.log-entries li {
+    padding: 3px 0;
+    border-bottom: 1px dotted var(--meta);
+    word-break: break-word;
+}
+
+/* -------------------------------------------------------------- narrow */
+
+@media (max-width: 860px) {
+    .space {
+        padding-bottom: 46vh;  /* the people strip is at the bottom */
+    }
+
+    .pane-tabs {
+        display: flex;
+        margin-bottom: 6px;
+    }
+
+    .pane-tabs button {
+        flex: 1;
+        padding: 6px 2px;
+        background: var(--paper);
+        color: var(--ink);
+        border: 1px solid var(--ink);
+    }
+
+    .pane-tabs button[aria-pressed="true"] {
+        background: var(--ink);
+        color: var(--paper);
+    }
+
+    .space-panes {
+        display: block;
+        height: auto;
+        min-height: 0;
+    }
+
+    .pane {
+        display: none;
+        height: calc(100vh - 330px);
+        min-height: 320px;
+    }
+
+    .space-panes[data-pane="library"] .library-pane,
+    .space-panes[data-pane="centre"] .centre-pane,
+    .space-panes[data-pane="chat"] .chat-pane {
+        display: flex;
+    }
+}
