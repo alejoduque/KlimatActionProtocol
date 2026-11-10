@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <section class="container">
+        <form action="{% url "auth_login" %}{% if next %}?next={{ next|urlencode }}{% endif %}" method="post">
+            <h2>// {% trans "log in" %}</h2>
+            <p class="helptext">
+                {% blocktrans trimmed %}
+                You do not need an account to take part: this browser is
+                already a guest. Log in only with an account that the
+                organizers gave you.
+                {% endblocktrans %}
+            </p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="{% trans "log in" %}" class="submit">
+        </form>
+    </section>
+{% endblock %}

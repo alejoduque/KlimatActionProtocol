@@ -13,7 +13,7 @@
 </ul>
 
 {% if contentions.exists or indirect_contentions.exists %}
-<h3>{% trans "Arguments" %}</h3>
+<h3>{% trans "Claims" %}</h3>
 <ul class="contentions relations">
     {% for contention in contentions|slice:":3" %}
     <li class="argument relation">

@@ -112,6 +112,10 @@
         },
         bindEvents: function () {
             $(document).keydown(function(e) {
+                // the arrow keys move the text cursor while typing
+                if ($(e.target).is("input, textarea, select, [contenteditable]")) {
+                    return;
+                }
                 switch(e.which) {
                     case 37:
                     this.left();
@@ -149,20 +153,19 @@
             setTimeout(function () {
                 $(this.info).fadeOut('slow');
             }.bind(this), 3000);
-            this.$el
-                .find(".tree-node")
-                .on('click', function (event) {
-                    this.select(
-                        $(event.target)
-                        .parents(".tree-branch")
-                        .first()
-                    )
-                }.bind(this));
+            this.$el.on('click', '.tree-node:not(.live-node)', function (event) {
+                this.select(
+                    $(event.target)
+                    .parents(".tree-branch")
+                    .first()
+                )
+            }.bind(this));
         }
     });
 
     arguman.DraggablePage = Class.extend({
         el: '#app',
+        notDraggable: 'input, textarea, select, button, a, label, .w, .live-node',
         clicked: false,
         click: {
             x: 0,
@@ -190,6 +193,9 @@
                     self.clicked && self.setScrollPosition(e);
                 },
                 'mousedown': function (e) {
+                    if ($(e.target).closest(self.notDraggable).length) {
+                        return;
+                    }
                     self.disableUserSelect();
                     self.clicked = e;
                     self.click.x = e.pageX;
@@ -221,7 +227,7 @@
                 var tree = $(el);
                 var max = tree
                             .find("> .tree-branch")
-                            .not(".collapsed")
+                            .not(".collapsed, .is-hidden")
                             .map(this.branchWidth.bind(this))
                             .toArray()
                             .reduce(arguman.utils.adder, 0);
@@ -327,7 +333,8 @@
             var branch = $(el);
             var node = branch.find("> .tree-node");
             var left = branch
-                        .prevAll()
+                        .prevAll(".tree-branch")
+                        .not(".is-hidden")
                         .map(this.branchWidth.bind(this))
                         .toArray()
                         .reduce(arguman.utils.adder, 0)
@@ -365,7 +372,8 @@
         },
 
         renderTree: function (tree, treeTop, treeLeft, level) {
-            var branches = tree.find("> .tree-branch");
+            tree.find("> .tree-branch.is-hidden").hide();
+            var branches = tree.find("> .tree-branch").not(".is-hidden");
             
             treeTop = treeTop || 40;
             treeLeft = treeLeft || 0;
@@ -428,10 +436,11 @@
         },
 
         setCenter: function (maxWidth) {
-            var left;
-            if (maxWidth + 300 < window.innerWidth) {
+            var left,
+                viewport = window.innerWidth - (this.reservedWidth ? this.reservedWidth() : 0);
+            if (maxWidth + 300 < viewport) {
                 var width = maxWidth + 254;
-                left = (window.innerWidth / 2 - width / 2);
+                left = (viewport / 2 - width / 2);
             } else {
                 left = 33;
             }
@@ -516,7 +525,7 @@
         },
 
         renderContentionHeader: function () {
-            var viewport = window.innerWidth,
+            var viewport = window.innerWidth - (this.reservedWidth ? this.reservedWidth() : 0),
                 rootPoint = $(".root"),
                 actions = $(".tree-contention-actions");
 
@@ -558,7 +567,8 @@
                 promises.push(promise)
             });
 
-            $.when.apply($, promises).then(function () {
+            // go on when every request has ended, also when one failed
+            $.when.apply($, promises).always(function () {
                 callback()
             })
 
@@ -572,6 +582,21 @@
                 this.renderTree(tree);
                 this.onRender();
                 this.showApp();
+            }.bind(this));
+        },
+
+        // replaces the map with new html from the server (?partial=tree);
+        // beforeRender runs after collapsing and before the layout, to put
+        // back what is not on the server yet (drafts being typed)
+        refresh: function (html, beforeRender, callback) {
+            $(".tree-container").html(html);
+            this.loadPartials(function () {
+                var tree = this.getRoot();
+                this.resetTreeWidth();
+                this.collapseTree(tree);
+                beforeRender && beforeRender();
+                this.renderTree(tree);
+                callback && callback();
             }.bind(this));
         },
 
@@ -766,7 +791,7 @@
 
     arguman.Timeline = Class.extend({
         el: "#timeline",
-        premises: ".tree-node",
+        premises: ".tree-node:not(.live-node)",
 
         init: function (options) {
             $.extend(this, options);
@@ -796,6 +821,8 @@
         },
 
         render: function () {
+            this.$premises = $(this.premises);
+            this.$el.empty();
             var premises = this.sortPremises();
             var barWidth = Math.max(
                 $('.tree-contention h3 span').width() + 62,

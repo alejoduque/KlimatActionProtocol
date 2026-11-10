@@ -11,13 +11,13 @@
 
         <ul class="time-filter">
             <li{% if request.GET.type == 'contentions' or not request.GET.type %} class="active"{% endif %}>
-                <a href="?keywords={{ request.GET.keywords }}&type=contentions">{% trans "contentions" %}</a>
+                <a href="?keywords={{ request.GET.keywords }}&type=contentions">{% trans "claims" %}</a>
             </li>
             <li{% if request.GET.type == 'users' %} class="active"{% endif %}>
                 <a href="?keywords={{ request.GET.keywords }}&type=users">{% trans "users" %}</a>
             </li>
             <li{% if request.GET.type == 'premises' %} class="active"{% endif %}>
-                <a href="?keywords={{ request.GET.keywords }}&type=premises">{% trans "premises" %}</a>
+                <a href="?keywords={{ request.GET.keywords }}&type=premises">{% trans "reasons" %}</a>
             </li>
         </ul>
         {% for item in results %}

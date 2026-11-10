@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import json
+import re
 from datetime import timedelta
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
@@ -8,20 +9,24 @@ from markdown2 import markdown
 
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.utils import timezone
+from django.utils import timezone, translation
 from django.db.models import Max, Sum
 from django.utils.timezone import now
 from django.http import HttpResponse, Http404
+from django.middleware.csrf import get_token
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
 from django.views.generic import DetailView, TemplateView, CreateView, View, RedirectView
 from django.views.generic.edit import UpdateView
-from django.utils.translation import get_language
+from django.utils.translation import get_language, ugettext as _
 from django.db.models import Count
 from django.shortcuts import render
 
 from blog.models import Post
-from premises.models import Contention, Premise, Report
+from premises.constants import MAX_PREMISE_CONTENT_LENGTH
+from premises.models import (Contention, Premise, Report, PREMISE_TYPES,
+                             PREMISE_CLASSES, PREMISE_HELP, SEMANTIC,
+                             FALLACY_TYPES)
 from premises.forms import (ArgumentCreationForm, PremiseCreationForm,
                             PremiseEditForm, ReportForm)
 from premises.signals import (added_premise_for_premise,
@@ -40,6 +45,16 @@ from i18n.utils import normalize_language_code
 
 def get_ip_address(request):
     return request.META.get('REMOTE_ADDR')
+
+
+def speak_language_of(request, contention):
+    """
+    With one address for all languages, a claim and its live map speak the
+    language of the claim.
+    """
+    if contention.language in settings.AVAILABLE_LANGUAGES:
+        translation.activate(contention.language)
+        request.LANGUAGE_CODE = contention.language
 
 
 class ContentionDetailView(DetailView):
@@ -88,20 +103,70 @@ class ContentionDetailView(DetailView):
             path=contention.get_absolute_url(),
             edit_mode=edit_mode,
             serialized=serialized,
+            live_config=self.get_live_config(contention),
             **kwargs)
+
+    def get_live_config(self, contention):
+        """
+        Settings for the live map (static/js/assembly/live.js): everyone on
+        the claim page sees what each person is typing as they type it, and
+        adds reasons in place. Voice, video and ascii video go peer to peer;
+        the realtime relay (realtime/) only forwards messages.
+        """
+        slug = contention.slug
+        config = {
+            "room": "klap:%s" % slug,
+            "wsUrl": settings.REALTIME_WS_URL,
+            "iceServers": settings.ICE_SERVERS,
+            "maxLength": MAX_PREMISE_CONTENT_LENGTH,
+            "treeUrl": "%s?partial=tree" % contention.get_absolute_url(),
+            "dataUrl": reverse("contention_live_json", args=[slug]),
+            "branchUrl": reverse("contention_branch", args=[slug]),
+            "tbtUrl": reverse("premise_tbt", args=[slug, 0])
+                .replace("/0/", "/{id}/"),
+            "reportUrl": reverse("report_premise", args=[slug, 0])
+                .replace("/0/", "/{id}/"),
+            "textUrl": reverse("premise_text", args=[slug, 0])
+                .replace("/0/", "/{id}/"),
+            "searchUrl": reverse("contentions_search"),
+            "csrfToken": get_token(self.request),
+            "instruments": [{"type": premise_type,
+                             "label": unicode(label),
+                             "class": PREMISE_CLASSES[premise_type],
+                             "help": unicode(PREMISE_HELP[premise_type])}
+                            for premise_type, label in PREMISE_TYPES],
+            "semanticType": SEMANTIC,
+            "fallacies": [{"type": fallacy_type, "label": unicode(label)}
+                          for fallacy_type, label in FALLACY_TYPES],
+        }
+        # escaped so the JSON can't close the <script> it is printed in
+        return json.dumps(config).replace("<", "\\u003c")
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        host = request.META['HTTP_HOST']
 
-        if not host.startswith(settings.AVAILABLE_LANGUAGES):
-            return redirect(self.object.get_full_url(), permanent=True)
+        if not getattr(settings, 'PREVENT_LANGUAGE_REDIRECTION', False):
+            host = request.META['HTTP_HOST']
 
-        if not normalize_language_code(get_language()) == self.object.language:
-            return redirect(self.object.get_full_url(), permanent=True)
+            if not host.startswith(settings.AVAILABLE_LANGUAGES):
+                return redirect(self.object.get_full_url(), permanent=True)
+
+            if not normalize_language_code(get_language()) == self.object.language:
+                return redirect(self.object.get_full_url(), permanent=True)
+        else:
+            speak_language_of(request, self.object)
 
         partial = request.GET.get('partial')
         level = request.GET.get('level')
+
+        if partial == "tree":
+            # the whole map, for live.js to refresh in place
+            return render(request, 'premises/tree.html', {
+                'premises': self.object.serialize(self.request.user)['premises'],
+                'serialized': {'slug': self.object.slug},
+                'level': 1,
+                'eager': True  # all levels at once: one request per refresh
+            })
 
         if partial:
             contention = self.object
@@ -617,7 +682,11 @@ class ArgumentUpdateView(LoginRequiredMixin, UpdateView):
         return contentions.filter(user=self.request.user)
 
     def form_valid(self, form):
+        old_title = form.initial.get("title") or u""
         response = super(ArgumentUpdateView, self).form_valid(form)
+        # the questions about words of the claim keep their words
+        move_anchors(form.instance.premises.filter(parent__isnull=True),
+                     old_title, form.instance.title)
         form.instance.update_sibling_counts()
         form.instance.nouns.clear()
         form.instance.save_nouns()
@@ -703,12 +772,15 @@ class PremiseEditView(LoginRequiredMixin, UpdateView):
 
     def get_queryset(self):
         premises = Premise.objects.all()
-        if self.request.user.is_superuser:
+        if self.request.user.is_superuser or self.request.user.is_staff:
             return premises
         return premises.filter(user=self.request.user)
 
     def form_valid(self, form):
+        old_text = form.initial.get("text") or u""
         response = super(PremiseEditView, self).form_valid(form)
+        move_anchors(form.instance.children.all(), old_text,
+                     form.instance.text)
         form.instance.argument.update_sibling_counts()
         return response
 
@@ -765,6 +837,16 @@ class PremiseCreationView(NextURLMixin, LoginRequiredMixin, CreateView):
             form.instance.get_absolute_url() +
             self.get_next_parameter()
         )
+
+    def get(self, request, *args, **kwargs):
+        # reasons are added in place on the claim page; the form stays for
+        # browsers without JavaScript (?form=1)
+        if not request.GET.get("form"):
+            parent = self.get_parent()
+            return redirect("%s?add=%s" % (
+                self.get_contention().get_absolute_url(),
+                parent.pk if parent else "root"))
+        return super(PremiseCreationView, self).get(request, *args, **kwargs)
 
     def get_contention(self):
         return get_object_or_404(Contention, slug=self.kwargs['slug'])
@@ -873,6 +955,12 @@ class ReportView(NextURLMixin, LoginRequiredMixin, CreateView):
             'reporter': self.request.user
         }
 
+    def form_invalid(self, form):
+        if self.request.is_ajax():
+            return HttpResponse(json.dumps({"errors": form.errors}),
+                                status=400, content_type="application/json")
+        return super(ReportView, self).form_invalid(form)
+
     def form_valid(self, form):
         contention = self.get_contention()
         premise = self.get_premise()
@@ -882,6 +970,9 @@ class ReportView(NextURLMixin, LoginRequiredMixin, CreateView):
         form.save()
         reported_as_fallacy.send(sender=self, report=form.instance)
         contention.update_premise_weights()
+        if self.request.is_ajax():
+            return HttpResponse(json.dumps({"id": form.instance.pk}),
+                                status=201, content_type="application/json")
         return redirect(
             premise.get_parent().get_absolute_url() +
             self.get_next_parameter() +
@@ -904,3 +995,345 @@ class RemoveReportView(NextURLMixin, LoginRequiredMixin, View):
             self.get_next_parameter() +
             "#%s" % premise.pk
         )
+
+
+class AssemblyRedirectView(RedirectView):
+    """The assembly page became the claim page itself."""
+    permanent = True
+
+    def get_redirect_url(self, *args, **kwargs):
+        return get_object_or_404(
+            Contention, slug=kwargs["slug"]).get_absolute_url()
+
+
+def display_name(user):
+    return user.first_name or "guest-%s" % user.username[:4]
+
+
+def serialize_branch(premise):
+    return {
+        "id": premise.id,
+        "parent": premise.parent_id,
+        "type": premise.premise_type,
+        "class": premise.premise_class(),
+        "label": unicode(premise.get_premise_type_display()),
+        "text": premise.text,
+        "anchor": premise.anchor(),
+        "author": {"id": premise.user_id,
+                   "name": display_name(premise.user)},
+        "date": premise.date_creation.isoformat(),
+        "weight": premise.weight,
+        "has_tbt": bool(premise.tbt),
+    }
+
+
+class LiveJSONView(DetailView):
+    """
+    The claim's reasons in the order they were added. With ?tbt=1 each
+    reason also carries its Time Based Text recording, to replay the session.
+    """
+    model = Contention
+
+    def render_to_response(self, context, **response_kwargs):
+        contention = self.object
+        premises = (contention.published_premises(ignore_parent=True)
+                    .select_related("user")
+                    .order_by("date_creation"))
+        with_tbt = bool(self.request.GET.get("tbt"))
+
+        def bundle(premise):
+            branch = serialize_branch(premise)
+            if with_tbt:
+                branch["tbt"] = json.loads(premise.tbt) if premise.tbt else None
+            return branch
+
+        return HttpResponse(json.dumps({
+            "contention": {
+                "id": contention.id,
+                "title": contention.title,
+                "slug": contention.slug,
+                "owner": contention.owner,
+                "author": {"id": contention.user_id,
+                           "name": display_name(contention.user)},
+            },
+            "premises": [bundle(premise) for premise in premises],
+        }), content_type="application/json")
+
+
+class PremiseTBTView(DetailView):
+    def get_queryset(self):
+        return Premise.objects.filter(argument__slug=self.kwargs["slug"],
+                                      is_approved=True)
+
+    def render_to_response(self, context, **response_kwargs):
+        return HttpResponse(self.object.tbt or "[]",
+                            content_type="application/json")
+
+
+def replay_tbt(recording, text=u""):
+    """
+    Applies a Time Based Text recording to `text` (empty by default) and
+    returns the resulting text, or None if the recording is malformed.
+    """
+    for entry in recording:
+        if not (isinstance(entry, list) and len(entry) == 4):
+            return None
+        delay, position, delete_count, inserted = entry
+        if not (isinstance(delay, int) and isinstance(position, int) and
+                isinstance(delete_count, int) and
+                isinstance(inserted, basestring)):
+            return None
+        if (delay < 0 or position < 0 or delete_count < 0 or
+                position + delete_count > len(text)):
+            return None
+        text = text[:position] + inserted + text[position + delete_count:]
+    return text
+
+
+def normalize_words(words):
+    return [re.sub(r"\W+", u"", word, flags=re.UNICODE).lower()
+            for word in words]
+
+
+def find_anchor(words, start, end, text):
+    """
+    Returns the (start, end) word span of `words` that `text` names. The
+    browser counts words in the rendered text, which can differ from the
+    stored markdown, so the span is checked against the words themselves and
+    looked up when it does not match.
+    """
+    wanted = [w for w in normalize_words(text.split()) if w]
+    if not wanted:
+        return None
+    if (0 <= start <= end < len(words) and
+            [w for w in normalize_words(words[start:end + 1]) if w] == wanted):
+        return start, end
+    normalized = normalize_words(words)
+    for i in range(len(words)):
+        if normalized[i:i + len(wanted)] == wanted:
+            return i, i + len(wanted) - 1
+    return None
+
+
+class BranchCreationView(LoginRequiredMixin, View):
+    """
+    Creates a reason from the live map. Expects a JSON body:
+    {"parent": id|null, "premise_type": int, "text": str,
+     "anchor": {"start": int, "end": int, "text": str|null}|null,
+     "tbt": [...]|null, "sources": str|null, "related_argument": id|null,
+     "name": str|null}
+    """
+    MAX_TBT_ENTRIES = 5000
+
+    def error(self, message):
+        return HttpResponse(json.dumps({"error": message}), status=400,
+                            content_type="application/json")
+
+    def post(self, request, slug):
+        contention = get_object_or_404(Contention, slug=slug)
+        speak_language_of(request, contention)
+
+        try:
+            data = json.loads(request.body)
+        except ValueError:
+            return self.error("invalid JSON")
+        if not isinstance(data, dict):
+            return self.error("invalid JSON")
+
+        premise_type = data.get("premise_type")
+        if premise_type not in dict(PREMISE_TYPES):
+            return self.error("unknown premise type")
+
+        text = data.get("text")
+        if not isinstance(text, basestring) or not text.strip():
+            return self.error(_("text is required"))
+        text = text.strip()
+        if len(text) > MAX_PREMISE_CONTENT_LENGTH:
+            return self.error(_("text is too long"))
+
+        parent = None
+        if data.get("parent") is not None:
+            try:
+                parent = contention.published_premises(
+                    ignore_parent=True).get(pk=data["parent"])
+            except (Premise.DoesNotExist, ValueError, TypeError):
+                return self.error("unknown parent")
+
+        premise = Premise(argument=contention, parent=parent,
+                          premise_type=premise_type, text=text,
+                          user=request.user, is_approved=True,
+                          ip_address=get_ip_address(request))
+
+        anchor = data.get("anchor")
+        if anchor:
+            if not isinstance(anchor, dict):
+                return self.error("invalid anchor")
+            words = premise.anchor_source_text().split()
+            start, end = anchor.get("start"), anchor.get("end")
+            if not (isinstance(start, int) and isinstance(end, int) and
+                    0 <= start <= end < len(words)):
+                return self.error(_("anchor is out of range"))
+            if isinstance(anchor.get("text"), basestring):
+                span = find_anchor(words, start, end, anchor["text"])
+                if span is None:
+                    return self.error(_("the word is not in the text"))
+                start, end = span
+            premise.anchor_start = start
+            premise.anchor_end = end
+            premise.anchor_text = u" ".join(words[start:end + 1])[:255]
+        elif premise_type == SEMANTIC:
+            return self.error(_("a semantic challenge needs a word"))
+
+        recording = data.get("tbt")
+        if (isinstance(recording, list) and
+                len(recording) <= self.MAX_TBT_ENTRIES and
+                replay_tbt(recording) is not None and
+                replay_tbt(recording).strip() == text):
+            # keep the recording only when it really produces the text
+            premise.tbt = json.dumps(recording, separators=(",", ":"))
+
+        sources = data.get("sources")
+        if isinstance(sources, basestring) and sources.strip():
+            premise.sources = sources.strip()[:2000]
+
+        related = data.get("related_argument")
+        if related is not None:
+            try:
+                premise.related_argument = Contention.objects.get(pk=related)
+            except (Contention.DoesNotExist, ValueError, TypeError):
+                return self.error(_("unknown related claim"))
+
+        name = data.get("name")
+        if isinstance(name, basestring) and name.strip():
+            request.user.first_name = name.strip()[:30]
+            request.user.save(update_fields=["first_name"])
+
+        premise.save()
+        contention.update_sibling_counts()
+
+        if parent:
+            added_premise_for_premise.send(sender=self, premise=premise)
+        else:
+            added_premise_for_contention.send(sender=self, premise=premise)
+
+        contention.date_modification = timezone.now()
+        contention.update_premise_weights()
+        contention.save()
+
+        premise = Premise.objects.select_related("user").get(pk=premise.pk)
+        return HttpResponse(json.dumps(serialize_branch(premise)),
+                            status=201, content_type="application/json")
+
+
+def common_ends(old, new):
+    """The length of the start and of the end that old and new share."""
+    prefix = 0
+    while (prefix < len(old) and prefix < len(new) and
+           old[prefix] == new[prefix]):
+        prefix += 1
+    suffix = 0
+    while (suffix < len(old) - prefix and suffix < len(new) - prefix and
+           old[len(old) - 1 - suffix] == new[len(new) - 1 - suffix]):
+        suffix += 1
+    return prefix, suffix
+
+
+def move_anchors(premises, old_text, new_text):
+    """
+    After a correction of old_text, points the anchors of `premises` (the
+    questions about its words) to the same words in new_text. Words before
+    and after the corrected part keep their anchor; an anchor on corrected
+    words goes to the words that replaced them.
+    """
+    old, new = old_text.split(), new_text.split()
+    prefix, suffix = common_ends(old, new)
+
+    def place(index, is_end):
+        if index < prefix:
+            return index
+        if index >= len(old) - suffix:
+            return index + len(new) - len(old)
+        return len(new) - suffix - 1 if is_end else prefix
+
+    for premise in premises.filter(anchor_start__isnull=False):
+        start = place(premise.anchor_start, False)
+        end = place(premise.anchor_end, True)
+        if not 0 <= start <= end < len(new):
+            continue  # its words were removed: the thread hangs from the node
+        premise.anchor_start = start
+        premise.anchor_end = end
+        premise.anchor_text = u" ".join(new[start:end + 1])[:255]
+        premise.save(update_fields=["anchor_start", "anchor_end",
+                                    "anchor_text"])
+
+
+class PremiseTextView(LoginRequiredMixin, View):
+    """
+    Corrects the text of a reason from the live map (a typo, a word).
+    Only its author (or the staff) can. Expects a JSON body:
+    {"text": str, "tbt": [...]|null}
+    "tbt" is the recording of the correction, from the old text. It is
+    added to the reason's recording, so a replay types the correction too.
+    """
+    MAX_TBT_ENTRIES = 5000
+    PAUSE = 1000  # ms before a correction without its own recording
+
+    def error(self, message):
+        return HttpResponse(json.dumps({"error": message}), status=400,
+                            content_type="application/json")
+
+    def post(self, request, slug, pk):
+        premises = Premise.objects.filter(argument__slug=slug)
+        if not (request.user.is_staff or request.user.is_superuser):
+            premises = premises.filter(user=request.user)
+        premise = get_object_or_404(premises, pk=pk)
+        speak_language_of(request, premise.argument)
+
+        try:
+            data = json.loads(request.body)
+        except ValueError:
+            return self.error("invalid JSON")
+        if not isinstance(data, dict):
+            return self.error("invalid JSON")
+
+        text = data.get("text")
+        if not isinstance(text, basestring):
+            return self.error(_("text is required"))
+        text = text.strip()
+        if not text and not premise.related_argument_id:
+            return self.error(_("text is required"))
+        if len(text) > MAX_PREMISE_CONTENT_LENGTH:
+            return self.error(_("text is too long"))
+
+        old_text = premise.text or u""
+        if text != old_text:
+            premise.text = text
+            premise.tbt = self.add_correction(premise.tbt, data.get("tbt"),
+                                              text)
+            premise.save()
+            move_anchors(premise.children.all(), old_text, text)
+
+        premise = Premise.objects.select_related("user").get(pk=premise.pk)
+        return HttpResponse(json.dumps(serialize_branch(premise)),
+                            content_type="application/json")
+
+    def add_correction(self, stored, correction, text):
+        """
+        The stored recording with the correction after it, so that it
+        produces `text`; None when there is no usable recording.
+        """
+        if not stored:
+            return None
+        recording = json.loads(stored)
+        old = replay_tbt(recording)
+        if old is None:
+            return None
+        if not (isinstance(correction, list) and correction and
+                len(recording) + len(correction) <= self.MAX_TBT_ENTRIES and
+                replay_tbt(correction, old) is not None and
+                replay_tbt(correction, old).strip() == text):
+            # no recording of the correction: one edit, after a pause
+            prefix, suffix = common_ends(old, text)
+            correction = [[self.PAUSE, prefix, len(old) - prefix - suffix,
+                           text[prefix:len(text) - suffix]]]
+        return json.dumps(recording + correction, separators=(",", ":"))

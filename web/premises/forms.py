@@ -12,6 +12,11 @@ class ArgumentCreationForm(FormRenderer, forms.ModelForm):
     class Meta:
         model = Contention
         fields = ['title', 'owner', 'sources']
+        labels = {
+            'title': _('Claim'),
+            'owner': _('Author'),
+            'sources': _('Sources'),
+        }
 
 
 class PremiseCreationForm(FormRenderer, forms.ModelForm):
@@ -19,6 +24,12 @@ class PremiseCreationForm(FormRenderer, forms.ModelForm):
     class Meta:
         model = Premise
         fields = ['premise_type', 'text', 'related_argument', 'sources']
+        labels = {
+            'premise_type': _('Type'),
+            'text': _('Reason'),
+            'related_argument': _('Related claim'),
+            'sources': _('Sources'),
+        }
         widgets = {
             'premise_type': forms.RadioSelect,
             'related_argument': forms.TextInput,
@@ -30,7 +41,7 @@ class PremiseCreationForm(FormRenderer, forms.ModelForm):
     def clean(self):
         form_data = self.cleaned_data
         if not form_data['related_argument'] and not form_data['text']:
-            raise ValidationError(_('You should write a premise or link an argument.'))
+            raise ValidationError(_('Write a reason or add a related claim.'))
         return form_data
 
 

@@ -140,18 +140,18 @@ class ProfileDetailView(BaseProfileDetailView):
             but = self.premise_count_by_user(user, target, OBJECTION)
             however = self.premise_count_by_user(user, target, SITUATION)
             total = because + but + however
+            if not total:
+                return None  # only answers of the other reason types
 
             return {
-                'user': profile,
+                'user': target,
                 'because': 100 * float(because) / total,
                 'but': 100 * float(but) / total,
                 'however': 100 * float(however) / total
             }
 
-        return [
-            make_bundle(profile)
-            for profile in profiles
-        ]
+        bundles = [make_bundle(profile) for profile in profiles]
+        return [bundle for bundle in bundles if bundle]
 
     def premise_count_by_user(self, user, target, premise_type):
         return Premise.objects.filter(

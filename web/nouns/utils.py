@@ -16,6 +16,7 @@ LOWER_MAP = {
 STEMMERS = {
     'en': snowballstemmer.stemmer('english'),
     'tr': snowballstemmer.stemmer('turkish'),
+    'es': snowballstemmer.stemmer('spanish'),
 }
 
 

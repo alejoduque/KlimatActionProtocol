@@ -1,18 +1,17 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
 <div class="container about content">
-    <h1>Söz konusu sayfayı bulamadık.</h1>
-    <p>
-        Ancak yine de aradıgınız şeyi bulmanız için size yardımcı olabiliriz.
-    </p>
+    <h1>// {% trans "We did not find this page." %}</h1>
+    <p>{% trans "Search for a claim:" %}</p>
 
     <form action="{% url "contentions_search" %}" class="search-form" style="padding: 0px">
-        <label for="id_q">Kelime: </label>
-        <input type="text" class="searchfield" style="width: 370px" name="keywords" />
-        </br></br>
-        <a href="{{ request.get_full_path }}" class="submit">Tekrar Dene</a> |
-        <a href='{% url "home" %}' class="submit">Anasayfaya Git</a>
+        <label for="id_keywords">{% trans "words:" %} </label>
+        <input type="text" class="searchfield" id="id_keywords" name="keywords" />
+        <br><br>
+        <a href="{{ request.get_full_path }}" class="submit">{% trans "Try again" %}</a> |
+        <a href='{% url "home" %}' class="submit">{% trans "Go to the home page" %}</a>
     </form>
 </div>
 {% endblock %}

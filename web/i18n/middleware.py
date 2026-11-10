@@ -2,6 +2,22 @@ from django.utils import translation
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils.translation import get_language_from_request
+from django.utils.translation.trans_real import parse_accept_lang_header
+
+
+def chosen_language(request):
+    """
+    The language that the person chose with the selector (a cookie), else
+    the first available language of the browser, else the default one.
+    """
+    codes = [request.COOKIES.get(settings.LANGUAGE_COOKIE_NAME) or ""]
+    codes += [code for code, quality in parse_accept_lang_header(
+        request.META.get("HTTP_ACCEPT_LANGUAGE", ""))]
+    for code in codes:
+        code = code.lower().split("-")[0]
+        if code in settings.AVAILABLE_LANGUAGES:
+            return code
+    return settings.DEFAULT_LANGUAGE
 
 
 class SubdomainLanguageMiddleware(object):
@@ -9,6 +25,9 @@ class SubdomainLanguageMiddleware(object):
     Set the language for the site based on the subdomain the request
     is being served on. For example, serving on 'fr.domain.com' would
     make the language French (fr).
+
+    With PREVENT_LANGUAGE_REDIRECTION all languages share one address,
+    and the language is the one of the selector (see chosen_language).
     """
     LANGUAGES = settings.AVAILABLE_LANGUAGES
 
@@ -41,7 +60,7 @@ class SubdomainLanguageMiddleware(object):
         language = host[0]
 
         if settings.PREVENT_LANGUAGE_REDIRECTION:
-            language = settings.DEFAULT_LANGUAGE
+            language = chosen_language(request)
         elif language not in self.LANGUAGES:
             return self.redirect_homepage(request)
 

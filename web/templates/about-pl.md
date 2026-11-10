@@ -37,7 +37,7 @@ Arguman.org to projekt open-source rozwijany przez społeczność. Jeśli chcesz
 - Alejo Duque (tłumaczenie hiszpańskie)
 - [Ricardo Casares](http://analogic.al) (tłumaczenie hiszpańskie)
 
-Składamy także serdeczne podziękowania Burakowi Arıkanowi & Kadirowi Akkara za wsparcie intelektualne w rozwijaniu arguman.org.
+Składamy także serdeczne podziękowania Burakowi Arıkanowi & Kadirowi Akkara za wsparcie intelektualne w rozwijaniu klap.altred.xyz.
 
 ## W sieci
 
@@ -48,7 +48,7 @@ Składamy także serdeczne podziękowania Burakowi Arıkanowi & Kadirowi Akkara 
 - [Adaptasyon](http://adaptasyon.tumblr.com/post/105016798063/adaptasyon-4-d%C3%B6nem-2-b%C3%B6l%C3%BCm-argumanorg) (podcast)
 
 ## Wydarzenia
-- [Galatasaray University Debating Society](http://arguman.org/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
+- [Galatasaray University Debating Society](http://klap.altred.xyz/blog/galatasaray-universitesi-munazara-egitimi-gunlerindeydik/)
 
 ## Wsparcie finansowe
 Jeśli chcesz pomóc nam w opłacaniu serwera: <br>

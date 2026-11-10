@@ -45,8 +45,8 @@
         <div class="user-detail">
         <ul class="tab-headers">
             <li{% if tab_name == "overview" %} class="active"{% endif %}><a href="{% url "auth_profile" profile.username %}">{% trans "Overview" %}</a></li>
-            <li{% if tab_name == "arguments" %} class="active"{% endif %}><a href="{% url "auth_profile_arguments" profile.username %}">{% trans "Arguments" %}</a></li>
-            <li{% if tab_name == "premises" %} class="active"{% endif %}><a href="{% url "auth_profile_premises" profile.username %}">{% trans "Premises" %}</a></li>
+            <li{% if tab_name == "arguments" %} class="active"{% endif %}><a href="{% url "auth_profile_arguments" profile.username %}">{% trans "Claims" %}</a></li>
+            <li{% if tab_name == "premises" %} class="active"{% endif %}><a href="{% url "auth_profile_premises" profile.username %}">{% trans "Reasons" %}</a></li>
             <li{% if tab_name == "fallacies" %} class="active"{% endif %}><a href="{% url "auth_profile_fallacies" profile.username %}">{% trans "Fallacy Reports" %}</a></li>
             <li class="actions-tab">
                 {% ifequal profile user %}
@@ -98,7 +98,7 @@
                 {% endif %}
             </div>
             <div class="overview-block most-loved">
-                <h3>{% trans "Most supported premises" %}</h3>
+                <h3>{% trans "Reasons with most support" %}</h3>
                 {% for premise in supported_premises %}
                     <div class="premise-stats">
                         <h2><a href="{{ premise.argument.get_absolute_url }}">{{ premise.argument.title }}</a></h2>
