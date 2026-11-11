@@ -17,6 +17,8 @@ STEMMERS = {
     'en': snowballstemmer.stemmer('english'),
     'tr': snowballstemmer.stemmer('turkish'),
     'es': snowballstemmer.stemmer('spanish'),
+    'it': snowballstemmer.stemmer('italian'),
+    'de': snowballstemmer.stemmer('german'),
 }
 
 

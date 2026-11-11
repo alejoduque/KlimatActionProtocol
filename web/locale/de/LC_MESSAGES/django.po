@@ -1,0 +1,1557 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: KLAP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-05 11:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: KLAP\n"
+"Language-Team: KLAP\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: blog/admin.py:18
+msgid "Publish selected posts"
+msgstr "Ausgewählte Beiträge veröffentlichen"
+
+#: blog/admin.py:22
+msgid "Mark as draft selected posts"
+msgstr "Ausgewählte Beiträge als Entwurf markieren"
+
+#: blog/models.py:21
+msgid "Name"
+msgstr "Name"
+
+#: blog/models.py:22
+msgid "Slug"
+msgstr "Slug"
+
+#: blog/models.py:23
+msgid "Content"
+msgstr "Inhalt"
+
+#: blog/models.py:26 premises/models.py:524
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: i18n/humanize.py:10
+#, python-format
+msgid "a second ago"
+msgid_plural "%(count)s seconds ago"
+msgstr[0] "vor einer Sekunde"
+msgstr[1] "vor %(count)s Sekunden"
+
+#: i18n/humanize.py:11
+#, python-format
+msgid "a minute ago"
+msgid_plural "%(count)s minutes ago"
+msgstr[0] "vor einer Minute"
+msgstr[1] "vor %(count)s Minuten"
+
+#: i18n/humanize.py:12
+#, python-format
+msgid "an hour ago"
+msgid_plural "%(count)s hours ago"
+msgstr[0] "vor einer Stunde"
+msgstr[1] "vor %(count)s Stunden"
+
+#: nouns/models.py:172
+msgid "is a"
+msgstr "ist ein"
+
+#: nouns/models.py:173
+msgid "part of"
+msgstr "Teil von"
+
+#: nouns/models.py:174 nouns/models.py:198
+msgid "opposite with"
+msgstr "Gegenteil von"
+
+#: nouns/models.py:196 nouns/models.py:197
+msgid "whole of"
+msgstr "Ganzes von"
+
+#: premises/forms.py:16
+msgid "Claim"
+msgstr "Behauptung"
+
+#: premises/forms.py:17
+msgid "Author"
+msgstr "Autor*in"
+
+#: premises/forms.py:18 premises/forms.py:31 premises/models.py:126
+#: premises/models.py:517
+msgid "Sources"
+msgstr "Quellen"
+
+#: premises/forms.py:28
+msgid "Type"
+msgstr "Typ"
+
+#: premises/forms.py:29 premises/models.py:769
+msgid "Reason"
+msgstr "Grund"
+
+#: premises/forms.py:30
+msgid "Related claim"
+msgstr "Verwandte Behauptung"
+
+#: premises/forms.py:44
+msgid "Write a reason or add a related claim."
+msgstr "Schreibe einen Grund oder füge eine verwandte Behauptung hinzu."
+
+#: premises/models.py:46 templates/premises/contention.html:6
+#: templates/premises/contention_list.html:13
+#: templates/premises/thread.html:29
+msgid "but"
+msgstr "aber"
+
+#: premises/models.py:47 templates/premises/contention.html:5
+#: templates/premises/contention_list.html:12
+#: templates/premises/thread.html:34
+msgid "because"
+msgstr "weil"
+
+#: premises/models.py:48 templates/premises/contention.html:7
+#: templates/premises/contention_list.html:14
+#: templates/premises/thread.html:39
+msgid "however"
+msgstr "allerdings"
+
+#: premises/models.py:49
+msgid "and so"
+msgstr "und daher"
+
+#: premises/models.py:50
+msgid "on the contrary"
+msgstr "im Gegenteil"
+
+#: premises/models.py:51
+msgid "in other words"
+msgstr "mit anderen Worten"
+
+#: premises/models.py:52
+msgid "what do we mean by"
+msgstr "was meinen wir mit"
+
+#: premises/models.py:53
+msgid "what if"
+msgstr "was wäre, wenn"
+
+#: premises/models.py:70
+msgid "a reason against the claim"
+msgstr "ein Grund gegen die Behauptung"
+
+#: premises/models.py:71
+msgid "a reason that supports the claim"
+msgstr "ein Grund, der die Behauptung stützt"
+
+#: premises/models.py:72
+msgid "more information or a condition"
+msgstr "mehr Informationen oder eine Bedingung"
+
+#: premises/models.py:73
+msgid "a result of the claim; it takes the claim further"
+msgstr "eine Folge der Behauptung; sie führt die Behauptung weiter"
+
+#: premises/models.py:74
+msgid "the opposite claim"
+msgstr "die gegenteilige Behauptung"
+
+#: premises/models.py:75
+msgid "the claim in different words, to make sure that you understand it"
+msgstr ""
+"die Behauptung mit anderen Worten, um sicherzugehen, dass du sie verstehst"
+
+#: premises/models.py:76
+msgid "a question about the meaning of one word"
+msgstr "eine Frage zur Bedeutung eines Wortes"
+
+#: premises/models.py:77
+msgid "a different possibility"
+msgstr "eine andere Möglichkeit"
+
+#: premises/models.py:87
+msgid "Begging The Question"
+msgstr "Zirkelschluss"
+
+#: premises/models.py:88
+msgid "Irrelevant Conclusion"
+msgstr "Irrelevante Schlussfolgerung"
+
+#: premises/models.py:89
+msgid "Fallacy Of Irrelevant Purpose"
+msgstr "Fehlschluss des irrelevanten Zwecks"
+
+#: premises/models.py:90
+msgid "Fallacy Of Red Herring"
+msgstr "Ablenkungsmanöver"
+
+#: premises/models.py:91
+msgid "Argument Against TheMan"
+msgstr "Argument gegen die Person"
+
+#: premises/models.py:92
+msgid "Poisoning The Well"
+msgstr "Brunnenvergiftung"
+
+#: premises/models.py:93
+msgid "Fallacy Of The Beard"
+msgstr "Fehlschluss des Bartes"
+
+#: premises/models.py:94
+msgid "Fallacy Of Slippery Slope"
+msgstr "Dammbruchargument"
+
+#: premises/models.py:95
+msgid "Fallacy Of False Cause"
+msgstr "Falsche Ursache"
+
+#: premises/models.py:96
+msgid "Fallacy Of Previous This"
+msgstr "Post hoc"
+
+#: premises/models.py:97
+msgid "Joint Effect"
+msgstr "Gemeinsame Ursache"
+
+#: premises/models.py:98
+msgid "Wrong Direction"
+msgstr "Verkehrte Kausalrichtung"
+
+#: premises/models.py:99
+msgid "False Analogy"
+msgstr "Falsche Analogie"
+
+#: premises/models.py:100
+msgid "Slothful Induction"
+msgstr "Nachlässige Induktion"
+
+#: premises/models.py:101
+msgid "Appeal To Belief"
+msgstr "Berufung auf den Glauben"
+
+#: premises/models.py:102
+msgid "Pragmatic Fallacy"
+msgstr "Pragmatischer Fehlschluss"
+
+#: premises/models.py:103
+msgid "Fallacy Of Is To Ought"
+msgstr "Sein-Sollen-Fehlschluss"
+
+#: premises/models.py:104
+msgid "Argument From Force"
+msgstr "Argument der Gewalt"
+
+#: premises/models.py:105
+msgid "Argument To Pity"
+msgstr "Appell an das Mitleid"
+
+#: premises/models.py:106
+msgid "Prejudicial Language"
+msgstr "Voreingenommene Sprache"
+
+#: premises/models.py:107
+msgid "Fallacy Of Special Pleading"
+msgstr "Sonderregel"
+
+#: premises/models.py:108
+msgid "Appeal To Authority"
+msgstr "Autoritätsargument"
+
+#: premises/models.py:114
+msgid "Argument"
+msgstr "Argument"
+
+#: premises/models.py:118
+msgid "Description"
+msgstr "Beschreibung"
+
+#: premises/models.py:122
+msgid "Original Discourse"
+msgstr "Ursprünglicher Text"
+
+#: premises/models.py:504
+msgid "Parent"
+msgstr "Übergeordneter Grund"
+
+#: premises/models.py:505
+msgid ""
+"The parent of premise. If you don't choose anything, it will be a main "
+"premise."
+msgstr ""
+"Der übergeordnete Grund. Wenn du nichts wählst, wird es ein Hauptgrund."
+
+#: premises/models.py:509
+msgid "Premise Type"
+msgstr "Art des Grundes"
+
+#: premises/models.py:513
+msgid "Premise Content"
+msgstr "Inhalt des Grundes"
+
+#: premises/models.py:521
+msgid "Related Argument"
+msgstr "Verwandtes Argument"
+
+#: premises/models.py:522
+msgid "You can also associate your premise with an argument."
+msgstr "Du kannst deinen Grund auch mit einem Argument verknüpfen."
+
+#: premises/models.py:770
+msgid "Please explain that why the premise is a fallacy."
+msgstr "Bitte erkläre, warum dieser Grund ein Fehlschluss ist."
+
+#: premises/models.py:772
+msgid "Fallacy Type"
+msgstr "Art des Fehlschlusses"
+
+#: premises/views.py:1149 premises/views.py:1301 premises/views.py:1304
+msgid "text is required"
+msgstr "Text ist erforderlich"
+
+#: premises/views.py:1152 premises/views.py:1306
+msgid "text is too long"
+msgstr "Der Text ist zu lang"
+
+#: premises/views.py:1175
+msgid "anchor is out of range"
+msgstr "Die Position liegt außerhalb des Textes"
+
+#: premises/views.py:1179
+msgid "the word is not in the text"
+msgstr "Das Wort steht nicht im Text"
+
+#: premises/views.py:1185
+msgid "a semantic challenge needs a word"
+msgstr "Eine Frage zur Bedeutung braucht ein Wort"
+
+#: premises/views.py:1204
+msgid "unknown related claim"
+msgstr "Unbekannte verwandte Behauptung"
+
+#: profiles/forms.py:22
+msgid "Username"
+msgstr "Benutzername"
+
+#: profiles/forms.py:24
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Erforderlich. Höchstens 30 Zeichen. Nur Buchstaben, Ziffern und @/./+/-/_."
+
+#: profiles/forms.py:26
+msgid "Invalid characters"
+msgstr "Ungültige Zeichen"
+
+#: profiles/forms.py:54
+msgid "The two password fields didn't match."
+msgstr "Die beiden Passwörter stimmen nicht überein."
+
+#: profiles/forms.py:62 templates/auth/password_reset_confirm.html:12
+msgid "New password"
+msgstr "Neues Passwort"
+
+#: profiles/forms.py:66
+msgid "New password confirmation"
+msgstr "Neues Passwort bestätigen"
+
+#: profiles/models.py:22
+msgid "email notification"
+msgstr "E-Mail-Benachrichtigung"
+
+#: templates/404.html:6
+msgid "We did not find this page."
+msgstr "Diese Seite haben wir nicht gefunden."
+
+#: templates/404.html:7
+msgid "Search for a claim:"
+msgstr "Suche eine Behauptung:"
+
+#: templates/404.html:10
+msgid "words:"
+msgstr "Wörter:"
+
+#: templates/404.html:13 templates/500.html:11
+msgid "Try again"
+msgstr "Erneut versuchen"
+
+#: templates/404.html:14 templates/500.html:13
+msgid "Go to the home page"
+msgstr "Zur Startseite"
+
+#: templates/500.html:9
+msgid "An error occurred. We are sorry."
+msgstr "Ein Fehler ist aufgetreten. Das tut uns leid."
+
+#: templates/500.html:12
+msgid "Report the error"
+msgstr "Fehler melden"
+
+#: templates/auth/fallacies.html:28 templates/auth/premises.html:44
+#: templates/fallacies.html:29 templates/newsfeed.html:39
+#: templates/premises/contention_list.html:67
+msgid "Load more"
+msgstr "Mehr laden"
+
+#: templates/auth/login.html:7 templates/auth/login.html.py:17
+msgid "log in"
+msgstr "anmelden"
+
+#: templates/auth/login.html:9
+msgid ""
+"You do not need an account to take part: this browser is already a guest. "
+"Log in only with an account that the organizers gave you."
+msgstr ""
+"Du brauchst kein Konto, um mitzumachen: Dieser Browser ist bereits Gast. "
+"Melde dich nur mit einem Konto an, das du von den Organisierenden erhalten "
+"hast."
+
+#: templates/auth/login_popup.html:6
+#, python-format
+msgid ""
+"<a href=\"%(login_url)s\">Login</a> or <a "
+"href=\"%(register_url)s\">register</a> to add a premise for this argument."
+msgstr ""
+"<a href=\"%(login_url)s\">Melde dich an</a> oder <a "
+"href=\"%(register_url)s\">registriere dich</a>, um diesem Argument einen "
+"Grund hinzuzufügen."
+
+#: templates/auth/password_reset_complete.html:8
+msgid "The password changed successfully."
+msgstr "Das Passwort wurde geändert."
+
+#: templates/auth/password_reset_complete.html:9
+msgid "Login"
+msgstr "Anmeldung"
+
+#: templates/auth/password_reset_confirm.html:7
+msgid "Enter your password"
+msgstr "Gib dein Passwort ein"
+
+#: templates/auth/password_reset_confirm.html:17
+msgid "New password (again)"
+msgstr "Neues Passwort (wiederholen)"
+
+#: templates/auth/password_reset_confirm.html:21
+msgid "Change my password"
+msgstr "Mein Passwort ändern"
+
+#: templates/auth/password_reset_confirm.html:25
+msgid "Invalid password reset url."
+msgstr "Ungültige Adresse zum Zurücksetzen des Passworts."
+
+#: templates/auth/password_reset_done.html:8
+msgid "We have sent an email to reset your password. Please check your inbox."
+msgstr ""
+"Wir haben dir eine E-Mail zum Zurücksetzen des Passworts geschickt. Bitte "
+"sieh in deinem Posteingang nach."
+
+#: templates/auth/password_reset_email.html:2
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at klap.altred.xyz"
+msgstr ""
+"Du erhältst diese E-Mail, weil du das Zurücksetzen des Passworts für dein "
+"Konto auf klap.altred.xyz angefordert hast"
+
+#: templates/auth/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr "Bitte öffne die folgende Seite und wähle ein neues Passwort:"
+
+#: templates/auth/password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr "Dein Benutzername, falls du ihn vergessen hast:"
+
+#: templates/auth/password_reset_form.html:7
+msgid "Reset Password"
+msgstr "Passwort zurücksetzen"
+
+#: templates/auth/password_reset_form.html:10
+#: templates/nouns/new_relation.html:37 templates/premises/new_premise.html:15
+msgid "Submit"
+msgstr "Absenden"
+
+#: templates/auth/premises.html:22 templates/auth/profile.html:115
+#: templates/search/premise.html:11 templates/stats/premise.html:11
+msgid "supporter."
+msgstr "Unterstützer*in."
+
+#: templates/auth/premises.html:27 templates/auth/profile.html:120
+#: templates/search/premise.html:16 templates/stats/premise.html:16
+msgid "fallacy report."
+msgstr "Fehlschluss-Meldung."
+
+#: templates/auth/premises.html:39 templates/auth/profile.html:76
+#: templates/auth/profile.html.py:95 templates/auth/profile.html:132
+msgid "No data."
+msgstr "Keine Daten."
+
+#: templates/auth/profile.html:19
+msgid "twitter"
+msgstr "twitter"
+
+#: templates/auth/profile.html:24
+msgid "date joined"
+msgstr "Beitrittsdatum"
+
+#: templates/auth/profile.html:30
+msgid "Following"
+msgstr "Folgt"
+
+#: templates/auth/profile.html:37
+msgid "Followers"
+msgstr "Follower"
+
+#: templates/auth/profile.html:47
+msgid "Overview"
+msgstr "Übersicht"
+
+#: templates/auth/profile.html:48 templates/nouns/partial.html:16
+msgid "Claims"
+msgstr "Behauptungen"
+
+#: templates/auth/profile.html:49
+msgid "Reasons"
+msgstr "Gründe"
+
+#: templates/auth/profile.html:50
+msgid "Fallacy Reports"
+msgstr "Fehlschluss-Meldungen"
+
+#: templates/auth/profile.html:53
+msgid "update profile"
+msgstr "Profil aktualisieren"
+
+#: templates/auth/profile.html:57
+msgid "Unfollow"
+msgstr "Nicht mehr folgen"
+
+#: templates/auth/profile.html:59
+msgid "Follow"
+msgstr "Folgen"
+
+#: templates/auth/profile.html:68
+msgid "Most active channels"
+msgstr "Aktivste Kanäle"
+
+#: templates/auth/profile.html:82
+msgid "Most discussed users"
+msgstr "Meistdiskutierte Personen"
+
+#: templates/auth/profile.html:101
+msgid "Reasons with most support"
+msgstr "Am meisten unterstützte Gründe"
+
+#: templates/auth/update.html:6
+msgid "Update Profile"
+msgstr "Profil aktualisieren"
+
+#: templates/auth/update.html:10
+msgid ""
+"You can update your profile picture on <a "
+"href=\"http://gravatar.com\">gravatar.com</a>."
+msgstr ""
+"Du kannst dein Profilbild auf <a "
+"href=\"http://gravatar.com\">gravatar.com</a> ändern."
+
+#: templates/auth/update.html:14 templates/premises/edit_contention.html:11
+#: templates/premises/edit_premise.html:10
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: templates/base.html:5
+msgid "Climate Activism Argument Analysis."
+msgstr "Argumentanalyse für Klimaaktivismus."
+
+#: templates/base.html:8
+msgid "A free tool for group decisions on climate action"
+msgstr "Ein freies Werkzeug für Gruppenentscheidungen zum Klimahandeln"
+
+#: templates/base.html:24
+msgid "Announcement:"
+msgstr "Ankündigung:"
+
+#: templates/base.html:35
+msgid "about"
+msgstr "über uns"
+
+#: templates/base.html:36
+msgid "new claim"
+msgstr "neue Behauptung"
+
+#: templates/base.html:47
+msgid "search keywords"
+msgstr "Stichwörter suchen"
+
+#: templates/base.html:60
+msgid ""
+"klap :: klimat action protocol :: free software, made with permacomputing "
+"principles"
+msgstr ""
+"klap :: klimat action protocol :: freie Software, nach den Prinzipien des "
+"Permacomputing"
+
+#: templates/base.html:65
+msgid ""
+"part of the <a href=\"https://alejoduque.github.io/permasoftware-"
+"assembly/\">permasoftware assembly</a>"
+msgstr ""
+"Teil der <a href=\"https://alejoduque.github.io/permasoftware-"
+"assembly/\">Permasoftware Assembly</a>"
+
+#: templates/fallacies.html:4 templates/tabs.html:8
+msgid "Fallacies"
+msgstr "Fehlschlüsse"
+
+#: templates/home.html:11
+#, python-format
+msgid ""
+"KLAP is a free tool for group decisions on climate action. <span "
+"class=\"how\">Write a claim. Add reasons: because, but, however. KLAP shows "
+"where the group agrees. <a href=\"%(about_url)s\">How it works</a>.</span>"
+msgstr ""
+"KLAP ist ein freies Werkzeug für Gruppenentscheidungen zum Klimahandeln. "
+"<span class=\"how\">Schreibe eine Behauptung. Füge Gründe hinzu: weil, aber,"
+" allerdings. KLAP zeigt, wo die Gruppe sich einig ist. <a "
+"href=\"%(about_url)s\">So funktioniert es</a>.</span>"
+
+#: templates/newsfeed.html:12
+msgid "What is going on here:"
+msgstr "Was hier passiert:"
+
+#: templates/newsfeed.html:16
+msgid "Show only followed users activity."
+msgstr "Nur Aktivität von Personen zeigen, denen ich folge."
+
+#: templates/newsfeed.html:18
+msgid "Show all users activity."
+msgstr "Aktivität aller Personen zeigen."
+
+#: templates/newsfeed.html:35
+msgid "Newsfeed seems empty."
+msgstr "Der Newsfeed scheint leer zu sein."
+
+#: templates/newsfeed/contention.html:2
+msgid "wrote a claim:"
+msgstr "hat eine Behauptung geschrieben:"
+
+#: templates/newsfeed/fallacy.html:4
+#, python-format
+msgid "reported <strong>%(fallacy)s</strong> for a premise."
+msgstr "hat <strong>%(fallacy)s</strong> bei einem Grund gemeldet."
+
+#: templates/newsfeed/following.html:3
+#, python-format
+msgid ""
+"following <a href=\"%(profile_url)s\" class=\"contention-"
+"link\">%(username)s</a>"
+msgstr "folgt <a href=\"%(profile_url)s\" class=\"contention-link\">%(username)s</a>"
+
+#: templates/newsfeed/premise.html:6
+msgid "connected to another claim"
+msgstr "mit einer anderen Behauptung verbunden"
+
+#: templates/notifications.html:8
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+#: templates/notifications/added-premise-for-contention.html:7
+#, python-format
+msgid "added a <span class=\"premise-type %(class)s\">%(label)s</span> premise"
+msgstr ""
+"hat einen Grund <span class=\"premise-type %(class)s\">%(label)s</span> "
+"hinzugefügt"
+
+#: templates/notifications/added-premise-for-premise.html:6
+#, python-format
+msgid ""
+"added a <span class=\"premise-type %(class)s\">%(label)s</span> premise for"
+msgstr ""
+"hat einen Grund <span class=\"premise-type %(class)s\">%(label)s</span> "
+"hinzugefügt zu"
+
+#: templates/notifications/followed.html:2
+msgid "is following you."
+msgstr "folgt dir."
+
+#: templates/notifications/reported-as-fallacy.html:4
+#, python-format
+msgid "Your premise reported as <strong>%(label)s</strong>"
+msgstr "Dein Grund wurde als <strong>%(label)s</strong> gemeldet"
+
+#: templates/notifications/supported-a-premise.html:6
+msgid "supported your reason"
+msgstr "hat deinen Grund unterstützt"
+
+#: templates/nouns/channel_detail.html:15
+msgid "Regular users"
+msgstr "Regelmäßige Teilnehmende"
+
+#: templates/nouns/detail.html:39 templates/nouns/partial.html:11
+msgid "add new relation"
+msgstr "neue Beziehung hinzufügen"
+
+#: templates/nouns/detail.html:52
+msgid "write a claim"
+msgstr "eine Behauptung schreiben"
+
+#: templates/nouns/new_relation.html:10
+msgid "New Relation"
+msgstr "Neue Beziehung"
+
+#: templates/nouns/new_relation.html:19
+msgid "Target noun (Singular)"
+msgstr "Zielsubstantiv (Singular)"
+
+#: templates/nouns/new_relation.html:22
+msgid "Relation types"
+msgstr "Beziehungstypen"
+
+#: templates/nouns/new_relation.html:23
+msgid ""
+"<p><b>Is a (hypernym and hyponym)</b> A type-of relationship between two "
+"types. For example <i>Organic Process</i> is the hypernym of "
+"<i>Evolution</i>.</p>"
+msgstr ""
+"<p><b>Ist ein (Hyperonym und Hyponym)</b> Eine Ist-ein-Beziehung zwischen "
+"zwei Begriffen. Zum Beispiel ist <i>Organischer Prozess</i> das Hyperonym "
+"von <i>Evolution</i>.</p>"
+
+#: templates/nouns/new_relation.html:27
+msgid ""
+"<p><b>Part of (holonymy and meronymy)</b> A part/whole relationship between "
+"two types. For example <i>Natural Selection</i> is the part of "
+"<i>Evolution</i></p>"
+msgstr ""
+"<p><b>Teil von (Holonymie und Meronymie)</b> Eine Teil-Ganzes-Beziehung "
+"zwischen zwei Begriffen. Zum Beispiel ist <i>Natürliche Selektion</i> ein "
+"Teil von <i>Evolution</i></p>"
+
+#: templates/nouns/new_relation.html:31
+msgid ""
+"<p><b>Opposite with (antonym)</b> The opposite meaning of the type. For "
+"example, <i>Evolution</i> and <i>Devolution</i></p>"
+msgstr ""
+"<p><b>Gegenteil von (Antonym)</b> Die gegenteilige Bedeutung des Begriffs. "
+"Zum Beispiel <i>Evolution</i> und <i>Devolution</i></p>"
+
+#: templates/partials/channel_list.html:9
+msgid "all channels"
+msgstr "alle Kanäle"
+
+#: templates/partials/notifications.html:16
+msgid "See all"
+msgstr "Alle ansehen"
+
+#: templates/premises/actions.html:3 templates/premises/list_view.html:13
+#: templates/premises/premise.html:95 templates/premises/thread.html:107
+#: templates/premises/tree_view.html:37
+msgid "add reason"
+msgstr "Grund hinzufügen"
+
+#: templates/premises/actions.html:7 templates/premises/premise.html:104
+#: templates/premises/thread.html:99
+msgid "remove"
+msgstr "entfernen"
+
+#: templates/premises/base_contention.html:6
+msgid "Claim map"
+msgstr "Karte der Behauptung"
+
+#: templates/premises/base_contention.html:33
+msgid "sender"
+msgstr "Urheber*in"
+
+#: templates/premises/base_contention.html:41
+msgid "source"
+msgstr "Quelle"
+
+#: templates/premises/base_contention.html:47
+msgid "Unspecified"
+msgstr "Nicht angegeben"
+
+#: templates/premises/base_contention.html:54
+msgid "RANDOM"
+msgstr "ZUFÄLLIG"
+
+#: templates/premises/base_contention.html:60
+msgid "RELATED CLAIMS"
+msgstr "VERWANDTE BEHAUPTUNGEN"
+
+#: templates/premises/base_contention.html:76
+msgid "view"
+msgstr "Ansicht"
+
+#: templates/premises/base_contention.html:78
+msgid "Tree"
+msgstr "Baum"
+
+#: templates/premises/base_contention.html:79
+msgid "List"
+msgstr "Liste"
+
+#: templates/premises/contention.html:11 templates/premises/premise.html:37
+msgid "sender:"
+msgstr "Urheber*in:"
+
+#: templates/premises/contention_list.html:22
+#: templates/premises/tree_view.html:77
+msgid "objection rate"
+msgstr "Einwandquote"
+
+#: templates/premises/contention_list.html:25
+#: templates/premises/tree_view.html:72
+msgid "support rate"
+msgstr "Zustimmungsquote"
+
+#: templates/premises/contention_list.html:28
+#: templates/premises/tree_view.html:82
+msgid "Support and objection are equal."
+msgstr "Zustimmung und Einwand sind gleich groß."
+
+#: templates/premises/contention_list.html:62
+msgid "No results found."
+msgstr "Keine Ergebnisse."
+
+#: templates/premises/edit_contention.html:8
+#: templates/premises/tree_view.html:55
+msgid "Edit claim"
+msgstr "Behauptung bearbeiten"
+
+#: templates/premises/edit_contention.html:16
+msgid "Remove the claim"
+msgstr "Behauptung entfernen"
+
+#: templates/premises/edit_premise.html:7
+msgid "Edit reason"
+msgstr "Grund bearbeiten"
+
+#: templates/premises/examples/contention.html:2
+msgid ""
+"The claim that the group discusses. Write one clear sentence. Other people "
+"add reasons for or against it.<br> Examples: <ul> <li>The city must stop "
+"building new car parks.</li> <li>Our campaign uses only free software.</li> "
+"<li>Each neighbourhood needs a shared tool library.</li> </ul>"
+msgstr ""
+"Die Behauptung, über die die Gruppe spricht. Schreibe einen klaren Satz. "
+"Andere fügen Gründe dafür oder dagegen hinzu.<br> Beispiele: <ul> <li>Die "
+"Stadt muss aufhören, neue Parkhäuser zu bauen.</li> <li>Unsere Kampagne "
+"nutzt nur freie Software.</li> <li>Jedes Viertel braucht eine gemeinsame "
+"Werkzeugbibliothek.</li> </ul>"
+
+#: templates/premises/examples/fallacy.html:2
+msgid ""
+"Select the type of error in the reasoning. For more information, read the <a"
+" href=\"https://en.wikipedia.org/wiki/List_of_fallacies\">list of "
+"fallacies</a>."
+msgstr ""
+"Wähle die Art des Denkfehlers. Mehr dazu in der <a "
+"href=\"https://en.wikipedia.org/wiki/List_of_fallacies\">Liste der "
+"Fehlschlüsse</a>."
+
+#: templates/premises/examples/owner.html:2
+msgid ""
+"The person, group or document that makes the claim.<br> Examples: <ul> "
+"<li>IPCC Sixth Assessment Report</li> <li>Climate strike group, Bern</li> "
+"<li>Neighbourhood assembly</li> </ul>"
+msgstr ""
+"Die Person, die Gruppe oder das Dokument, von dem die Behauptung stammt.<br>"
+" Beispiele: <ul> <li>Sechster Sachstandsbericht des IPCC</li> "
+"<li>Klimastreik-Gruppe, Bern</li> <li>Quartierversammlung</li> </ul>"
+
+#: templates/premises/examples/premise.html:2
+msgid ""
+"Write one reason in one or two short sentences. Example: Car parks use land "
+"that the city can use for trees and housing."
+msgstr ""
+"Schreibe einen Grund in ein oder zwei kurzen Sätzen. Beispiel: Parkhäuser "
+"belegen Flächen, die die Stadt für Bäume und Wohnungen nutzen kann."
+
+#: templates/premises/examples/premise_source.html:2
+msgid "Example: IPCC AR6 Synthesis Report, 2023"
+msgstr "Beispiel: IPCC AR6 Synthesis Report, 2023"
+
+#: templates/premises/examples/premise_type.html:3
+msgid ""
+"Select the type of reason: <ul> <li>because: a reason that supports the "
+"claim.</li> <li>but: a reason against the claim.</li> <li>however: more "
+"information or a condition.</li> <li>and so: a result of the claim. It takes"
+" the claim further.</li> <li>on the contrary: the opposite claim.</li> "
+"<li>in other words: the claim in different words, to make sure that you "
+"understand it.</li> <li>what do we mean by: a question about the meaning of "
+"one word.</li> <li>what if: a different possibility.</li> </ul>"
+msgstr ""
+"Wähle die Art des Grundes: <ul> <li>weil: ein Grund, der die Behauptung "
+"stützt.</li> <li>aber: ein Grund gegen die Behauptung.</li> <li>allerdings: "
+"mehr Informationen oder eine Bedingung.</li> <li>und daher: eine Folge der "
+"Behauptung. Sie führt die Behauptung weiter.</li> <li>im Gegenteil: die "
+"gegenteilige Behauptung.</li> <li>mit anderen Worten: die Behauptung mit "
+"anderen Worten, um sicherzugehen, dass du sie verstehst.</li> <li>was meinen"
+" wir mit: eine Frage zur Bedeutung eines Wortes.</li> <li>was wäre, wenn: "
+"eine andere Möglichkeit.</li> </ul>"
+
+#: templates/premises/examples/sources.html:2
+msgid ""
+"Where the claim comes from: a URL, a book or a newspaper. Sources help other"
+" people to check the claim."
+msgstr ""
+"Woher die Behauptung stammt: eine URL, ein Buch oder eine Zeitung. Quellen "
+"helfen anderen, die Behauptung zu prüfen."
+
+#: templates/premises/list_view.html:20
+msgid "Go to the parent reason"
+msgstr "Zum übergeordneten Grund"
+
+#: templates/premises/new_contention.html:9
+msgid "Save and continue to edit"
+msgstr "Speichern und weiter bearbeiten"
+
+#: templates/premises/new_premise.html:9
+msgid "The parent reason:"
+msgstr "Der übergeordnete Grund:"
+
+#: templates/premises/new_premise.html:29
+msgid "Characters remaining: "
+msgstr "Verbleibende Zeichen: "
+
+#: templates/premises/new_premise.html:49
+msgid "(change)"
+msgstr "(ändern)"
+
+#: templates/premises/premise.html:14
+msgid "score:"
+msgstr "Punktzahl:"
+
+#: templates/premises/premise.html:25
+msgid "related claim"
+msgstr "verwandte Behauptung"
+
+#: templates/premises/premise.html:33 templates/premises/thread.html:67
+msgid "sources:"
+msgstr "Quellen:"
+
+#: templates/premises/premise.html:51 templates/premises/thread.html:74
+#, python-format
+msgid "%(count)s fallacy reported."
+msgid_plural "%(count)s fallacies reported."
+msgstr[0] "%(count)s Fehlschluss gemeldet."
+msgstr[1] "%(count)s Fehlschlüsse gemeldet."
+
+#: templates/premises/premise.html:65 templates/premises/premise.html.py:113
+#: templates/premises/premise.html:115 templates/premises/premise.html:119
+#: templates/premises/thread.html:115
+msgid "undo"
+msgstr "rückgängig"
+
+#: templates/premises/premise.html:84 templates/premises/thread.html:46
+#, python-format
+msgid "%(count)s supporter."
+msgid_plural "%(count)s supporters."
+msgstr[0] "%(count)s Unterstützer*in."
+msgstr[1] "%(count)s Unterstützer*innen."
+
+#: templates/premises/premise.html:101 templates/premises/thread.html:92
+#: templates/premises/tree_view.html:35
+msgid "edit"
+msgstr "bearbeiten"
+
+#: templates/premises/premise.html:105 templates/premises/thread.html:100
+msgid "Do you want to remove this reason?"
+msgstr "Möchtest du diesen Grund entfernen?"
+
+#: templates/premises/premise.html:113 templates/premises/premise.html:119
+#: templates/premises/premise.html:121 templates/premises/thread.html:121
+msgid "support"
+msgstr "unterstützen"
+
+#: templates/premises/premise.html:127 templates/premises/thread.html:126
+msgid "report fallacy"
+msgstr "Fehlschluss melden"
+
+#: templates/premises/report.html:7
+msgid "The reason:"
+msgstr "Der Grund:"
+
+#: templates/premises/report.html:13
+msgid "Report Fallacy"
+msgstr "Fehlschluss melden"
+
+#: templates/premises/thread.html:128
+msgid "open in tree view"
+msgstr "in der Baumansicht öffnen"
+
+#: templates/premises/tree.html:22
+msgid "branch"
+msgstr "Zweig"
+
+#: templates/premises/tree_view.html:13
+msgid "people on this page"
+msgstr "Personen auf dieser Seite"
+
+#: templates/premises/tree_view.html:16
+msgid "Add a reason with the form"
+msgstr "Grund mit dem Formular hinzufügen"
+
+#: templates/premises/tree_view.html:25
+msgid "Use the arrow keys to move in the map."
+msgstr "Bewege dich mit den Pfeiltasten durch die Karte."
+
+#: templates/premises/tree_view.html:27
+msgid "Loading tree..."
+msgstr "Baum wird geladen..."
+
+#: templates/premises/tree_view.html:50
+msgid "This claim has no reasons."
+msgstr "Diese Behauptung hat keine Gründe."
+
+#: templates/premises/tree_view.html:52
+msgid "Add a reason"
+msgstr "Einen Grund hinzufügen"
+
+#: templates/premises/tree_view.html:63
+msgid "The argument is too complex. You can switch to list view."
+msgstr "Das Argument ist zu komplex. Du kannst zur Listenansicht wechseln."
+
+#: templates/premises/tree_view.html:88
+msgid "last update:"
+msgstr "Letzte Aktualisierung:"
+
+#: templates/search/contention.html:8 templates/stats/contention.html:8
+msgid "PARTICIPANT"
+msgstr "TEILNEHMER*IN"
+
+#: templates/search/contention.html:12 templates/stats/contention.html:12
+msgid "BECAUSE"
+msgstr "WEIL"
+
+#: templates/search/contention.html:16 templates/stats/contention.html:16
+msgid "BUT"
+msgstr "ABER"
+
+#: templates/search/contention.html:20 templates/stats/contention.html:20
+msgid "HOWEVER"
+msgstr "ALLERDINGS"
+
+#: templates/search/profile.html:9 templates/stats/profile.html:9
+msgid "FOLLOWER"
+msgstr "FOLLOWER"
+
+#: templates/search/profile.html:13 templates/stats/profile.html:13
+msgid "ARGUMENT"
+msgstr "ARGUMENT"
+
+#: templates/search/profile.html:17 templates/stats/profile.html:17
+msgid "PREMISE"
+msgstr "GRUND"
+
+#: templates/search/profile.html:21
+msgid "SUPPORT"
+msgstr "UNTERSTÜTZUNG"
+
+#: templates/search/search.html:7
+msgid "Keywords:"
+msgstr "Stichwörter:"
+
+#: templates/search/search.html:14
+msgid "claims"
+msgstr "Behauptungen"
+
+#: templates/search/search.html:17
+msgid "users"
+msgstr "Personen"
+
+#: templates/search/search.html:20
+msgid "reasons"
+msgstr "Gründe"
+
+#: templates/stats.html:6 templates/tabs.html:11
+msgid "Statistics"
+msgstr "Statistik"
+
+#: templates/stats.html:9
+msgid "most active users"
+msgstr "aktivste Personen"
+
+#: templates/stats.html:10
+msgid "highest user karma"
+msgstr "höchstes Karma"
+
+#: templates/stats.html:11
+msgid "claims with most reasons"
+msgstr "Behauptungen mit den meisten Gründen"
+
+#: templates/stats.html:12
+msgid "reasons with most support"
+msgstr "am meisten unterstützte Gründe"
+
+#: templates/stats.html:13
+msgid "reasons with most fallacy reports"
+msgstr "Gründe mit den meisten Fehlschluss-Meldungen"
+
+#: templates/stats.html:18
+msgid "this week"
+msgstr "diese Woche"
+
+#: templates/stats.html:19
+msgid "this month"
+msgstr "diesen Monat"
+
+#: templates/stats.html:20
+msgid "all time"
+msgstr "insgesamt"
+
+#: templates/stats/profile.html:21
+msgid "KARMA"
+msgstr "KARMA"
+
+#: templates/tabs.html:4
+msgid "Featured"
+msgstr "Hervorgehoben"
+
+#: templates/tabs.html:6
+msgid "New"
+msgstr "Neu"
+
+msgid "file"
+msgstr "Datei"
+
+msgid "screenshot"
+msgstr "Bildschirmfoto"
+
+msgid "pdf"
+msgstr "pdf"
+
+msgid "link"
+msgstr "Link"
+
+msgid "text"
+msgstr "Text"
+
+msgid "meeting summary"
+msgstr "Zusammenfassung des Treffens"
+
+msgid "library"
+msgstr "Bibliothek"
+
+msgid "chat"
+msgstr "Chat"
+
+msgid "anarlog"
+msgstr "anarlog"
+
+msgid "name"
+msgstr "Name"
+
+msgid "title"
+msgstr "Titel"
+
+msgid "The space needs a name."
+msgstr "Der Raum braucht einen Namen."
+
+msgid "Too many new spaces from this address. Try again later."
+msgstr ""
+"Zu viele neue Räume von dieser Adresse. Versuche es später noch einmal."
+
+msgid "Only who made the space can change its link."
+msgstr "Nur wer den Raum erstellt hat, kann seinen Link ändern."
+
+msgid "space"
+msgstr "Raum"
+
+msgid "started"
+msgstr "Beginn"
+
+msgid "ended"
+msgstr "Ende"
+
+msgid "Notes"
+msgstr "Notizen"
+
+msgid "Documents"
+msgstr "Dokumente"
+
+msgid "Chat"
+msgstr "Chat"
+
+msgid "There is no file."
+msgstr "Es gibt keine Datei."
+
+msgid "The file is too big."
+msgstr "Die Datei ist zu groß."
+
+msgid "Too many files from this address. Try again later."
+msgstr "Zu viele Dateien von dieser Adresse. Versuche es später noch einmal."
+
+msgid ""
+"This space is full. Removed files count until an administrator deletes them."
+msgstr ""
+"Dieser Raum ist voll. Entfernte Dateien zählen mit, bis die Administration "
+"sie löscht."
+
+msgid "KLAP does not accept this type of file."
+msgstr "KLAP akzeptiert diesen Dateityp nicht."
+
+msgid "This is not a link that starts with http."
+msgstr "Das ist kein Link, der mit http beginnt."
+
+msgid "The text is empty."
+msgstr "Der Text ist leer."
+
+msgid "The text is too long."
+msgstr "Der Text ist zu lang."
+
+msgid "The text needs a title."
+msgstr "Der Text braucht einen Titel."
+
+msgid "The categories are not valid."
+msgstr "Die Kategorien sind ungültig."
+
+msgid "Only who added it or made the space can remove it."
+msgstr "Nur wer es hinzugefügt oder den Raum erstellt hat, kann es entfernen."
+
+msgid "There is no such session."
+msgstr "Diese Sitzung gibt es nicht."
+
+msgid "The message is empty."
+msgstr "Die Nachricht ist leer."
+
+msgid "The message is too long."
+msgstr "Die Nachricht ist zu lang."
+
+msgid "Too many messages. Wait a little."
+msgstr "Zu viele Nachrichten. Warte ein wenig."
+
+msgid "The notes are too long."
+msgstr "Die Notizen sind zu lang."
+
+msgid "Copy the secret that starts with whsec_."
+msgstr "Kopiere das Geheimnis, das mit whsec_ beginnt."
+
+msgid "spaces"
+msgstr "Räume"
+
+msgid "open a space for this claim"
+msgstr "einen Raum für diese Behauptung öffnen"
+
+msgid "New space"
+msgstr "Neuer Raum"
+
+msgid "A space for your group"
+msgstr "Ein Raum für deine Gruppe"
+
+msgid ""
+"Voice and video, a chat that keeps your files, notes that everyone writes "
+"together, and the history of each session."
+msgstr ""
+"Ton und Video, ein Chat, der deine Dateien aufbewahrt, gemeinsam "
+"geschriebene Notizen und der Verlauf jeder Sitzung."
+
+msgid ""
+"There are no accounts. You get a secret link, and whoever has the link is in"
+" the group."
+msgstr ""
+"Es gibt keine Konten. Du bekommst einen geheimen Link, und wer den Link hat,"
+" gehört zur Gruppe."
+
+msgid "For the claim:"
+msgstr "Für die Behauptung:"
+
+msgid "Name of the space"
+msgstr "Name des Raums"
+
+msgid "Make the space"
+msgstr "Raum erstellen"
+
+msgid "History"
+msgstr "Verlauf"
+
+msgid "History of"
+msgstr "Verlauf von"
+
+msgid "Session:"
+msgstr "Sitzung:"
+
+msgid "the whole space"
+msgstr "der ganze Raum"
+
+msgid "back to the space"
+msgstr "zurück zum Raum"
+
+msgid "made the space"
+msgstr "hat den Raum erstellt"
+
+msgid "changed the link"
+msgstr "hat den Link geändert"
+
+msgid "started the session"
+msgstr "hat die Sitzung begonnen"
+
+msgid "ended the session"
+msgstr "hat die Sitzung beendet"
+
+msgid "added"
+msgstr "hat hinzugefügt"
+
+msgid "edited"
+msgstr "hat bearbeitet"
+
+msgid "removed"
+msgstr "hat entfernt"
+
+msgid "filed in a session"
+msgstr "hat in einer Sitzung abgelegt"
+
+msgid "imported the summary"
+msgstr "hat die Zusammenfassung importiert"
+
+msgid "updated the summary"
+msgstr "hat die Zusammenfassung aktualisiert"
+
+msgid "said that they are taking notes"
+msgstr "hat gesagt, dass Notizen aufgenommen werden"
+
+msgid "stopped taking notes"
+msgstr "nimmt keine Notizen mehr auf"
+
+msgid "connected anarlog"
+msgstr "hat anarlog verbunden"
+
+msgid "Nothing yet."
+msgstr "Noch nichts."
+
+msgid "people in this space"
+msgstr "Personen in diesem Raum"
+
+msgid "A space needs JavaScript."
+msgstr "Ein Raum braucht JavaScript."
+
+msgid "copy the secret link"
+msgstr "geheimen Link kopieren"
+
+msgid "new link"
+msgstr "neuer Link"
+
+msgid "history"
+msgstr "Verlauf"
+
+msgid "files"
+msgstr "Dateien"
+
+msgid "the claim"
+msgstr "die Behauptung"
+
+msgid "session"
+msgstr "Sitzung"
+
+msgid "title of a new session"
+msgstr "Titel einer neuen Sitzung"
+
+msgid "start"
+msgstr "beginnen"
+
+msgid "end the session"
+msgstr "Sitzung beenden"
+
+msgid "export .md"
+msgstr ".md exportieren"
+
+msgid "its history"
+msgstr "ihr Verlauf"
+
+msgid "meeting summaries with anarlog"
+msgstr "Zusammenfassungen von Treffen mit anarlog"
+
+msgid ""
+"<a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Anarlog</a> is free software that you install on your computer."
+" It records the sound of your computer, writes the words and makes a "
+"summary, without a bot in the call. KLAP cannot start it or see it. KLAP "
+"only receives the summary, when you give it."
+msgstr ""
+"<a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Anarlog</a> ist freie Software, die du auf deinem Computer "
+"installierst. Sie nimmt den Ton deines Computers auf, schreibt die Worte mit"
+" und erstellt eine Zusammenfassung, ohne Bot im Anruf. KLAP kann sie weder "
+"starten noch sehen. KLAP erhält nur die Zusammenfassung, wenn du sie gibst."
+
+msgid "Install"
+msgstr "Installieren"
+
+msgid ""
+"Get <a href=\"https://anarlog.so/download\" target=\"_blank\" rel=\"noopener"
+" noreferrer\">anarlog for macOS, Windows or Linux</a>, and choose a local "
+"model if nothing should leave your computer. Check in a test call that it "
+"hears the other people, not only you."
+msgstr ""
+"Lade <a href=\"https://anarlog.so/download\" target=\"_blank\" "
+"rel=\"noopener noreferrer\">anarlog für macOS, Windows oder Linux</a> "
+"herunter und wähle ein lokales Modell, wenn nichts deinen Computer verlassen"
+" soll. Prüfe in einem Testanruf, dass es die anderen Personen hört, nicht "
+"nur dich."
+
+msgid "Before you record"
+msgstr "Vor der Aufnahme"
+
+msgid ""
+"Ask everyone. Then press the button: everyone here sees that you are taking "
+"notes, and it stays in the history. KLAP cannot check this: it depends on "
+"your word."
+msgstr ""
+"Frage alle. Drücke dann den Knopf: Alle hier sehen, dass du Notizen "
+"aufnimmst, und es bleibt im Verlauf. KLAP kann das nicht prüfen: Es hängt "
+"von deinem Wort ab."
+
+msgid "I'm taking notes"
+msgstr "Ich nehme Notizen auf"
+
+msgid "start a session first"
+msgstr "beginne zuerst eine Sitzung"
+
+msgid "Bring the summary here"
+msgstr "Bring die Zusammenfassung hierher"
+
+msgid ""
+"In anarlog, export the meeting as Markdown, and drop the file here or paste "
+"the text. With its command line:"
+msgstr ""
+"Exportiere das Treffen in anarlog als Markdown und ziehe die Datei hierher "
+"oder füge den Text ein. Mit der Kommandozeile:"
+
+msgid "the Markdown file"
+msgstr "die Markdown-Datei"
+
+msgid "or paste the Markdown here"
+msgstr "oder füge das Markdown hier ein"
+
+msgid "the Markdown of the meeting"
+msgstr "das Markdown des Treffens"
+
+msgid ""
+"also keep the transcript, with the exact words of everyone. Everyone with "
+"the link can read it."
+msgstr ""
+"auch das Transkript behalten, mit dem genauen Wortlaut aller. Wer den Link "
+"hat, kann es lesen."
+
+msgid "file in this session"
+msgstr "in dieser Sitzung ablegen"
+
+msgid "or file summaries automatically"
+msgstr "oder Zusammenfassungen automatisch ablegen"
+
+msgid ""
+"In anarlog: Settings, Developers, Webhooks. Add this address (the site must "
+"use https). Anarlog shows a secret one time: paste it here. Summaries arrive"
+" while anarlog is open, in the session that is open here, or else in the "
+"latest one."
+msgstr ""
+"In anarlog: Settings, Developers, Webhooks. Füge diese Adresse hinzu (die "
+"Website muss https verwenden). Anarlog zeigt ein Geheimnis nur einmal: Füge "
+"es hier ein. Zusammenfassungen kommen an, solange anarlog geöffnet ist, in "
+"der hier offenen Sitzung oder sonst in der letzten."
+
+msgid "the webhook address"
+msgstr "die Webhook-Adresse"
+
+msgid "the secret of anarlog"
+msgstr "das Geheimnis von anarlog"
+
+msgid "also keep transcripts"
+msgstr "auch Transkripte behalten"
+
+msgid "connect"
+msgstr "verbinden"
+
+msgid "parts of the space"
+msgstr "Teile des Raums"
+
+msgid "notes"
+msgstr "Notizen"
+
+msgid "search"
+msgstr "suchen"
+
+msgid "search the library"
+msgstr "in der Bibliothek suchen"
+
+msgid "kind"
+msgstr "Art"
+
+msgid "all kinds"
+msgstr "alle Arten"
+
+msgid "screenshots"
+msgstr "Bildschirmfotos"
+
+msgid "links"
+msgstr "Links"
+
+msgid "texts"
+msgstr "Texte"
+
+msgid "summaries"
+msgstr "Zusammenfassungen"
+
+msgid "category"
+msgstr "Kategorie"
+
+msgid "only this session"
+msgstr "nur diese Sitzung"
+
+msgid "a link, or a text"
+msgstr "ein Link oder ein Text"
+
+msgid "add"
+msgstr "hinzufügen"
+
+msgid "or choose files"
+msgstr "oder Dateien wählen"
+
+msgid "notes and documents"
+msgstr "Notizen und Dokumente"
+
+msgid "document"
+msgstr "Dokument"
+
+msgid "older versions"
+msgstr "frühere Versionen"
+
+msgid "bring this version back"
+msgstr "diese Version wiederherstellen"
+
+msgid "the notes of this session"
+msgstr "die Notizen dieser Sitzung"
+
+msgid "find"
+msgstr "finden"
+
+msgid "search the chat"
+msgstr "im Chat suchen"
+
+msgid "all messages"
+msgstr "alle Nachrichten"
+
+msgid "person"
+msgstr "Person"
+
+msgid "all people"
+msgstr "alle Personen"
+
+msgid "write, or drop or paste files"
+msgstr "schreiben oder Dateien ziehen oder einfügen"
+
+msgid "write a message"
+msgstr "eine Nachricht schreiben"
+
+msgid "+ files"
+msgstr "+ Dateien"
+
+msgid "send"
+msgstr "senden"
+
+#: templates/base.html
+msgid "Supported through Creative Climate Changemakers Switzerland, <a href=\"https://www.vertlefutur.ch/\">vertlefutur.ch</a> and <a href=\"https://juliesbicycle.org/\">juliesbicycle.org</a>"
+msgstr "Unterstützt durch Creative Climate Changemakers Switzerland, <a href=\"https://www.vertlefutur.ch/\">vertlefutur.ch</a> und <a href=\"https://juliesbicycle.org/\">juliesbicycle.org</a>"

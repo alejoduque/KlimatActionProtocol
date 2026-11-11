@@ -527,3 +527,60 @@ class SpanishTest(TestCase):
             content_type="application/json", HTTP_HOST=self.host)
         self.assertEqual(json.loads(response.content)["error"],
                          u"escribe un texto")
+
+
+@override_settings(PREVENT_LANGUAGE_REDIRECTION=True)
+class ItalianAndGermanTest(TestCase):
+    host = "klap.example.org"
+
+    def setUp(self):
+        self.author = Profile.objects.create(username="author")
+
+    def get(self, url, **extra):
+        return self.client.get(url, HTTP_HOST=self.host, **extra)
+
+    def check_language(self, code, new_claim, about):
+        response = self.get("/", HTTP_ACCEPT_LANGUAGE=code)
+        self.assertContains(response, '<html lang="%s">' % code)
+        self.assertContains(response, new_claim)
+        self.client.cookies.clear()
+        self.get("/language/%s" % code)
+        self.assertContains(self.get("/about"), about)
+
+    def test_italian(self):
+        self.check_language("it", u"nuova affermazione", u"cos'è KLAP")
+
+    def test_german(self):
+        self.check_language("de", u"neue Behauptung", u"Was KLAP ist")
+
+    def test_a_claim_speaks_its_language(self):
+        for code, label in (("it", u"perché"), ("de", u"weil")):
+            claim = Contention.objects.create(
+                title=u"claim %s" % code, user=self.author, language=code,
+                is_published=True)
+            response = self.get(claim.get_absolute_url())
+            config = json.loads(response.context["live_config"])
+            self.assertIn(label, [i["label"] for i in config["instruments"]])
+
+    def test_each_language_lists_its_claims(self):
+        Contention.objects.create(title=u"Il clima cambia", user=self.author,
+                                  language="it", is_published=True)
+        self.get("/language/it")
+        self.assertContains(self.get("/"), u"Il clima cambia")
+        self.get("/language/de")
+        self.assertNotContains(self.get("/"), u"Il clima cambia")
+
+    def test_the_selector_offers_all_languages(self):
+        response = self.get("/")
+        for code in ("es", "en", "it", "de"):
+            self.assertContains(response, "/language/%s?" % code)
+
+    def test_the_footer_credit_in_each_language(self):
+        for code, words in (("en", u"Supported through"),
+                            ("es", u"Con el apoyo de"),
+                            ("it", u"Con il sostegno di"),
+                            ("de", u"Unterstützt durch")):
+            self.get("/language/%s" % code)
+            response = self.get("/")
+            self.assertContains(response, words)
+            self.assertContains(response, "https://juliesbicycle.org/")

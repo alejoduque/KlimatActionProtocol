@@ -1,0 +1,407 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: KLAP\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-21 18:30+0000\n"
+"PO-Revision-Date: 2026-10-21 18:00+0000\n"
+"Last-Translator: KLAP\n"
+"Language-Team: KLAP\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/js/assembly/live.js:457
+msgid "%(count)s reason is about this word"
+msgid_plural "%(count)s reasons are about this word"
+msgstr[0] "%(count)s ragione riguarda questa parola"
+msgstr[1] "%(count)s ragioni riguardano questa parola"
+
+#: static/js/assembly/live.js:462
+msgid "ask what this word means"
+msgstr "chiedi cosa significa questa parola"
+
+#: static/js/assembly/live.js:597
+msgid "answer with :: everyone here sees you type"
+msgstr "rispondi con :: chi è qui vede cosa scrivi"
+
+#: static/js/assembly/live.js:598
+msgid ""
+"choose how your reason answers the claim :: everyone here sees you type"
+msgstr ""
+"scegli come la tua ragione risponde all'affermazione :: chi è qui vede cosa "
+"scrivi"
+
+#: static/js/assembly/live.js:601 static/js/assembly/live.js.c:1612
+msgid "replay session"
+msgstr "riproduci la sessione"
+
+#: static/js/assembly/live.js:604
+msgid "replay speed"
+msgstr "velocità di riproduzione"
+
+#: static/js/assembly/live.js:616
+msgid "click a word to ask what it means"
+msgstr "clicca una parola per chiedere cosa significa"
+
+#: static/js/assembly/live.js:866
+msgid "what do we mean by %(word)s?"
+msgstr "cosa intendiamo per %(word)s?"
+
+#: static/js/assembly/live.js:870
+msgid "type to answer"
+msgstr "scrivi per rispondere"
+
+#: static/js/assembly/live.js:976
+msgid "writes"
+msgstr "scrive"
+
+#: static/js/assembly/live.js:1044
+msgid "reason"
+msgstr "ragione"
+
+#: static/js/assembly/live.js:1048
+msgid "sources"
+msgstr "fonti"
+
+#: static/js/assembly/live.js:1049
+msgid "related claim"
+msgstr "affermazione collegata"
+
+#: static/js/assembly/live.js:1053
+msgid "sources: links, books, people"
+msgstr "fonti: link, libri, persone"
+
+#: static/js/assembly/live.js:1058
+msgid "search a claim"
+msgstr "cerca un'affermazione"
+
+#: static/js/assembly/live.js:1076
+msgid "Enter adds :: Escape closes"
+msgstr "Invio aggiunge :: Esc chiude"
+
+#: static/js/assembly/live.js:1079 static/js/assembly/live.js.c:1376
+#: static/js/assembly/live.js:1446
+msgid "cancel"
+msgstr "annulla"
+
+#: static/js/assembly/live.js:1080 static/js/assembly/live.js.c:1235
+msgid "add reason"
+msgstr "aggiungi ragione"
+
+#: static/js/assembly/live.js:1148
+msgid "on"
+msgstr "su"
+
+#: static/js/assembly/live.js:1153
+msgid "Click the word that you want to question."
+msgstr "Clicca la parola che vuoi mettere in discussione."
+
+#: static/js/assembly/live.js:1157
+msgid "by %(word)s we could mean …"
+msgstr "per %(word)s potremmo intendere …"
+
+#: static/js/assembly/live.js:1159
+msgid "click a word first"
+msgstr "prima clicca una parola"
+
+#: static/js/assembly/live.js:1195
+msgid "adding…"
+msgstr "aggiunta in corso…"
+
+#: static/js/assembly/live.js:1216
+msgid "The reason was not added."
+msgstr "La ragione non è stata aggiunta."
+
+#: static/js/assembly/live.js:1286
+msgid "someone"
+msgstr "qualcuno"
+
+#: static/js/assembly/live.js:1288
+msgid "%(name)s writes"
+msgstr "%(name)s scrive"
+
+#: static/js/assembly/live.js:1361
+msgid "report fallacy"
+msgstr "segnala fallacia"
+
+#: static/js/assembly/live.js:1363
+msgid "fallacy"
+msgstr "fallacia"
+
+#: static/js/assembly/live.js:1373
+msgid "Why is this a fallacy?"
+msgstr "Perché è una fallacia?"
+
+#: static/js/assembly/live.js:1377
+msgid "report"
+msgstr "segnala"
+
+#: static/js/assembly/live.js:1408
+msgid "The report was not sent."
+msgstr "La segnalazione non è stata inviata."
+
+#: static/js/assembly/live.js:1442
+msgid "correct the reason"
+msgstr "correggi la ragione"
+
+#: static/js/assembly/live.js:1445
+msgid "Enter saves :: Escape closes"
+msgstr "Invio salva :: Esc chiude"
+
+#: static/js/assembly/live.js:1447 static/js/assembly/live.js.c:1535
+msgid "save"
+msgstr "salva"
+
+#: static/js/assembly/live.js:1505
+msgid "saving…"
+msgstr "salvataggio…"
+
+#: static/js/assembly/live.js:1522
+msgid "The correction was not saved."
+msgstr "La correzione non è stata salvata."
+
+#: static/js/assembly/live.js:1552
+msgid "stop"
+msgstr "ferma"
+
+#: static/js/assembly/presence.js:16
+msgid "Ascii sends only text. Your camera image stays on your computer."
+msgstr ""
+"Ascii invia solo testo. L'immagine della tua videocamera resta sul tuo "
+"computer."
+
+#: static/js/assembly/presence.js:73
+msgid "present"
+msgstr "presenti"
+
+#: static/js/assembly/presence.js:74 static/js/assembly/presence.js.c:266
+msgid "connecting…"
+msgstr "connessione…"
+
+#: static/js/assembly/presence.js:76
+msgid "settings"
+msgstr "impostazioni"
+
+#: static/js/assembly/presence.js:84
+msgid "your name"
+msgstr "il tuo nome"
+
+#: static/js/assembly/presence.js:92 static/js/assembly/presence.js.c:353
+msgid "mic off"
+msgstr "microfono spento"
+
+#: static/js/assembly/presence.js:96
+msgid "camera"
+msgstr "videocamera"
+
+#: static/js/assembly/presence.js:98
+msgid "no camera"
+msgstr "senza videocamera"
+
+#: static/js/assembly/presence.js:98
+msgid "video"
+msgstr "video"
+
+#: static/js/assembly/presence.js:112
+msgid "show all video as ascii"
+msgstr "mostra tutti i video come ascii"
+
+#: static/js/assembly/presence.js:261
+msgid "only you :: send the address of this page to other people"
+msgstr "solo tu :: invia l'indirizzo di questa pagina ad altre persone"
+
+#: static/js/assembly/presence.js:262
+msgid "%(count)s here"
+msgstr "%(count)s qui"
+
+#: static/js/assembly/presence.js:264
+msgid ""
+"offline :: you can add reasons, but other people do not see your typing"
+msgstr ""
+"offline :: puoi aggiungere ragioni, ma le altre persone non vedono cosa "
+"scrivi"
+
+#: static/js/assembly/presence.js:270
+msgid "enable sound"
+msgstr "attiva l'audio"
+
+#: static/js/assembly/presence.js:340
+msgid "%(name)s (you)"
+msgstr "%(name)s (tu)"
+
+#: static/js/assembly/presence.js:342 static/js/assembly/presence.js.c:353
+msgid "mic on"
+msgstr "microfono acceso"
+
+#: static/js/assembly/presence.js:342
+msgid "muted"
+msgstr "muto"
+
+#: static/js/assembly/presence.js:432
+msgid ""
+"The browser cannot use the device. Give permission in the browser settings."
+msgstr ""
+"Il browser non può usare il dispositivo. Dai il permesso nelle impostazioni "
+"del browser."
+
+#: static/js/assembly/presence.js:433
+msgid "No device (%(error)s). Camera and microphone need https or localhost."
+msgstr ""
+"Nessun dispositivo (%(error)s). Videocamera e microfono richiedono https o "
+"localhost."
+
+msgid "loading…"
+msgstr "caricamento…"
+
+msgid "saved"
+msgstr "salvato"
+
+msgid "the notes did not load"
+msgstr "le note non si sono caricate"
+
+msgid "not saved yet"
+msgstr "non ancora salvato"
+
+msgid "another person saves these notes"
+msgstr "un'altra persona salva queste note"
+
+msgid "not saved :: trying again"
+msgstr "non salvato :: nuovo tentativo"
+
+msgid "taking notes"
+msgstr "prende appunti"
+
+msgid "That did not work. Try again."
+msgstr "Non ha funzionato. Riprova."
+
+msgid "%(name)s shows a document to everyone"
+msgstr "%(name)s mostra un documento a tutte le persone"
+
+msgid "End this session for everyone?"
+msgstr "Terminare questa sessione per tutte le persone?"
+
+msgid "The link is copied. Whoever has it can enter this space."
+msgstr "Il link è copiato. Chi lo ha può entrare in questo spazio."
+
+msgid "The link of this space:"
+msgstr "Il link di questo spazio:"
+
+msgid ""
+"Make a new link? The old link stops working, and everyone needs the new one."
+" An anarlog connection is not affected."
+msgstr ""
+"Creare un nuovo link? Quello vecchio smette di funzionare e tutte le persone"
+" hanno bisogno del nuovo. Una connessione con anarlog non cambia."
+
+msgid "start a session to take notes"
+msgstr "inizia una sessione per prendere note"
+
+msgid "no sessions yet"
+msgstr "ancora nessuna sessione"
+
+msgid "now"
+msgstr "ora"
+
+msgid "all categories"
+msgstr "tutte le categorie"
+
+msgid "%(used)s of %(max)s"
+msgstr "%(used)s di %(max)s"
+
+msgid "connected"
+msgstr "collegato"
+
+msgid "not connected"
+msgstr "non collegato"
+
+msgid "I stopped taking notes"
+msgstr "Ho smesso di prendere appunti"
+
+msgid "I'm taking notes"
+msgstr "Sto prendendo appunti"
+
+msgid "suggested category"
+msgstr "categoria suggerita"
+
+msgid "+ category"
+msgstr "+ categoria"
+
+msgid "category"
+msgstr "categoria"
+
+msgid "pasted image"
+msgstr "immagine incollata"
+
+msgid "too big :: the limit is %(max)s"
+msgstr "troppo grande :: il limite è %(max)s"
+
+msgid "close"
+msgstr "chiudi"
+
+msgid "The file is too big."
+msgstr "Il file è troppo grande."
+
+msgid "The connection failed."
+msgstr "La connessione non è riuscita."
+
+msgid "Nothing here yet. Drop files here or in the chat."
+msgstr "Ancora niente qui. Trascina i file qui o nella chat."
+
+msgid "show to everyone"
+msgstr "mostra a tutte le persone"
+
+msgid "Everyone in this space now sees this document."
+msgstr "Tutte le persone in questo spazio ora vedono questo documento."
+
+msgid "cite in notes"
+msgstr "cita nelle note"
+
+msgid "add to this session"
+msgstr "aggiungi a questa sessione"
+
+msgid "download"
+msgstr "scarica"
+
+msgid "remove"
+msgstr "rimuovi"
+
+msgid "Remove this document from the space?"
+msgstr "Rimuovere questo documento dallo spazio?"
+
+msgid "KLAP does not show this type of file. Download it to read it."
+msgstr "KLAP non mostra questo tipo di file. Scaricalo per leggerlo."
+
+msgid "edit"
+msgstr "modifica"
+
+msgid "title"
+msgstr "titolo"
+
+msgid "text"
+msgstr "testo"
+
+msgid "history (%(count)s)"
+msgstr "storia (%(count)s)"
+
+msgid "Bring this version back? It becomes a new edit for everyone."
+msgstr ""
+"Ripristinare questa versione? Diventa una nuova modifica per tutte le "
+"persone."
+
+msgid "no saved versions yet"
+msgstr "ancora nessuna versione salvata"
+
+msgid "you"
+msgstr "tu"
+
+msgid "recording notes on their computer :: %(names)s"
+msgstr "registra appunti sul proprio computer :: %(names)s"
+
+msgid "The summary is in this session."
+msgstr "Il riassunto è in questa sessione."
+
+msgid "Anarlog is connected. Click Test in anarlog to check."
+msgstr "Anarlog è collegato. Clicca Test in anarlog per verificare."

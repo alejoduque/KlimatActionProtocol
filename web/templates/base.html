@@ -40,7 +40,9 @@
             {% with next_path=request.get_full_path|urlencode %}
             <li class="language-switch">
                 <a href="{% url "set_language" "es" %}?next={{ next_path }}" lang="es"{% if current_language == "es" %} aria-current="true"{% endif %}>es</a> |
-                <a href="{% url "set_language" "en" %}?next={{ next_path }}" lang="en"{% if current_language == "en" %} aria-current="true"{% endif %}>en</a>
+                <a href="{% url "set_language" "en" %}?next={{ next_path }}" lang="en"{% if current_language == "en" %} aria-current="true"{% endif %}>en</a> |
+                <a href="{% url "set_language" "it" %}?next={{ next_path }}" lang="it"{% if current_language == "it" %} aria-current="true"{% endif %}>it</a> |
+                <a href="{% url "set_language" "de" %}?next={{ next_path }}" lang="de"{% if current_language == "de" %} aria-current="true"{% endif %}>de</a>
             </li>
             {% endwith %}
             <li class="inline-search pull-right">
@@ -66,6 +68,11 @@
             {% blocktrans trimmed %}
                 part of the <a href="https://alejoduque.github.io/permasoftware-assembly/">permasoftware assembly</a>
             {% endblocktrans %} :: <a href="mailto:alej@protonmail.ch">alej@protonmail.ch</a>
+        </p>
+        <p>
+            {% blocktrans trimmed %}
+                Supported through Creative Climate Changemakers Switzerland, <a href="https://www.vertlefutur.ch/">vertlefutur.ch</a> and <a href="https://juliesbicycle.org/">juliesbicycle.org</a>
+            {% endblocktrans %}
         </p>
     </div>
 </footer>

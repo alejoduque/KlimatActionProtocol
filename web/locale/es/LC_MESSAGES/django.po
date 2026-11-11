@@ -1499,3 +1499,7 @@ msgstr "+ archivos"
 
 msgid "send"
 msgstr "enviar"
+
+#: templates/base.html
+msgid "Supported through Creative Climate Changemakers Switzerland, <a href=\"https://www.vertlefutur.ch/\">vertlefutur.ch</a> and <a href=\"https://juliesbicycle.org/\">juliesbicycle.org</a>"
+msgstr "Con el apoyo de Creative Climate Changemakers Switzerland, <a href=\"https://www.vertlefutur.ch/\">vertlefutur.ch</a> y <a href=\"https://juliesbicycle.org/\">juliesbicycle.org</a>"

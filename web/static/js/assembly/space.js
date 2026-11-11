@@ -371,7 +371,7 @@
         selectSession: function (id) {
             // looking at an old session stays until the person changes it
             this.pinned = !!id && id !== this.state.current;
-            if (id === this.sessionId) {
+            if (id && id === this.sessionId) {
                 return;
             }
             this.sessionId = id;

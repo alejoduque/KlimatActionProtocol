@@ -14,7 +14,7 @@ In the map, the line style shows the type of reason: solid line = because, doubl
 
 ## Languages
 
-KLAP is in English and in Spanish: change the language with "es | en" at the top. Each claim has the language in which it was written, and each language has its own list of claims.
+KLAP is in English, Spanish, Italian and German: change the language with "es | en | it | de" at the top. Each claim has the language in which it was written, and each language has its own list of claims.
 
 ## Permacomputing
 

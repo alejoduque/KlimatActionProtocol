@@ -14,7 +14,7 @@ En el mapa, el estilo de la línea muestra el tipo de razón: línea continua = 
 
 ## Idiomas
 
-KLAP está en español y en inglés: cambia el idioma con «es | en» arriba. Cada afirmación tiene el idioma en que se escribió, y cada idioma tiene su propia lista de afirmaciones.
+KLAP está en español, inglés, italiano y alemán: cambia el idioma con «es | en | it | de» arriba. Cada afirmación tiene el idioma en que se escribió, y cada idioma tiene su propia lista de afirmaciones.
 
 ## Permacomputación
 

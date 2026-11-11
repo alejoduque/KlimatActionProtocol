@@ -22,6 +22,10 @@ their there these those through under where which while would should
 sobre desde donde entre hasta para porque puede pueden según siempre
 también tiene tienen todos todas como cuando este esta estos estas
 nuestro nuestra quien cual cuales mientras hacer
+della delle degli questo questa questi queste quello quella perché
+anche sono essere hanno come quando dove mentre molto nostro nostra
+einer eines einem einen diese dieser dieses diesen durch nicht
+werden wurde haben können müssen sollen unser unsere nach über
 """.split())
 
 
