@@ -707,11 +707,50 @@
     width: 100%;
 }
 
-.strip-controls {
+/* microphone and camera :: always on the page, never behind "settings" */
+.strip-media {
     display: flex;
     flex-direction: column;
     gap: 6px;
     margin-bottom: 10px;
+}
+
+.cam-label {
+    flex: 0 0 100%;
+    color: var(--meta);
+}
+
+.media-status {
+    margin: 0;
+    color: var(--meta);
+    overflow-wrap: break-word;
+}
+
+.media-status.is-error {
+    color: var(--ink);
+    font-weight: bold;
+    border-left: 4px solid var(--ink);
+    padding-left: 6px;
+}
+
+.media-status[hidden],
+.live-strip button.strip-fold {
+    display: none;
+}
+
+.strip-more,
+.strip-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.strip-more {
+    gap: 8px;
+}
+
+.live-strip button.strip-toggle {
+    align-self: flex-start;
 }
 
 .strip-controls[hidden] {
@@ -739,10 +778,20 @@
     border: 2px solid var(--ink);
     background: var(--paper);
     color: var(--ink);
-    padding: 1px 6px;
+    padding: 4px 4px;
     font-size: 13px;
-    font-weight: normal;
+    font-weight: bold;
     text-transform: none;
+}
+
+/* a name that is not given yet asks for attention */
+.strip-name.is-missing {
+    color: var(--ink);
+    font-weight: bold;
+}
+
+.live-strip .strip-name.is-missing input {
+    border-style: dashed;
 }
 
 .live-strip button.media-toggle[aria-pressed="true"],
@@ -755,11 +804,12 @@
 
 .cam-modes {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .live-strip .cam-modes button {
     flex: 1;
-    padding: 1px 2px;
+    padding: 4px 2px;
 }
 
 .live-strip .cam-modes button + button {
@@ -770,11 +820,6 @@
 .strip-note {
     color: var(--meta);
     margin: 0;
-}
-
-.strip-note.is-error {
-    color: var(--ink);
-    font-weight: bold;
 }
 
 .strip-tiles {
@@ -888,6 +933,64 @@
 
     .strip-head {
         margin-bottom: 4px;
+    }
+
+    /* the devices in one row; the people fold away under "show people" */
+    .strip-media {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 8px;
+        margin-bottom: 4px;
+    }
+
+    .live-strip button.media-toggle {
+        order: 1;
+        padding: 6px 8px;
+    }
+
+    .cam-modes {
+        order: 3;
+        flex-wrap: nowrap;
+        align-items: center;
+    }
+
+    .cam-label {
+        flex: 0 0 auto;
+        margin-right: 4px;
+    }
+
+    .live-strip .cam-modes button {
+        flex: 0 0 auto;
+        padding: 6px 8px;
+    }
+
+    .live-strip button.strip-fold {
+        display: inline;
+        order: 2;
+        margin-left: auto;
+        padding: 6px 0;
+    }
+
+    .media-status {
+        order: 4;
+        flex: 0 0 100%;
+    }
+
+    .live-strip.is-folded .strip-head,
+    .live-strip.is-folded .strip-more {
+        display: none;
+    }
+
+    .strip-name {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .live-strip .strip-name input {
+        flex: 1;
+        margin-top: 0;
     }
 
     .strip-tiles {

@@ -2,6 +2,46 @@
    Same rules as permasoftware.css: Courier, black on white, no colour,
    "//" heads, "::" separators. Pictures are shown in greys, like the video. */
 
+/* the site header in one line, so the chat is in view without scrolling */
+#space-page header.container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 14px;
+    max-width: none;
+    padding: 4px 16px;
+    border-bottom-width: 2px;
+}
+
+#space-page #logo a {
+    font-size: 22px;
+    padding: 0;
+}
+
+#space-page #site-navigation {
+    margin: 0;
+    padding: 0;
+}
+
+#space-page #site-navigation li {
+    padding: 0;
+    margin: 0 4px;
+}
+
+#space-page #site-navigation .inline-search {
+    display: none;
+}
+
+@media (min-width: 861px) {
+    #space-page header.container {
+        margin-right: 168px;  /* the people strip */
+    }
+
+    #space-page .live-strip {
+        top: 0;
+    }
+}
+
 .space {
     padding: 8px 16px 16px;
     box-sizing: border-box;
@@ -110,6 +150,11 @@
     color: var(--meta);
 }
 
+/* only on a narrow screen */
+.space button.space-more-toggle {
+    display: none;
+}
+
 /* ------------------------------------------------------------- anarlog */
 
 .anarlog {
@@ -149,12 +194,14 @@
     display: none;
 }
 
+/* chat first, then the notes, then the library */
 .space-panes {
     display: grid;
-    grid-template-columns: minmax(220px, 1fr) minmax(280px, 1.6fr) minmax(250px, 1.1fr);
+    grid-template-columns: minmax(260px, 1.2fr) minmax(280px, 1.5fr) minmax(220px, 1fr);
     gap: 14px;
-    height: calc(100vh - 205px);
-    min-height: 420px;
+    /* --panes-top: where the panes start on the page (space.js) */
+    height: calc(100vh - var(--panes-top, 170px) - 18px);
+    min-height: 360px;
 }
 
 .pane {
@@ -167,6 +214,17 @@
 .pane h3 {
     margin: 0 0 6px;
     font-size: 15px;
+}
+
+/* one line that says what the part is for */
+.pane-hint {
+    color: var(--meta);
+    font-size: 12.5px;
+    font-weight: normal;
+}
+
+.pane h3 .pane-hint::before {
+    content: ":: ";
 }
 
 .library-pane,
@@ -189,6 +247,22 @@
 
 .filters #library-search {
     grid-column: 1 / -1;
+}
+
+.library-add-box {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.library-add-box summary {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.library-add-box[open] {
+    border: 1px dashed var(--ink);
+    padding: 4px 6px;
 }
 
 .library-add {
@@ -319,6 +393,26 @@
     background: var(--soft);
 }
 
+/* no session yet: say what the notes are, and how to start */
+.pad-empty {
+    display: none;
+    border: 2px dashed var(--ink);
+    padding: 10px 12px;
+}
+
+.pad-empty p {
+    margin: 0 0 8px;
+}
+
+.no-session .pad-empty {
+    display: block;
+}
+
+.no-session .pad-tools,
+.no-session #pad-text {
+    display: none;
+}
+
 .pad-history {
     border: 1px dashed var(--ink);
     padding: 6px;
@@ -409,6 +503,118 @@
 
 /* ---------------------------------------------------------------- chat */
 
+/* the chat has a frame, so nobody takes another box for it */
+.chat-pane {
+    border: 2px solid var(--ink);
+    padding: 6px 8px 8px;
+}
+
+.chat-message.is-sending {
+    color: var(--meta);
+}
+
+.chat-error {
+    margin: 4px 0 0;
+    padding: 3px 6px;
+    border-left: 4px solid var(--ink);
+    font-size: 13.5px;
+    font-weight: bold;
+}
+
+/* a line to write in: "> " and a block cursor that blinks, like a terminal */
+.entry {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.entry:focus-within {
+    outline: 2px dashed var(--ink);
+    outline-offset: 2px;
+}
+
+.entry-prompt {
+    flex: none;
+    padding: 4px 0 4px 6px;
+    font-weight: bold;
+}
+
+.space .entry textarea,
+.space .entry input {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    height: auto;
+    border: 0;
+    outline: 0;
+    padding: 4px 6px;
+    font-size: 15px;
+    line-height: 1.5;
+    resize: none;
+    caret-shape: block;  /* where the browser knows it */
+}
+
+.entry-caret {
+    display: none;
+    position: absolute;
+    left: calc(12px + 1ch);
+    top: 7px;
+    width: 0.6em;
+    height: 1.1em;
+    background: var(--ink);
+    pointer-events: none;
+    animation: space-caret 1s steps(1) infinite;
+}
+
+/* nothing written yet: the block marks the place, the hint follows it */
+.entry textarea:placeholder-shown,
+.entry input:placeholder-shown {
+    text-indent: 1.4ch;
+    caret-color: transparent;
+}
+
+.entry textarea:placeholder-shown ~ .entry-caret,
+.entry input:placeholder-shown ~ .entry-caret {
+    display: block;
+}
+
+@keyframes space-caret {
+    50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .entry-caret {
+        animation: none;
+    }
+}
+
+.name-gate {
+    margin: 0;
+    padding-top: 6px;
+    border-top: 2px solid var(--ink);
+}
+
+.name-gate label {
+    display: block;
+}
+
+.name-gate p {
+    margin: 0 0 4px;
+}
+
+.name-gate button {
+    margin-top: 6px;
+}
+
+.chat-keys {
+    flex: 1;
+    text-align: right;
+}
+
 .chat-filters {
     font-size: 13px;
     margin-bottom: 4px;
@@ -479,6 +685,7 @@
 }
 
 .chat-form {
+    margin: 0;
     padding-top: 6px;
 }
 
@@ -486,6 +693,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 10px;
     margin-top: 4px;
 }
 
@@ -519,8 +727,28 @@
 /* -------------------------------------------------------------- narrow */
 
 @media (max-width: 860px) {
+    /* the people strip is a bar at the bottom (live.css); the page ends
+       above it, so the line to write in is always in view */
     .space {
-        padding-bottom: 46vh;  /* the people strip is at the bottom */
+        padding-bottom: calc(var(--strip-height, 56px) + 4px);
+    }
+
+    .space-top h2 {
+        font-size: 18px;
+    }
+
+    #space-page #site-navigation li,
+    #space-page #site-navigation li a {
+        font-size: 13px;
+    }
+
+    .space button.space-more-toggle {
+        display: inline;
+    }
+
+    /* the session and the rest: under "session and more" */
+    .space:not(.is-more) .space-more {
+        display: none;
     }
 
     .pane-tabs {
@@ -549,13 +777,18 @@
 
     .pane {
         display: none;
-        height: calc(100vh - 330px);
-        min-height: 320px;
+        height: calc(100vh - var(--strip-height, 56px) - var(--panes-top, 170px) - 12px);
+        height: calc(100dvh - var(--strip-height, 56px) - var(--panes-top, 170px) - 12px);
+        min-height: 200px;
     }
 
     .space-panes[data-pane="library"] .library-pane,
     .space-panes[data-pane="centre"] .centre-pane,
     .space-panes[data-pane="chat"] .chat-pane {
         display: flex;
+    }
+
+    .chat-keys {
+        display: none;
     }
 }

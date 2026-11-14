@@ -428,6 +428,16 @@ class ChatTest(SpaceTestCase):
                          u"Ana")
 
 
+    def test_name_given_at_the_door(self):
+        self.assertNotIn('"named": true', self.client.get(
+            self.url("space_detail")).content)
+        self.assertEqual(self.post(self.url("space_name")).status_code, 400)
+        response = self.post(self.url("space_name"), {"name": u"  Ana  "})
+        self.assertEqual(self.result(response)["name"], u"Ana")
+        self.assertIn('"named": true', self.client.get(
+            self.url("space_detail")).content)
+
+
 class PadTest(SpaceTestCase):
     def setUp(self):
         super(PadTest, self).setUp()

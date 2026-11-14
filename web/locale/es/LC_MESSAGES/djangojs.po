@@ -402,3 +402,129 @@ msgstr "El resumen está en esta sesión."
 
 msgid "Anarlog is connected. Click Test in anarlog to check."
 msgstr "Anarlog está conectado. Pulsa Test en anarlog para comprobarlo."
+
+msgid "The microphone needs https. This page is not secure, so the browser does not allow it."
+msgstr "El micrófono necesita https. Esta página no es segura, por eso el navegador no lo permite."
+
+msgid "The browser asks if this page can use the microphone. Choose Allow."
+msgstr "El navegador pregunta si esta página puede usar el micrófono. Elige Permitir."
+
+msgid "You closed the question of the browser. Press the button again, and choose Allow."
+msgstr "Cerraste la pregunta del navegador. Pulsa el botón otra vez y elige Permitir."
+
+msgid "The browser blocks the microphone for this site. Click the icon at the left of the address, allow the microphone, and try again."
+msgstr "El navegador bloquea el micrófono para este sitio. Haz clic en el icono a la izquierda de la dirección, permite el micrófono e inténtalo de nuevo."
+
+msgid "The system does not let this browser use the microphone. Open the privacy settings of your computer or phone, allow the microphone for this browser, and try again."
+msgstr "El sistema no deja que este navegador use el micrófono. Abre los ajustes de privacidad de tu computador o teléfono, permite el micrófono para este navegador e inténtalo de nuevo."
+
+msgid "The microphone was not allowed. Press the button again, and choose Allow. If the browser does not ask, allow the microphone in the settings of the browser and of the system."
+msgstr "El micrófono no fue permitido. Pulsa el botón otra vez y elige Permitir. Si el navegador no pregunta, permite el micrófono en los ajustes del navegador y del sistema."
+
+msgid "No microphone found. Connect one, and try again."
+msgstr "No se encontró ningún micrófono. Conecta uno e inténtalo de nuevo."
+
+msgid "The microphone does not answer. Perhaps another application uses it, for example a video call. Close that application, and try again."
+msgstr "El micrófono no responde. Quizá otra aplicación lo usa, por ejemplo una videollamada. Cierra esa aplicación e inténtalo de nuevo."
+
+msgid "The microphone stopped. Perhaps it was unplugged, or another application took it."
+msgstr "El micrófono se detuvo. Quizá se desconectó, o lo tomó otra aplicación."
+
+msgid "The microphone gives no sound. Perhaps it is muted in the system or on the headset."
+msgstr "El micrófono no da sonido. Quizá está silenciado en el sistema o en los auriculares."
+
+msgid "The microphone did not start (%(error)s)."
+msgstr "El micrófono no se inició (%(error)s)."
+
+msgid "The camera needs https. This page is not secure, so the browser does not allow it."
+msgstr "La cámara necesita https. Esta página no es segura, por eso el navegador no la permite."
+
+msgid "The browser asks if this page can use the camera. Choose Allow."
+msgstr "El navegador pregunta si esta página puede usar la cámara. Elige Permitir."
+
+msgid "The browser blocks the camera for this site. Click the icon at the left of the address, allow the camera, and try again."
+msgstr "El navegador bloquea la cámara para este sitio. Haz clic en el icono a la izquierda de la dirección, permite la cámara e inténtalo de nuevo."
+
+msgid "The system does not let this browser use the camera. Open the privacy settings of your computer or phone, allow the camera for this browser, and try again."
+msgstr "El sistema no deja que este navegador use la cámara. Abre los ajustes de privacidad de tu computador o teléfono, permite la cámara para este navegador e inténtalo de nuevo."
+
+msgid "The camera was not allowed. Press the button again, and choose Allow. If the browser does not ask, allow the camera in the settings of the browser and of the system."
+msgstr "La cámara no fue permitida. Pulsa el botón otra vez y elige Permitir. Si el navegador no pregunta, permite la cámara en los ajustes del navegador y del sistema."
+
+msgid "No camera found. Connect one, and try again."
+msgstr "No se encontró ninguna cámara. Conecta una e inténtalo de nuevo."
+
+msgid "The camera does not answer. Perhaps another application uses it, for example a video call. Close that application, and try again."
+msgstr "La cámara no responde. Quizá otra aplicación la usa, por ejemplo una videollamada. Cierra esa aplicación e inténtalo de nuevo."
+
+msgid "The camera stopped. Perhaps it was unplugged, or another application took it."
+msgstr "La cámara se detuvo. Quizá se desconectó, o la tomó otra aplicación."
+
+msgid "The camera did not start (%(error)s)."
+msgstr "La cámara no se inició (%(error)s)."
+
+msgid "Turn your microphone on or off. The browser asks for permission the first time."
+msgstr "Enciende o apaga tu micrófono. El navegador pide permiso la primera vez."
+
+msgid "off"
+msgstr "apagada"
+
+msgid "Turn your camera off."
+msgstr "Apaga tu cámara."
+
+msgid "Camera as text. Only text is sent: your image stays on your computer."
+msgstr "Cámara como texto. Solo se envía texto: tu imagen se queda en tu computador."
+
+msgid "Camera as video. Other people here see your image."
+msgstr "Cámara como video. Las otras personas aquí ven tu imagen."
+
+msgid "Show or hide the people here, your name and the settings."
+msgstr "Muestra u oculta las personas presentes, tu nombre y los ajustes."
+
+msgid "write your name"
+msgstr "escribe tu nombre"
+
+msgid "Other people here see this name."
+msgstr "Las otras personas aquí ven este nombre."
+
+msgid "hide people (%(count)s)"
+msgstr "ocultar personas (%(count)s)"
+
+msgid "show people (%(count)s)"
+msgstr "ver personas (%(count)s)"
+
+msgid "microphone: asking…"
+msgstr "micrófono: preguntando…"
+
+msgid "microphone: on"
+msgstr "micrófono: encendido"
+
+msgid "microphone: off"
+msgstr "micrófono: apagado"
+
+msgid "camera: asking…"
+msgstr "cámara: preguntando…"
+
+msgid "camera:"
+msgstr "cámara:"
+
+msgid "try again"
+msgstr "intentar de nuevo"
+
+msgid "Write your name first. Then you can write, send files and start sessions."
+msgstr "Escribe primero tu nombre. Después puedes escribir, enviar archivos e iniciar sesiones."
+
+msgid "No message matches."
+msgstr "Ningún mensaje coincide."
+
+msgid "No messages yet. Write the first one below."
+msgstr "Todavía no hay mensajes. Escribe el primero aquí abajo."
+
+msgid "sending…"
+msgstr "enviando…"
+
+msgid "The message was not sent: %(error)s Your text is still here."
+msgstr "El mensaje no se envió: %(error)s Tu texto sigue aquí."
+
+msgid "No document is open. Choose one in the library or in the chat."
+msgstr "No hay ningún documento abierto. Elige uno en la biblioteca o en el chat."

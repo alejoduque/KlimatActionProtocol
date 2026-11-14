@@ -7,40 +7,43 @@
 {% block extra-meta %}
     <meta name="robots" content="noindex, nofollow">
     <meta name="referrer" content="no-referrer">
-    <link rel="stylesheet" href="{% static "css/live.css" %}?v=15" />
-    <link rel="stylesheet" href="{% static "css/spaces.css" %}?v=2" />
+    <link rel="stylesheet" href="{% static "css/live.css" %}?v=16" />
+    <link rel="stylesheet" href="{% static "css/spaces.css" %}?v=3" />
 {% endblock %}
 
+{% block body-attrs %} id="space-page"{% endblock %}
+
 {% block content %}
-<aside id="live-strip" class="live-strip" aria-label="{% trans "people in this space" %}"></aside>
-<div class="space">
+<aside id="live-strip" class="live-strip space-strip" aria-label="{% trans "people in this space" %}"></aside>
+<div class="space" id="space">
     <noscript><p>{% trans "A space needs JavaScript." %}</p></noscript>
 
     <div class="space-top">
         <h2>{{ space.name }}</h2>
-        <button type="button" id="copy-link" class="link">{% trans "copy the secret link" %}</button>
-        <button type="button" id="rotate-link" class="link" hidden>{% trans "new link" %}</button>
-        <a href="{% url "space_log" space.token %}">{% trans "history" %}</a>
-        <span class="doc-meta">{% trans "files" %}: <span id="space-usage"></span></span>
-        {% if space.contention %}<a href="{{ space.contention.get_absolute_url }}">{% trans "the claim" %}</a>{% endif %}
+        <button type="button" id="copy-link" class="link" title="{% trans "Copy the address of this space, to send it to other people. Whoever has it can enter." %}">{% trans "copy the secret link" %}</button>
+        <button type="button" id="space-more-toggle" class="link space-more-toggle" aria-expanded="false">{% trans "session and more" %}</button>
+        <button type="button" id="rotate-link" class="link space-more" hidden title="{% trans "Make a new address. The old one stops working." %}">{% trans "new link" %}</button>
+        <a class="space-more" href="{% url "space_log" space.token %}" title="{% trans "Everything that happened in this space." %}">{% trans "history" %}</a>
+        <span class="doc-meta space-more">{% trans "files" %}: <span id="space-usage"></span></span>
+        {% if space.contention %}<a class="space-more" href="{{ space.contention.get_absolute_url }}">{% trans "the claim" %}</a>{% endif %}
     </div>
 
-    <div class="session-bar">
-        <label for="session-select">{% trans "session" %}</label>
-        <select id="session-select"></select>
+    <div class="session-bar space-more">
+        <label for="session-select" title="{% trans "A session is one meeting. Notes belong to a session; chat and files also work without one." %}">{% trans "session" %}</label>
+        <select id="session-select" title="{% trans "A session is one meeting. Notes belong to a session; chat and files also work without one." %}"></select>
         <span id="session-start-tools">
             <input id="session-title" maxlength="200" placeholder="{% trans "title of a new session" %}" aria-label="{% trans "title of a new session" %}">
-            <button type="button" id="session-start">{% trans "start" %}</button>
+            <button type="button" id="session-start" title="{% trans "Start a meeting. Everyone here can then write the notes." %}">{% trans "start" %}</button>
         </span>
         <button type="button" id="session-end" class="link" hidden>{% trans "end the session" %}</button>
-        <a id="session-export" href="#" hidden>{% trans "export .md" %}</a>
+        <a id="session-export" href="#" hidden title="{% trans "The chat, the notes and the list of files of this session, as one file." %}">{% trans "export .md" %}</a>
         <a id="session-log" href="#" hidden>{% trans "its history" %}</a>
     </div>
 
     <p id="notes-banner" class="notes-banner" role="status" hidden></p>
     <p id="space-notice" class="space-notice" role="status" hidden></p>
 
-    <details class="anarlog">
+    <details class="anarlog space-more">
         <summary>{% trans "meeting summaries with anarlog" %}</summary>
         <p>{% blocktrans trimmed %}<a href="https://anarlog.so/download" target="_blank" rel="noopener noreferrer">Anarlog</a> is free software that you install on your computer. It records the sound of your computer, writes the words and makes a summary, without a bot in the call. KLAP cannot start it or see it. KLAP only receives the summary, when you give it.{% endblocktrans %}</p>
         <ol class="anarlog-steps">
@@ -82,63 +85,16 @@
     </details>
 
     <div class="pane-tabs" role="group" aria-label="{% trans "parts of the space" %}">
-        <button type="button" data-pane-tab="library" aria-pressed="false">{% trans "library" %}</button>
-        <button type="button" data-pane-tab="centre" aria-pressed="false">{% trans "notes" %}</button>
         <button type="button" data-pane-tab="chat" aria-pressed="true">{% trans "chat" %}</button>
+        <button type="button" data-pane-tab="centre" aria-pressed="false">{% trans "notes" %}</button>
+        <button type="button" data-pane-tab="library" aria-pressed="false">{% trans "library" %}</button>
     </div>
 
     <div id="space-panes" class="space-panes" data-pane="chat">
-        <section id="library-pane" class="pane library-pane" aria-label="{% trans "library" %}">
-            <h3>// {% trans "library" %}</h3>
-            <div class="filters">
-                <input type="search" id="library-search" placeholder="{% trans "search" %}" aria-label="{% trans "search the library" %}">
-                <select id="library-kind" aria-label="{% trans "kind" %}">
-                    <option value="">{% trans "all kinds" %}</option>
-                    <option value="file">{% trans "files" %}</option>
-                    <option value="screenshot">{% trans "screenshots" %}</option>
-                    <option value="pdf">pdf</option>
-                    <option value="url">{% trans "links" %}</option>
-                    <option value="text">{% trans "texts" %}</option>
-                    <option value="summary">{% trans "summaries" %}</option>
-                </select>
-                <select id="library-category" aria-label="{% trans "category" %}"></select>
-                <label><input type="checkbox" id="library-session"> {% trans "only this session" %}</label>
-            </div>
-            <form id="library-add-form" class="library-add">
-                <textarea id="library-add-text" rows="2" required placeholder="{% trans "a link, or a text" %}" aria-label="{% trans "a link, or a text" %}"></textarea>
-                <input id="library-add-title" maxlength="255" placeholder="{% trans "title" %}" aria-label="{% trans "title" %}">
-                <button type="submit">{% trans "add" %}</button>
-                <button type="button" id="library-attach" class="link">{% trans "or choose files" %}</button>
-                <input type="file" id="library-file" multiple hidden>
-            </form>
-            <div id="library-items"></div>
-        </section>
-
-        <section id="space-centre" class="pane centre-pane" data-view="notes" aria-label="{% trans "notes and documents" %}">
-            <div class="centre-tabs" role="group">
-                <button type="button" data-centre-tab="notes" class="link" aria-pressed="true">{% trans "notes" %}</button>
-                <button type="button" data-centre-tab="document" class="link" aria-pressed="false">{% trans "document" %}</button>
-            </div>
-            <div class="notes-view">
-                <div class="pad-tools">
-                    <span id="pad-status" class="doc-meta" role="status"></span>
-                    <button type="button" id="pad-history-toggle" class="link">{% trans "older versions" %}</button>
-                </div>
-                <div id="pad-history" class="pad-history" hidden>
-                    <input type="range" id="pad-slider" min="0" max="0" value="0" aria-label="{% trans "older versions" %}">
-                    <span id="pad-revision-time" class="doc-meta"></span>
-                    <button type="button" id="pad-restore" class="link">{% trans "bring this version back" %}</button>
-                    <pre id="pad-revision-text"></pre>
-                </div>
-                <textarea id="pad-text" disabled spellcheck="true" aria-label="{% trans "the notes of this session" %}"></textarea>
-            </div>
-            <div id="document-view" class="document-view"></div>
-        </section>
-
         <section id="chat-pane" class="pane chat-pane" aria-label="{% trans "chat" %}">
-            <h3>// {% trans "chat" %}</h3>
+            <h3>// {% trans "chat" %} <span class="pane-hint">{% trans "messages to everyone in this space" %}</span></h3>
             <details class="chat-filters">
-                <summary>{% trans "find" %}</summary>
+                <summary title="{% trans "Search the old messages." %}">{% trans "find" %}</summary>
                 <input type="search" id="chat-search" placeholder="{% trans "search" %}" aria-label="{% trans "search the chat" %}">
                 <select id="chat-kind" aria-label="{% trans "kind" %}">
                     <option value="">{% trans "all messages" %}</option>
@@ -154,14 +110,89 @@
             </details>
             <div id="chat-messages" class="chat-messages" aria-live="polite"></div>
             <div id="chat-uploads" class="chat-uploads"></div>
+            <p id="chat-error" class="chat-error" role="alert" hidden></p>
+
+            <form id="name-form" class="name-gate" hidden>
+                <label for="name-input">{% trans "your name" %}</label>
+                <p class="pane-hint">{% trans "Write your name to start. Other people see it next to your messages." %}</p>
+                <div class="entry">
+                    <span class="entry-prompt" aria-hidden="true">&gt;</span>
+                    <input id="name-input" maxlength="30" required autocomplete="nickname" placeholder="{% trans "write your name here" %}">
+                    <span class="entry-caret" aria-hidden="true"></span>
+                </div>
+                <button type="submit">{% trans "enter the chat" %}</button>
+            </form>
+
             <form id="chat-form" class="chat-form">
-                <textarea id="chat-input" rows="2" maxlength="4000" placeholder="{% trans "write, or drop or paste files" %}" aria-label="{% trans "write a message" %}"></textarea>
+                <div class="entry">
+                    <span class="entry-prompt" aria-hidden="true">&gt;</span>
+                    <textarea id="chat-input" rows="2" maxlength="4000" placeholder="{% trans "write a message here" %}" title="{% trans "Enter sends the message. Shift+Enter makes a new line." %}" aria-label="{% trans "write a message" %}"></textarea>
+                    <span class="entry-caret" aria-hidden="true"></span>
+                </div>
                 <div class="chat-actions">
-                    <button type="button" id="chat-attach" class="link">{% trans "+ files" %}</button>
+                    <button type="button" id="chat-attach" class="link" title="{% trans "Send files to everyone. You can also drop them here, or paste a screenshot." %}">{% trans "+ files" %}</button>
                     <input type="file" id="chat-file" multiple hidden>
-                    <button type="submit">{% trans "send" %}</button>
+                    <span class="pane-hint chat-keys">{% trans "Enter sends" %}</span>
+                    <button type="submit" title="{% trans "Send the message to everyone in this space." %}">{% trans "send" %}</button>
                 </div>
             </form>
+        </section>
+
+        <section id="space-centre" class="pane centre-pane" data-view="notes" aria-label="{% trans "notes and documents" %}">
+            <h3>// {% trans "notes" %} <span class="pane-hint">{% trans "one text that everyone here writes together" %}</span></h3>
+            <div class="centre-tabs" role="group">
+                <button type="button" data-centre-tab="notes" class="link" aria-pressed="true" title="{% trans "The notes of the session." %}">{% trans "notes" %}</button>
+                <button type="button" data-centre-tab="document" class="link" aria-pressed="false" title="{% trans "The document that is open, from the library or the chat." %}">{% trans "document" %}</button>
+            </div>
+            <div class="notes-view">
+                <div id="pad-empty" class="pad-empty">
+                    <p>{% trans "Notes belong to a session: one meeting. Start a session, and everyone here can write in the same text at the same time." %}</p>
+                    <button type="button" id="pad-start">{% trans "start a session and take notes" %}</button>
+                </div>
+                <div class="pad-tools">
+                    <span id="pad-status" class="doc-meta" role="status"></span>
+                    <button type="button" id="pad-history-toggle" class="link" title="{% trans "See what the notes said before, and bring a version back." %}">{% trans "older versions" %}</button>
+                </div>
+                <div id="pad-history" class="pad-history" hidden>
+                    <input type="range" id="pad-slider" min="0" max="0" value="0" aria-label="{% trans "older versions" %}">
+                    <span id="pad-revision-time" class="doc-meta"></span>
+                    <button type="button" id="pad-restore" class="link">{% trans "bring this version back" %}</button>
+                    <pre id="pad-revision-text"></pre>
+                </div>
+                <textarea id="pad-text" disabled spellcheck="true" placeholder="{% trans "Write the notes of the meeting here. Everyone sees them at once." %}" aria-label="{% trans "the notes of this session" %}"></textarea>
+            </div>
+            <div id="document-view" class="document-view">
+                <p class="space-empty">{% trans "No document is open. Choose one in the library or in the chat." %}</p>
+            </div>
+        </section>
+
+        <section id="library-pane" class="pane library-pane" aria-label="{% trans "library" %}">
+            <h3>// {% trans "library" %} <span class="pane-hint">{% trans "the files, links and texts of this space" %}</span></h3>
+            <div class="filters">
+                <input type="search" id="library-search" placeholder="{% trans "search" %}" aria-label="{% trans "search the library" %}">
+                <select id="library-kind" aria-label="{% trans "kind" %}">
+                    <option value="">{% trans "all kinds" %}</option>
+                    <option value="file">{% trans "files" %}</option>
+                    <option value="screenshot">{% trans "screenshots" %}</option>
+                    <option value="pdf">pdf</option>
+                    <option value="url">{% trans "links" %}</option>
+                    <option value="text">{% trans "texts" %}</option>
+                    <option value="summary">{% trans "summaries" %}</option>
+                </select>
+                <select id="library-category" aria-label="{% trans "category" %}"></select>
+                <label><input type="checkbox" id="library-session"> {% trans "only this session" %}</label>
+            </div>
+            <details class="library-add-box">
+                <summary>{% trans "+ add a link, a text or files" %}</summary>
+                <form id="library-add-form" class="library-add">
+                    <textarea id="library-add-text" rows="2" required placeholder="{% trans "a link, or a text" %}" aria-label="{% trans "a link, or a text" %}"></textarea>
+                    <input id="library-add-title" maxlength="255" placeholder="{% trans "title" %}" aria-label="{% trans "title" %}">
+                    <button type="submit">{% trans "add" %}</button>
+                    <button type="button" id="library-attach" class="link">{% trans "or choose files" %}</button>
+                    <input type="file" id="library-file" multiple hidden>
+                </form>
+            </details>
+            <div id="library-items"></div>
         </section>
     </div>
     <datalist id="space-categories"></datalist>
@@ -174,10 +205,10 @@
 <script type="text/javascript" src="{% url "javascript_catalog" %}?language={{ LANGUAGE_CODE }}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/ascii.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/room.js" %}"></script>
-<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}?v=2"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}?v=3"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/lib/yjs-13.6.27.min.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/pad.js" %}?v=2"></script>
-<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/space.js" %}?v=2"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/space.js" %}?v=3"></script>
 <script type="text/javascript">
     new arguman.assembly.Space({{ space_config|safe }}).start();
 </script>

@@ -405,3 +405,129 @@ msgstr "Il riassunto è in questa sessione."
 
 msgid "Anarlog is connected. Click Test in anarlog to check."
 msgstr "Anarlog è collegato. Clicca Test in anarlog per verificare."
+
+msgid "The microphone needs https. This page is not secure, so the browser does not allow it."
+msgstr "Il microfono ha bisogno di https. Questa pagina non è sicura, quindi il browser non lo permette."
+
+msgid "The browser asks if this page can use the microphone. Choose Allow."
+msgstr "Il browser chiede se questa pagina può usare il microfono. Scegli Consenti."
+
+msgid "You closed the question of the browser. Press the button again, and choose Allow."
+msgstr "Hai chiuso la domanda del browser. Premi di nuovo il pulsante e scegli Consenti."
+
+msgid "The browser blocks the microphone for this site. Click the icon at the left of the address, allow the microphone, and try again."
+msgstr "Il browser blocca il microfono per questo sito. Clicca sull'icona a sinistra dell'indirizzo, consenti il microfono e riprova."
+
+msgid "The system does not let this browser use the microphone. Open the privacy settings of your computer or phone, allow the microphone for this browser, and try again."
+msgstr "Il sistema non lascia usare il microfono a questo browser. Apri le impostazioni di privacy del tuo computer o telefono, consenti il microfono per questo browser e riprova."
+
+msgid "The microphone was not allowed. Press the button again, and choose Allow. If the browser does not ask, allow the microphone in the settings of the browser and of the system."
+msgstr "Il microfono non è stato consentito. Premi di nuovo il pulsante e scegli Consenti. Se il browser non chiede, consenti il microfono nelle impostazioni del browser e del sistema."
+
+msgid "No microphone found. Connect one, and try again."
+msgstr "Nessun microfono trovato. Collegane uno e riprova."
+
+msgid "The microphone does not answer. Perhaps another application uses it, for example a video call. Close that application, and try again."
+msgstr "Il microfono non risponde. Forse un'altra applicazione lo usa, per esempio una videochiamata. Chiudi quell'applicazione e riprova."
+
+msgid "The microphone stopped. Perhaps it was unplugged, or another application took it."
+msgstr "Il microfono si è fermato. Forse è stato scollegato, o un'altra applicazione lo ha preso."
+
+msgid "The microphone gives no sound. Perhaps it is muted in the system or on the headset."
+msgstr "Il microfono non dà suono. Forse è disattivato nel sistema o sulle cuffie."
+
+msgid "The microphone did not start (%(error)s)."
+msgstr "Il microfono non si è avviato (%(error)s)."
+
+msgid "The camera needs https. This page is not secure, so the browser does not allow it."
+msgstr "La videocamera ha bisogno di https. Questa pagina non è sicura, quindi il browser non la permette."
+
+msgid "The browser asks if this page can use the camera. Choose Allow."
+msgstr "Il browser chiede se questa pagina può usare la videocamera. Scegli Consenti."
+
+msgid "The browser blocks the camera for this site. Click the icon at the left of the address, allow the camera, and try again."
+msgstr "Il browser blocca la videocamera per questo sito. Clicca sull'icona a sinistra dell'indirizzo, consenti la videocamera e riprova."
+
+msgid "The system does not let this browser use the camera. Open the privacy settings of your computer or phone, allow the camera for this browser, and try again."
+msgstr "Il sistema non lascia usare la videocamera a questo browser. Apri le impostazioni di privacy del tuo computer o telefono, consenti la videocamera per questo browser e riprova."
+
+msgid "The camera was not allowed. Press the button again, and choose Allow. If the browser does not ask, allow the camera in the settings of the browser and of the system."
+msgstr "La videocamera non è stata consentita. Premi di nuovo il pulsante e scegli Consenti. Se il browser non chiede, consenti la videocamera nelle impostazioni del browser e del sistema."
+
+msgid "No camera found. Connect one, and try again."
+msgstr "Nessuna videocamera trovata. Collegane una e riprova."
+
+msgid "The camera does not answer. Perhaps another application uses it, for example a video call. Close that application, and try again."
+msgstr "La videocamera non risponde. Forse un'altra applicazione la usa, per esempio una videochiamata. Chiudi quell'applicazione e riprova."
+
+msgid "The camera stopped. Perhaps it was unplugged, or another application took it."
+msgstr "La videocamera si è fermata. Forse è stata scollegata, o un'altra applicazione l'ha presa."
+
+msgid "The camera did not start (%(error)s)."
+msgstr "La videocamera non si è avviata (%(error)s)."
+
+msgid "Turn your microphone on or off. The browser asks for permission the first time."
+msgstr "Accendi o spegni il tuo microfono. Il browser chiede il permesso la prima volta."
+
+msgid "off"
+msgstr "spenta"
+
+msgid "Turn your camera off."
+msgstr "Spegni la tua videocamera."
+
+msgid "Camera as text. Only text is sent: your image stays on your computer."
+msgstr "Videocamera come testo. Si invia solo testo: la tua immagine resta sul tuo computer."
+
+msgid "Camera as video. Other people here see your image."
+msgstr "Videocamera come video. Le altre persone qui vedono la tua immagine."
+
+msgid "Show or hide the people here, your name and the settings."
+msgstr "Mostra o nascondi le persone presenti, il tuo nome e le impostazioni."
+
+msgid "write your name"
+msgstr "scrivi il tuo nome"
+
+msgid "Other people here see this name."
+msgstr "Le altre persone qui vedono questo nome."
+
+msgid "hide people (%(count)s)"
+msgstr "nascondi persone (%(count)s)"
+
+msgid "show people (%(count)s)"
+msgstr "mostra persone (%(count)s)"
+
+msgid "microphone: asking…"
+msgstr "microfono: chiede…"
+
+msgid "microphone: on"
+msgstr "microfono: acceso"
+
+msgid "microphone: off"
+msgstr "microfono: spento"
+
+msgid "camera: asking…"
+msgstr "videocamera: chiede…"
+
+msgid "camera:"
+msgstr "videocamera:"
+
+msgid "try again"
+msgstr "riprova"
+
+msgid "Write your name first. Then you can write, send files and start sessions."
+msgstr "Scrivi prima il tuo nome. Poi puoi scrivere, inviare file e iniziare sessioni."
+
+msgid "No message matches."
+msgstr "Nessun messaggio corrisponde."
+
+msgid "No messages yet. Write the first one below."
+msgstr "Ancora nessun messaggio. Scrivi il primo qui sotto."
+
+msgid "sending…"
+msgstr "invio…"
+
+msgid "The message was not sent: %(error)s Your text is still here."
+msgstr "Il messaggio non è stato inviato: %(error)s Il tuo testo è ancora qui."
+
+msgid "No document is open. Choose one in the library or in the chat."
+msgstr "Nessun documento è aperto. Scegline uno nella biblioteca o nella chat."

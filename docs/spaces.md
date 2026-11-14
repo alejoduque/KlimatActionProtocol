@@ -7,6 +7,17 @@ There are no accounts. Whoever has the link is in the group. Make one at
 
 ## What is in a space
 
+- **Your name.** A new guest writes a name first, in the chat. Then the line
+  to write in opens (`>` and a block that blinks). Without a name a person can
+  read, but not write, send files or start a session.
+- **Microphone and camera.** Their buttons are always on the page: in the
+  people strip at the right, or in the bar at the bottom of a phone. They stay
+  off until the person starts them. When a device does not start, the strip
+  says why, next to the button, with "try again": the page is not https, the
+  browser blocks the site, the system blocks the browser, the person closed
+  the question, there is no device, another application uses it, or it was
+  unplugged. A block in the browser shows before the person presses anything,
+  and goes away when they allow the device.
 - **Sessions.** One meeting at a time. Chat, files and notes go to the open
   session. "export .md" gives a whole session as one file, and "history" is
   the log of what happened.

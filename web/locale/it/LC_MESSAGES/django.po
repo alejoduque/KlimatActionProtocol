@@ -1548,3 +1548,90 @@ msgstr "invia"
 #: templates/base.html
 msgid "Supported through Creative Climate Changemakers Switzerland, <a href=\"https://www.vertlefutur.ch/\">vertlefutur.ch</a> and <a href=\"https://juliesbicycle.org/\">juliesbicycle.org</a>"
 msgstr "Con il sostegno di Creative Climate Changemakers Switzerland, <a href=\"https://www.vertlefutur.ch/\">vertlefutur.ch</a> e <a href=\"https://juliesbicycle.org/\">juliesbicycle.org</a>"
+
+msgid "Copy the address of this space, to send it to other people. Whoever has it can enter."
+msgstr "Copia l'indirizzo di questo spazio per inviarlo ad altre persone. Chi lo ha può entrare."
+
+msgid "session and more"
+msgstr "sessione e altro"
+
+msgid "Make a new address. The old one stops working."
+msgstr "Crea un nuovo indirizzo. Quello vecchio smette di funzionare."
+
+msgid "Everything that happened in this space."
+msgstr "Tutto quello che è successo in questo spazio."
+
+msgid "A session is one meeting. Notes belong to a session; chat and files also work without one."
+msgstr "Una sessione è una riunione. Le note appartengono a una sessione; la chat e i file funzionano anche senza."
+
+msgid "Start a meeting. Everyone here can then write the notes."
+msgstr "Inizia una riunione. Poi tutte le persone qui possono scrivere le note."
+
+msgid "The chat, the notes and the list of files of this session, as one file."
+msgstr "La chat, le note e l'elenco dei file di questa sessione, in un solo file."
+
+msgid "messages to everyone in this space"
+msgstr "messaggi per tutte le persone di questo spazio"
+
+msgid "Search the old messages."
+msgstr "Cerca nei messaggi precedenti."
+
+msgid "your name"
+msgstr "il tuo nome"
+
+msgid "Write your name to start. Other people see it next to your messages."
+msgstr "Scrivi il tuo nome per iniziare. Le altre persone lo vedono accanto ai tuoi messaggi."
+
+msgid "write your name here"
+msgstr "scrivi qui il tuo nome"
+
+msgid "enter the chat"
+msgstr "entra nella chat"
+
+msgid "write a message here"
+msgstr "scrivi qui un messaggio"
+
+msgid "Enter sends the message. Shift+Enter makes a new line."
+msgstr "Invio manda il messaggio. Shift+Invio fa una nuova riga."
+
+msgid "Send files to everyone. You can also drop them here, or paste a screenshot."
+msgstr "Invia file a tutte le persone. Puoi anche trascinarli qui, o incollare uno screenshot."
+
+msgid "Enter sends"
+msgstr "Invio manda"
+
+msgid "Send the message to everyone in this space."
+msgstr "Invia il messaggio a tutte le persone di questo spazio."
+
+msgid "one text that everyone here writes together"
+msgstr "un testo che tutte le persone qui scrivono insieme"
+
+msgid "The notes of the session."
+msgstr "Le note della sessione."
+
+msgid "The document that is open, from the library or the chat."
+msgstr "Il documento che è aperto, dalla biblioteca o dalla chat."
+
+msgid "Notes belong to a session: one meeting. Start a session, and everyone here can write in the same text at the same time."
+msgstr "Le note appartengono a una sessione: una riunione. Inizia una sessione, e tutte le persone qui possono scrivere nello stesso testo allo stesso tempo."
+
+msgid "start a session and take notes"
+msgstr "inizia una sessione e prendi note"
+
+msgid "See what the notes said before, and bring a version back."
+msgstr "Guarda cosa dicevano le note prima, e recupera una versione."
+
+msgid "Write the notes of the meeting here. Everyone sees them at once."
+msgstr "Scrivi qui le note della riunione. Tutte le persone le vedono subito."
+
+msgid "No document is open. Choose one in the library or in the chat."
+msgstr "Nessun documento è aperto. Scegline uno nella biblioteca o nella chat."
+
+msgid "the files, links and texts of this space"
+msgstr "i file, i link e i testi di questo spazio"
+
+msgid "+ add a link, a text or files"
+msgstr "+ aggiungi un link, un testo o dei file"
+
+msgid "Write your name."
+msgstr "Scrivi il tuo nome."

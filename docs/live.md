@@ -65,8 +65,10 @@ part.
   Each reason also has its recording as a `.tbt` file for dyne's player
   (`/<claim>/premises/<id>/tbt.json` gives the recording).
 - **People, voice, video, ascii video.** The strip at the right side (at the
-  bottom on a phone) shows the people on the page. Under "settings": your
-  name, the microphone, and the camera: no camera, **ascii** or video. In
+  bottom on a phone) shows the people on the page. The microphone
+  button, the camera buttons (off, **ascii** or video) and your name are
+  always there. When a device does not start, the strip says why and what to
+  do (see "Microphone and camera" in [spaces.md](spaces.md)). In
   ascii mode the browser changes the picture into text and sends only the
   text: the camera image stays on the computer. "show all video as ascii"
   changes all incoming video to ascii. Video shows in greys only. Each tile

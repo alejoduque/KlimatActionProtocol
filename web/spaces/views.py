@@ -213,6 +213,8 @@ class SpaceDetailView(SpaceView):
             "iceServers": settings.ICE_SERVERS,
             "csrfToken": get_token(request),
             "name": name_of(request.user),
+            # a guest without a name is asked for one before the chat
+            "named": bool(request.user.first_name),
             "maxFileBytes": settings.SPACE_MAX_FILE_BYTES,
             "kinds": [{"kind": kind, "label": unicode(label)}
                       for kind, label in ITEM_KINDS],
@@ -221,6 +223,7 @@ class SpaceDetailView(SpaceView):
                 reverse("space_anarlog_hook", args=[space.hook_key])),
             "urls": {
                 "state": url("space_state"),
+                "name": url("space_name"),
                 "rotate": url("space_rotate"),
                 "items": url("space_items"),
                 "upload": url("space_item_upload"),
@@ -258,6 +261,16 @@ class SpaceRotateView(SpaceView):
         self.space.rotate_token()
         self.log("link_rotated")
         return json_response({"url": self.space.get_absolute_url()})
+
+
+class SpaceNameView(SpaceView):
+    """The name a person gives when they enter. It stays for the next visit."""
+
+    def post(self, request):
+        name = self.body().get("name")
+        if not isinstance(name, basestring) or not name.strip():
+            return error(_("Write your name."))
+        return json_response({"name": self.visitor_name(name)})
 
 
 class SpaceStateView(SpaceView):

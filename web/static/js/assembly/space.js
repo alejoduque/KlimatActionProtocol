@@ -81,6 +81,7 @@
         this.config = config;
         this.urls = config.urls;
         this.name = config.name;
+        this.named = !!config.named;  // false: asked for a name before the chat
         this.state = {sessions: [], categories: [], current: null};
         this.sessionId = null;
         this.lastMessage = 0;
@@ -102,8 +103,10 @@
             this.presence = new assembly.Presence($("live-strip"), {
                 room: room,
                 name: this.name,
+                named: this.named,
+                compact: true,
                 onName: function (name) {
-                    _this.name = name;
+                    _this.setName(name);
                 },
                 writingLabel: function (id) {
                     return _this.isTakingNotes(id) ? gettext("taking notes") : null;
@@ -124,6 +127,7 @@
 
             this.bindRoom();
             this.bindPage();
+            this.bindName();
             this.bindChat();
             this.bindLibrary();
             this.bindPadHistory();
@@ -146,7 +150,9 @@
 
         request: function (url, options) {
             options.credentials = "same-origin";
-            return fetch(url, options).then(function (response) {
+            return fetch(url, options).catch(function () {
+                throw new Error(gettext("The connection failed."));
+            }).then(function (response) {
                 return response.json().catch(function () {
                     return {};
                 }).then(function (data) {
@@ -270,14 +276,48 @@
         bindPage: function () {
             var _this = this;
 
-            $("session-start").addEventListener("click", function () {
+            function startSession() {
+                if (!_this.requireName()) {
+                    return;
+                }
                 _this.post(_this.urls.sessionNew, {title: $("session-title").value})
                     .then(function (data) {
                         $("session-title").value = "";
                         _this.announce("session");
                         _this.selectSession(data.session.id);
                         return _this.refreshState();
+                    }).then(function () {
+                        $("pad-text").focus();
                     }).catch(_this.fail.bind(_this));
+            }
+            $("session-start").addEventListener("click", startSession);
+            $("pad-start").addEventListener("click", startSession);
+            $("session-title").addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    startSession();
+                }
+            });
+
+            // the panes fill the window under what is above them, so the line
+            // to write in stays in view
+            function fit() {
+                var top = Math.round($("space-panes").getBoundingClientRect().top +
+                                     window.pageYOffset);
+                if (top !== _this.panesTop) {
+                    _this.panesTop = top;
+                    document.documentElement.style.setProperty("--panes-top", top + "px");
+                }
+            }
+            fit();
+            window.addEventListener("resize", fit);
+            if (window.ResizeObserver) {
+                new ResizeObserver(fit).observe($("space"));
+            }
+
+            // on a narrow screen the session and the rest fold away
+            $("space-more-toggle").addEventListener("click", function () {
+                var open = $("space").classList.toggle("is-more");
+                $("space-more-toggle").setAttribute("aria-expanded", open);
             });
             $("session-end").addEventListener("click", function () {
                 var current = _this.state.current;
@@ -371,6 +411,7 @@
         selectSession: function (id) {
             // looking at an old session stays until the person changes it
             this.pinned = !!id && id !== this.state.current;
+            $("space-centre").classList.toggle("no-session", !id);
             if (id && id === this.sessionId) {
                 return;
             }
@@ -554,6 +595,55 @@
             }).catch(this.fail.bind(this));
         },
 
+        // -------------------------------------------------------------- name
+
+        // a new guest gives a name first; then the chat opens
+        bindName: function () {
+            var _this = this;
+            $("name-form").addEventListener("submit", function (event) {
+                event.preventDefault();
+                var name = $("name-input").value.trim();
+                if (!name) {
+                    $("name-input").focus();
+                    return;
+                }
+                _this.presence.setName(name);
+                _this.setName(name);
+                $("chat-input").focus();
+            });
+            this.renderName();
+        },
+
+        renderName: function () {
+            $("name-form").hidden = this.named;
+            $("chat-form").hidden = !this.named;
+        },
+
+        setName: function (name) {
+            this.name = name;
+            this.named = true;
+            this.renderName();
+            // kept for the next visit
+            this.post(this.urls.name, {name: name}).catch(function () {});
+        },
+
+        // false, and the question for the name, when the person has no name yet
+        requireName: function () {
+            if (this.named) {
+                return true;
+            }
+            this.showPane("chat");
+            this.chatError(gettext("Write your name first. Then you can write, send files and start sessions."));
+            $("name-input").focus();
+            return false;
+        },
+
+        chatError: function (text) {
+            var line = $("chat-error");
+            line.textContent = text || "";
+            line.hidden = !text;
+        },
+
         // -------------------------------------------------------------- chat
 
         bindChat: function () {
@@ -589,8 +679,8 @@
                 var files = event.clipboardData && event.clipboardData.files;
                 if (files && files.length) {
                     event.preventDefault();
-                    _this.addUploads(files, {chat: true, pasted: true});
                     _this.showPane("chat");
+                    _this.addUploads(files, {chat: true, pasted: true});
                 }
             });
         },
@@ -668,13 +758,24 @@
                 list.textContent = "";
                 this.lastMessage = 0;
             }
+            var empty = list.querySelector(".space-empty"),
+                sending = list.querySelector(".is-sending");
+            if (empty && messages.length) {
+                empty.remove();
+            }
             messages.forEach(function (message) {
                 if (!list.querySelector('[data-message="' + message.id + '"]')) {
-                    list.appendChild(this.messageElement(message));
+                    // a message on its way stays the last one
+                    list.insertBefore(this.messageElement(message), sending);
                 }
                 this.lastMessage = Math.max(this.lastMessage, message.id);
                 this.rememberPerson(message.author);
             }, this);
+            if (!list.firstChild) {
+                list.appendChild(el("p", "space-empty", this.chatFiltered()
+                    ? gettext("No message matches.")
+                    : gettext("No messages yet. Write the first one below.")));
+            }
             list.scrollTop = stay ? list.scrollHeight : scroll;
         },
 
@@ -694,7 +795,8 @@
             row.setAttribute("data-message", message.id);
             var head = el("div", "chat-head");
             head.appendChild(el("strong", null, message.author || gettext("someone")));
-            head.appendChild(el("span", "chat-time", formatTime(message.created_at)));
+            head.appendChild(el("span", "chat-time",
+                                message.note || formatTime(message.created_at)));
             row.appendChild(head);
             if (message.text) {
                 row.appendChild(el("div", "chat-text", message.text));
@@ -706,15 +808,35 @@
         },
 
         sendMessage: function () {
-            var _this = this, input = $("chat-input"), text = input.value.trim();
+            var _this = this, input = $("chat-input"), text = input.value.trim(),
+                list = $("chat-messages");
             if (!text) {
+                input.focus();
+                return;
+            }
+            if (!this.requireName()) {
                 return;
             }
             input.value = "";
+            this.chatError(null);
+
+            // the message shows at once, in grey until the server has it
+            var empty = list.querySelector(".space-empty");
+            if (empty) {
+                empty.remove();
+            }
+            var pending = this.messageElement({
+                id: "sending", author: this.name, text: text, items: [],
+                note: gettext("sending…")
+            });
+            pending.classList.add("is-sending");
+            list.appendChild(pending);
+            list.scrollTop = list.scrollHeight;
+
             this.post(this.urls.chatPost, {text: text, session: this.state.current})
                 .then(function (data) {
+                    pending.remove();
                     _this.renderChat([data.message], false);
-                    var list = $("chat-messages");
                     list.scrollTop = list.scrollHeight;
                     _this.announce(data.message.items.length ? "library" : "chat");
                     if (data.message.items.length) {
@@ -722,14 +844,23 @@
                     }
                 })
                 .catch(function (error) {
-                    input.value = text;
-                    _this.fail(error);
+                    pending.remove();
+                    _this.renderChat([], false);
+                    // the words come back, unless the person already writes again
+                    input.value = input.value ? text + "\n" + input.value : text;
+                    _this.chatError(interpolate(
+                        gettext("The message was not sent: %(error)s Your text is still here."),
+                        {error: error.message}, true));
+                    input.focus();
                 });
         },
 
         // ----------------------------------------------------------- uploads
 
         addUploads: function (files, options) {
+            if (!this.requireName()) {
+                return;
+            }
             Array.prototype.forEach.call(files, function (file) {
                 var upload = {file: file, options: options, row: el("div", "upload-row")};
                 upload.label = el("span", "upload-name", file.name || gettext("pasted image"));
@@ -857,6 +988,9 @@
             });
             $("library-add-form").addEventListener("submit", function (event) {
                 event.preventDefault();
+                if (!_this.requireName()) {
+                    return;
+                }
                 var value = $("library-add-text").value.trim(),
                     title = $("library-add-title").value.trim(),
                     isLink = /^https?:\/\//i.test(value),
@@ -959,6 +1093,8 @@
                     _this.post(_this.urlFor("itemRemove", item.id)).then(function () {
                         _this.announce("library");
                         view.textContent = "";
+                        view.appendChild(el("p", "space-empty",
+                            gettext("No document is open. Choose one in the library or in the chat.")));
                         _this.openedItem = null;
                         _this.showCentre("notes");
                         _this.loadLibrary();

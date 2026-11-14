@@ -13,6 +13,8 @@ urlpatterns = patterns('',
         name='space_rotate'),
     url(r'^%s/state\.json$' % TOKEN, views.SpaceStateView.as_view(),
         name='space_state'),
+    url(r'^%s/name$' % TOKEN, views.SpaceNameView.as_view(),
+        name='space_name'),
     url(r'^%s/log$' % TOKEN, views.SpaceLogView.as_view(), name='space_log'),
 
     url(r'^%s/sessions/new$' % TOKEN, views.SessionCreateView.as_view(),

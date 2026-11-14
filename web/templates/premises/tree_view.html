@@ -6,7 +6,7 @@
 
 {% block extra-meta %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static "css/live.css" %}?v=15" />
+    <link rel="stylesheet" href="{% static "css/live.css" %}?v=16" />
 {% endblock %}
 
 {% block content %}
@@ -127,7 +127,7 @@
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/tbt.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/ascii.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/room.js" %}"></script>
-<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}?v=2"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}?v=3"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/live.js" %}?v=10"></script>
 <script type="text/javascript">
     arguman.editMode = {{ edit_mode|yesno:"true,false" }};
