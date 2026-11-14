@@ -157,7 +157,9 @@
                     return {};
                 }).then(function (data) {
                     if (!response.ok) {
-                        throw new Error(data.error || gettext("That did not work. Try again."));
+                        throw new Error(data.error || interpolate(
+                            gettext("That did not work (error %(status)s). Try again."),
+                            {status: response.status}, true));
                     }
                     return data;
                 });
@@ -611,17 +613,34 @@
                 _this.setName(name);
                 $("chat-input").focus();
             });
+            // the same question changes a name later
+            $("name-change").addEventListener("click", function () {
+                _this.renaming = true;
+                _this.renderName();
+                $("name-input").value = _this.name;
+                $("name-input").select();
+            });
+            $("name-cancel").addEventListener("click", function () {
+                _this.renaming = false;
+                _this.renderName();
+            });
             this.renderName();
         },
 
         renderName: function () {
-            $("name-form").hidden = this.named;
-            $("chat-form").hidden = !this.named;
+            var asking = !this.named || !!this.renaming;
+            $("name-form").hidden = !asking;
+            $("chat-form").hidden = asking;
+            $("name-cancel").hidden = !this.named;
+            $("chat-as").textContent = interpolate(
+                gettext("you write as %(name)s ::"), {name: this.name}, true);
         },
 
         setName: function (name) {
             this.name = name;
             this.named = true;
+            this.renaming = false;
+            this.chatError(null);
             this.renderName();
             // kept for the next visit
             this.post(this.urls.name, {name: name}).catch(function () {});

@@ -1642,3 +1642,12 @@ msgstr "+ einen Link, einen Text oder Dateien hinzufügen"
 
 msgid "Write your name."
 msgstr "Schreibe deinen Namen."
+
+msgid "cancel"
+msgstr "abbrechen"
+
+msgid "change name"
+msgstr "Namen ändern"
+
+msgid "Change the name that other people see."
+msgstr "Ändere den Namen, den die anderen sehen."

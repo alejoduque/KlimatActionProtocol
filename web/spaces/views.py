@@ -94,8 +94,9 @@ class SpaceView(View):
     def dispatch(self, request, *args, **kwargs):
         self.space = get_object_or_404(Space, token=kwargs.pop("token"))
         response = super(SpaceView, self).dispatch(request, *args, **kwargs)
-        # the address is the key: it must not go to the sites people click
-        response["Referrer-Policy"] = "no-referrer"
+        # the address is the key: it must not go to the sites people click.
+        # KLAP itself gets it: over https Django refuses a POST without it.
+        response["Referrer-Policy"] = "same-origin"
         response["X-Robots-Tag"] = "noindex, nofollow"
         return response
 

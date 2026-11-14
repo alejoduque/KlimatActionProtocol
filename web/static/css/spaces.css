@@ -610,6 +610,25 @@
     margin-top: 6px;
 }
 
+.chat-as {
+    margin: 0 0 4px;
+    font-size: 13px;
+    color: var(--meta);
+}
+
+.chat-as span {
+    color: var(--ink);
+    font-weight: bold;
+}
+
+.space .chat-as button {
+    font-size: 13px;
+}
+
+.name-gate button.link {
+    margin-left: 10px;
+}
+
 .chat-keys {
     flex: 1;
     text-align: right;

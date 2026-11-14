@@ -2,6 +2,7 @@
 import hashlib
 import hmac
 import json
+import re
 import shutil
 import tempfile
 from datetime import timedelta
@@ -9,7 +10,7 @@ from datetime import timedelta
 from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.urlresolvers import reverse
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.test.utils import override_settings
 from django.utils.timezone import now
 
@@ -178,7 +179,7 @@ class AccessTest(SpaceTestCase):
     def test_page_does_not_leak_the_address(self):
         response = self.client.get(self.url("space_detail"))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Referrer-Policy"], "no-referrer")
+        self.assertEqual(response["Referrer-Policy"], "same-origin")
         self.assertIn("noindex", response["X-Robots-Tag"])
 
     def test_rotation_ends_the_old_link(self):
@@ -427,6 +428,25 @@ class ChatTest(SpaceTestCase):
         self.assertEqual(Profile.objects.get(pk=self.user.pk).first_name,
                          u"Ana")
 
+
+    def test_post_over_https(self):
+        # over https Django refuses a POST without a Referer, so the page
+        # must let the browser send one to KLAP itself
+        client = Client(enforce_csrf_checks=True)
+        page = client.get(self.url("space_detail"), secure=True)
+        token = re.search(r'"csrfToken": "(\w+)"', page.content).group(1)
+
+        def say(**extra):
+            return client.post(
+                self.url("space_chat_post"), json.dumps({"text": u"hola"}),
+                content_type="application/json", secure=True,
+                HTTP_X_CSRFTOKEN=token, **extra)
+
+        self.assertEqual(say().status_code, 403)
+        self.assertEqual(say(
+            HTTP_REFERER="https://testserver" + self.url("space_detail")
+        ).status_code, 200)
+        self.assertIn('name="referrer" content="same-origin"', page.content)
 
     def test_name_given_at_the_door(self):
         self.assertNotIn('"named": true', self.client.get(

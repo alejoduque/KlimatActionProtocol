@@ -530,3 +530,9 @@ msgstr "Die Nachricht wurde nicht gesendet: %(error)s Dein Text ist noch hier."
 
 msgid "No document is open. Choose one in the library or in the chat."
 msgstr "Kein Dokument ist offen. Wähle eines in der Bibliothek oder im Chat."
+
+msgid "you write as %(name)s ::"
+msgstr "du schreibst als %(name)s ::"
+
+msgid "That did not work (error %(status)s). Try again."
+msgstr "Das hat nicht funktioniert (Fehler %(status)s). Versuche es noch einmal."

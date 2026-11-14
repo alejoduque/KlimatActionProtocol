@@ -6,9 +6,9 @@
 
 {% block extra-meta %}
     <meta name="robots" content="noindex, nofollow">
-    <meta name="referrer" content="no-referrer">
+    <meta name="referrer" content="same-origin">
     <link rel="stylesheet" href="{% static "css/live.css" %}?v=16" />
-    <link rel="stylesheet" href="{% static "css/spaces.css" %}?v=3" />
+    <link rel="stylesheet" href="{% static "css/spaces.css" %}?v=4" />
 {% endblock %}
 
 {% block body-attrs %} id="space-page"{% endblock %}
@@ -121,9 +121,14 @@
                     <span class="entry-caret" aria-hidden="true"></span>
                 </div>
                 <button type="submit">{% trans "enter the chat" %}</button>
+                <button type="button" id="name-cancel" class="link" hidden>{% trans "cancel" %}</button>
             </form>
 
             <form id="chat-form" class="chat-form">
+                <p class="chat-as">
+                    <span id="chat-as"></span>
+                    <button type="button" id="name-change" class="link" title="{% trans "Change the name that other people see." %}">{% trans "change name" %}</button>
+                </p>
                 <div class="entry">
                     <span class="entry-prompt" aria-hidden="true">&gt;</span>
                     <textarea id="chat-input" rows="2" maxlength="4000" placeholder="{% trans "write a message here" %}" title="{% trans "Enter sends the message. Shift+Enter makes a new line." %}" aria-label="{% trans "write a message" %}"></textarea>
@@ -208,7 +213,7 @@
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/presence.js" %}?v=3"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/lib/yjs-13.6.27.min.js" %}"></script>
 <script type="text/javascript" charset="utf-8" src="{% static "js/assembly/pad.js" %}?v=2"></script>
-<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/space.js" %}?v=3"></script>
+<script type="text/javascript" charset="utf-8" src="{% static "js/assembly/space.js" %}?v=4"></script>
 <script type="text/javascript">
     new arguman.assembly.Space({{ space_config|safe }}).start();
 </script>
